@@ -1,3 +1,5 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+odin_kg:
+    resource: "@OdinKgBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
