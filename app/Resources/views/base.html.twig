@@ -4,32 +4,35 @@
 	<meta charset="UTF-8"/>
 	<title>{% block title %}{% endblock %}</title>
 	{% block stylesheets %}
-		<link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
-		<link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet">
+		<link href="{{ asset('/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+		<link href="{{ asset('/css/style.css') }}" type="text/css" rel="stylesheet">
 	{% endblock %}
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
 	<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
 <div class="wrapper">
 
 	<div class="header">
-		header
-		{#{{ render(url('header')) }}#}
+		{% block header %}
+			{{ render(controller('OdinKgBundle:PageParts:header')) }}
+		{% endblock %}
 	</div>
 	<div class="content">
-		<div class="container">
-			<div class="row">
-				{% block content %}
-				{% endblock %}
-			</div>
-		</div>
+		{% block content %}
+		{% endblock %}
 	</div>
 
 	<div class="footer">
-		footer
-		{#{{ render(url('footer')) }}#}
+		{% block footer %}
+			{{ render(controller('OdinKgBundle:PageParts:footer')) }}
+		{% endblock %}
 	</div>
-
 </div>
+<script src="{{ asset('/js/jquery-3.1.1.js') }}"></script>
+<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+{% block JS %}
+{% endblock %}
 </body>
 </html>
