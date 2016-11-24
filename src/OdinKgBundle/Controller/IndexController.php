@@ -1,19 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: paulnovikov
- * Date: 24.11.2016
- * Time: 11:38
- */
-
 namespace OdinKgBundle\Controller;
 
-
+/**
+ * Class IndexController
+ * @package OdinKgBundle\Controller
+ */
 class IndexController extends BaseController
 {
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
 	public function indexAction(){
-		return self::render('OdinKgBundle:OdinKg:index.html.twig', [
+		return parent::render('OdinKgBundle:OdinKg:index.html.twig', [
 			'test'=> 'test',
+			'title' => 'Main page'
 		]);
 	}
 }
