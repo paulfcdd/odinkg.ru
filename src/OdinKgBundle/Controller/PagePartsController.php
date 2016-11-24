@@ -1,11 +1,15 @@
 <?php
 namespace OdinKgBundle\Controller;
 
-
 class PagePartsController extends BaseController
 {
+
 	public function headerAction(){
-		return parent::render('OdinKgBundle:OdinKg:header.html.twig', []);
+		$em = $this->getDoctrine()->getManager();
+		$pages = $em->getRepository('OdinKgBundle:Page')->findAll();
+		return parent::render('OdinKgBundle:OdinKg:header.html.twig', [
+			'pages' => $pages,
+		]);
 	}
 
 	public function footerAction(){

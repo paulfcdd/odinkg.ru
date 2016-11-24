@@ -14,8 +14,41 @@ body .wrapper {
   height: 100%;
   margin: 0 auto;
 }
+html .wrapper .header .nav,
+body .wrapper .header .nav {
+  background-color: transparent;
+}
+html .wrapper .header .nav .container,
+body .wrapper .header .nav .container {
+  padding-left: 0;
+}
+@media only screen and (max-width: 481px) {
+  html .wrapper .header .nav .container,
+  body .wrapper .header .nav .container {
+    padding-left: 15px;
+  }
+}
+html .wrapper .header .nav .container .navbar-header .navbar-brand,
+body .wrapper .header .nav .container .navbar-header .navbar-brand {
+  padding-left: 0;
+}
+@media only screen and (max-width: 481px) {
+  html .wrapper .header .nav .container .navbar-header .navbar-brand,
+  body .wrapper .header .nav .container .navbar-header .navbar-brand {
+    padding-left: 15px;
+  }
+}
 html .wrapper .content,
 body .wrapper .content {
   display: table-row;
+  height: 100%;
+}
+html .wrapper .content #index,
+body .wrapper .content #index {
+  background: url('../img/moscow-city-bg-image.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   height: 100%;
 }
