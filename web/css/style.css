@@ -45,10 +45,5 @@ body .wrapper .content {
 }
 html .wrapper .content #index,
 body .wrapper .content #index {
-  background: url('../img/moscow-city-bg-image.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
   height: 100%;
 }
