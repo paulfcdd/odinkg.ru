@@ -1,5 +1,8 @@
-odin_kg:
-    resource: "@OdinKgBundle/Resources/config/routing.yml"
-    prefix:   /
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
 
+home:
+    path: "/"
+    defaults: { _controller: AppBundle:Site:index }
 
