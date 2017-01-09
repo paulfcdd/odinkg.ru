@@ -1,7 +1,9 @@
+{% trans_default_domain 'main_menu' %}
+
 <div class="properties_search container">
 	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#rent">For Rent</a></li>
-		<li><a data-toggle="tab" href="#sale">For Sale</a></li>
+		<li class="active"><a data-toggle="tab" href="#rent">{{ 'for.rent' | trans | capitalize }}</a></li>
+		<li><a data-toggle="tab" href="#sale">{{ 'for.sale' | trans | capitalize }}</a></li>
 	</ul>
 
 	<div class="search_category">
