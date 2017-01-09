@@ -1,3 +1,4 @@
+{% trans_default_domain 'main_menu' %}
 <div class="menu_fixed_style_three">
 
 	<header class="container">
@@ -13,31 +14,34 @@
 					</div> <!-- End .top_header_left -->
 
 					<div class="top_header_right">
-						<a href="login.html" class="login"><i class="fa fa-download fa-rotate-270"></i> Login / Register</a>
-						<div class="dropdown">
-							<button class="btn-dropdown dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true">
-								$ &nbsp;Dollar
-								<i class="fa fa-angle-down"></i>
-							</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li>₹ &nbsp;Rupi</li>
-								<li>€ &nbsp;EURO</li>
-								<li>¥ &nbsp;YEN</li>
-								<li>$ &nbsp;Dollar</li>
-							</ul>
-						</div> <!-- End .dropdown -->
+						<a href="login.html" class="login">
+							<i class="fa fa-download fa-rotate-270"></i>
+							{{ 'login' | trans }} / {{ 'register' | trans }}
+						</a>
+						{#<div class="dropdown">#}
+							{#<button class="btn-dropdown dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true">#}
+								{#$ &nbsp;Dollar#}
+								{#<i class="fa fa-angle-down"></i>#}
+							{#</button>#}
+							{#<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">#}
+								{#<li>₹ &nbsp;Rupi</li>#}
+								{#<li>€ &nbsp;EURO</li>#}
+								{#<li>¥ &nbsp;YEN</li>#}
+								{#<li>$ &nbsp;Dollar</li>#}
+							{#</ul>#}
+						{#</div> <!-- End .dropdown -->#}
 
-						<div id="polyglotLanguageSwitcher">
-							<form action="#">
-								<select id="polyglot-language-options">
-									<option id="en" value="en" selected>English</option>
-									<option id="fr" value="fr">French</option>
-									<option id="de" value="de">German</option>
-									<option id="it" value="it">Italian</option>
-									<option id="es" value="es">Spanish</option>
-								</select>
-							</form>
-						</div> <!-- End #polyglotLanguageSwitcher -->
+						{#<div id="polyglotLanguageSwitcher">#}
+							{#<form action="#">#}
+								{#<select id="polyglot-language-options">#}
+									{#<option id="en" value="en" selected>English</option>#}
+									{#<option id="fr" value="fr">French</option>#}
+									{#<option id="de" value="de">German</option>#}
+									{#<option id="it" value="it">Italian</option>#}
+									{#<option id="es" value="es">Spanish</option>#}
+								{#</select>#}
+							{#</form>#}
+						{#</div> <!-- End #polyglotLanguageSwitcher -->#}
 					</div> <!-- End .top_header_right -->
 					<div class="clear_fix"></div>
 				</div> <!-- End .top_header -->
