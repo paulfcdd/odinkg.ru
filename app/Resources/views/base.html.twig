@@ -1,121 +1,365 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru-RU">
+
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
-	<!-- For IE -->
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{% block title %}{% endblock %}</title>
 
-	<!-- For Resposive Device -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Revolution Slider -->
+	<link rel="stylesheet" href="{{ asset('assets/revolution/css/settings.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/revolution/css/layers.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/revolution/css/navigation.css') }}">
 
-	<title> Real Estate - Responsive HTML5 Template </title>
+	<link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/simple-line-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/elegant-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/nivo-lightbox.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/animsition.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
-	<!-- Favicon -->
+	<link rel="icon" href="{{ asset('assets/images/favicon_160x160.png') }}" sizes="32x32"/>
+	<link rel="icon" href="{{ asset('assets/images/favicon_icon.png') }}" sizes="192x192">
+	<link rel="apple-touch-icon-precomposed" href="{{ asset('assets/images/favicon_icon.png') }}">
+	<meta name="msapplication-TileImage" content="{{ asset('assets/images/favicon_icon.png') }}">
 
-	<!-- Custom Css -->
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/custom/style.css') }}">
-	<!-- Color css -->
-	<link rel="stylesheet" id="jssDefault" href="{{ asset('css/custom/color.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/responsive/responsive.css') }}">
-
-
-	<!-- Fixing Internet Explorer ______________________________________-->
-
-	<!--[if lt IE 9]>
-	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<script src="{{ asset('js/html5shiv.js') }}"></script>
-	<![endif]-->
-	{% block custom_css %}{% endblock %}
 </head>
-<body class="home3">
+<body class="fixed-header">
 
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-	your browser</a> to improve your experience.</p>
-<![endif]-->
+<a href="#" class="back-to-top" title="Back to top">
+	<i class="icon-arrow-up"></i>
+</a>
+
+<div class="site-wrapper animsition">
 
 
-<div class="boxed_wrapper">
+	{% block header %}
+		<header class="header-type-1 hidden-sm hidden-xs">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="header-navigation">
 
-	<div class="home_top_wrapper">
+							<div class="logo">
+								<a href="{{ path('home') }}">
+									<img src="{{ asset('assets/images/logo.png') }}" alt="">
+								</a>
+							</div>
 
-		{% block fixed_menu %}
-			{% include 'odinkg/front/elements/main_menu.html.twig' %}
+							<div class="main-menu">
+								<nav class="main-nav">
+									<ul class="sf-menu">
+
+										<li>
+											<a href="{{ path('sale') }}">
+												{{ 'header.sale' | trans }}
+											</a>
+										</li>
+
+										<li>
+											<a href="home.html">
+												{{ 'header.lease' | trans }}
+											</a>
+										</li>
+
+										<li>
+											<a href="home.html">
+												{{ 'header.projects' | trans }}
+											</a>
+										</li>
+
+										<li>
+											<a href="home.html">
+												{{ 'header.news' | trans }}
+											</a>
+										</li>
+
+										<li>
+											<a href="home.html">
+												{{ 'header.contacts' | trans }}
+											</a>
+										</li>
+										{#<li><a href="#">Services</a>#}
+											{#<ul class="sub-menu">#}
+												{#<li><a href="services.html">All Services</a></li>#}
+												{#<li><a href="service-single.html">Construction</a></li>#}
+												{#<li><a href="service-single.html">General Contracting</a></li>#}
+												{#<li><a href="service-single.html">Isolation</a></li>#}
+												{#<li><a href="service-single.html">Electric Welding</a></li>#}
+											{#</ul>#}
+										{#</li>#}
+										{#<li><a href="#">Pages</a>#}
+											{#<ul class="sub-menu">#}
+												{#<li><a href="about-us.html">About Us</a></li>#}
+												{#<li><a href="about-me.html">About Me</a></li>#}
+												{#<li><a href="team.html">Our Team</a></li>#}
+												{#<li><a href="404.html">404 Page</a></li>#}
+												{#<li><a href="faqs.html">FAQs</a></li>#}
+												{#<li><a href="contact.html">Contact</a></li>#}
+												{#<li><a href="contact-2.html">Contact v2</a></li>#}
+											{#</ul>#}
+										{#</li>#}
+										{#<li><a href="#">Projects</a>#}
+											{#<ul class="sub-menu">#}
+												{#<li><a href="projects-2.html">Projects — 2 Columns</a></li>#}
+												{#<li><a href="projects.html">Projects — 3 Columns</a></li>#}
+												{#<li><a href="projects-4.html">Projects — 4 Columns</a></li>#}
+												{#<li><a href="projects-masonry.html">Projects Masonry</a></li>#}
+												{#<li><a href="project-single.html">Project Details</a></li>#}
+											{#</ul>#}
+										{#</li>#}
+										{#<li><a href="#">Blog</a>#}
+											{#<ul class="sub-menu">#}
+												{#<li><a href="blog.html">Blog Standard</a></li>#}
+												{#<li><a href="blog-grid.html">Blog Grid</a></li>#}
+												{#<li><a href="blog-masonry.html">Blog Masonry</a></li>#}
+												{#<li><a href="blog-single.html">Single Post</a></li>#}
+											{#</ul>#}
+										{#</li>#}
+									</ul>
+								</nav>
+							</div>
+
+							<div class="header-right">
+								<div class="social">
+									<a href="#"><i class="fa fa-facebook"></i></a>
+									<a href="#"><i class="fa fa-instagram"></i></a>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+									<a href="#"><i class="fa fa-youtube"></i></a>
+								</div>
+							</div>
+
+						</div>
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+			</div> <!-- /.container -->
+		</header> <!-- /.header-type-1 -->
+
+	{% endblock %}
+
+	<div class="main-wrapper">
+
+		{% block content %}
+
 		{% endblock %}
 
-		{% block properties_search %}
-			{% include 'odinkg/front/elements/properties_search.html.twig' %}
+		{% block footer %}
+			<footer class="site-footer">
+				<div class="widgetized-area">
+					<div class="container wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.4s">
+						<div class="row">
+							<div class="col-sm-6 col-md-3">
+								<div class="widget">
+									<h3 class="widget-title">About Us</h3>
+									<p>Lorem ipsum dolor sit amet, conser sicing elit. Excepturi possimus odit
+										repudiandae corporis molestias, dicta, sunt quibusdam et esse unde.</p>
+								</div>
+							</div> <!-- /.col-md-3 -->
+							<div class="col-sm-6 col-md-3">
+								<div class="widget">
+									<h3 class="widget-title">Finished Projects</h3>
+									<div class="small-projects clearfix">
+										<a href="project-single.html" class="thumb">
+											<img src="assets/images/small-1.jpg" alt="">
+										</a>
+										<a href="project-single.html" class="thumb">
+											<img src="assets/images/small-2.jpg" alt="">
+										</a>
+										<a href="project-single.html" class="thumb">
+											<img src="assets/images/small-3.jpg" alt="">
+										</a>
+										<a href="project-single.html" class="thumb">
+											<img src="assets/images/small-4.jpg" alt="">
+										</a>
+										<a href="project-single.html" class="thumb">
+											<img src="assets/images/small-5.jpg" alt="">
+										</a>
+										<a href="project-single.html" class="thumb">
+											<img src="assets/images/small-6.jpg" alt="">
+										</a>
+									</div>
+								</div>
+							</div> <!-- /.col-md-3 -->
+							<div class="col-sm-6 col-md-3">
+								<div class="widget">
+									<h3 class="widget-title">Quick Links</h3>
+									<div class="quick-links row">
+										<div class="col-sm-6">
+											<ul>
+												<li><a href="#">Home</a></li>
+												<li><a href="#">Services</a></li>
+												<li><a href="#">FAQs</a></li>
+												<li><a href="#">Projects</a></li>
+												<li><a href="#">Contact</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-6">
+											<ul>
+												<li><a href="#">Help</a></li>
+												<li><a href="#">Support</a></li>
+												<li><a href="#">Testimonials</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div> <!-- /.col-md-3 -->
+							<div class="col-sm-6 col-md-3">
+								<div class="widget">
+									<h3 class="widget-title">Contact Info</h3>
+									<div class="contact-info">
+										<p><i class="fa fa-location-arrow"></i>2561 Round Table Drive Cincinnati, OH
+											45202</p>
+										<p><i class="fa fa-phone"></i><a href="#">513-784-5268</a></p>
+										<p><i class="fa fa-envelope"></i><a href="#">support@esmeth.com</a></p>
+									</div>
+								</div>
+							</div> <!-- /.col-md-3 -->
+						</div> <!-- /.row -->
+					</div> <!-- /.container -->
+				</div> <!-- /.widgetized-area -->
+				<div class="copyright">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12">
+								&copy; Construction &amp; Architecture Premium Template
+							</div>
+						</div> <!-- /.row -->
+					</div> <!-- /.container -->
+				</div> <!-- /.copyright -->
+			</footer>
 		{% endblock %}
+	</div> <!-- /.main-wrapper -->
 
-		{% block properties_slider_banner %}
-			{% include 'odinkg/front/elements/properties_slider_banner.html.twig' %}
-		{% endblock %}
+</div> <!-- /.site-wrapper -->
 
-	</div>
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/animsition.min.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/autogrow.min.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/hoverIntent.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/jquery.fitvids.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/jquery.nicescroll.min.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/nivo-lightbox.min.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/superfish.js') }}"></script>
+<script src="{{ asset('assets/js/joinable/wow.min.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 
-	{% block content %}
-		{% include 'odinkg/front/elements/index_content.html.twig' %}
-	{% endblock %}
+<!-- Revolution Slider -->
+<script src="{{ asset('assets/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/revolution.extension.video.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/revolution.extension.slideanims.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/revolution.extension.actions.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/revolution.extension.layeranimation.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/revolution.extension.kenburn.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/revolution.extension.navigation.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/revolution.extension.migration.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/revolution.extension.parallax.min.js') }}"></script>
 
-	{% block index_featured_partners %}
-		{% include 'odinkg/front/elements/index_featured_partners.html.twig' %}
-	{% endblock %}
-
-
-	{% block index_newsletter %}
-		{% include 'odinkg/front/elements/index_newsletter.html.twig' %}
-	{% endblock %}
-
-	{% block footer %}
-		{% include 'odinkg/front/elements/footer.html.twig' %}
-	{% endblock %}
-
-
-	<!-- Js File_________________________________ -->
-
-	<!-- j Query -->
-	<script type="text/javascript" src="{{ asset('js/jquery-2.1.4.js') }}"></script>
-
-	<!-- Bootstrap JS -->
-	<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-
-	<!-- Vendor js _________ -->
-	<!-- Style-switcher  -->
-	<script type="text/javascript" src="{{ asset('js/jQuery.style.switcher.min.js') }}"></script>
-
-	<!-- Google map js -->
-	<script src="http://maps.google.com/maps/api/js"></script> <!-- Gmap Helper -->
-	<script src="{{ asset('js/gmap.js') }}"></script>
-
-
-	<!-- Tooltip -->
-	<script type="text/javascript" src="{{ asset('js/jquery.tooltipster.min.js') }}"></script>
-
-	<!-- ui js -->
-	<script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
-
-	<!-- Fancybox js -->
-	<script type="text/javascript" src="{{ asset('js/jquery.fancybox.pack.js') }}"></script>
-
-	<!-- owl.carousel -->
-	<script type="text/javascript" src="{{ asset('js/owl.carousel.min.js') }}"></script>
-
-	<!-- Language Switcher -->
-	<script type="text/javascript" src="{{ asset('js/jquery.polyglot.language.switcher.js') }}"></script>
-
-	<!-- revolution -->
-	<script src="{{ asset('js/revolution/jquery.themepunch.tools.min.js') }}"></script>
-	<script src="{{ asset('js/revolution/jquery.themepunch.revolution.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/revolution/revolution.extension.slideanims.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/revolution/revolution.extension.layeranimation.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/revolution/revolution.extension.navigation.min.js') }}"></script>
-
-	<!-- Main js -->
-	<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
-
-	{% block custom_js %}{% endblock %}
-</div> <!-- End .boxed_wrapper -->
+<script type="text/javascript">
+	var revapi5;
+	$(document).ready(function () {
+		revapi5 = $('#slider-1').show().revolution({
+			sliderType: 'standard',
+			sliderLayout: 'auto',
+			jsFileLocation: '',
+			dottedOverlay: 'none',
+			delay: 5000,
+			lazyType: "none",
+			navigation: {
+				keyboardNavigation: "off",
+				keyboard_direction: "horizontal",
+				mouseScrollNavigation: "off",
+				mouseScrollReverse: "default",
+				onHoverStop: "off",
+				touch: {
+					touchenabled: "on",
+					swipe_threshold: 0.7,
+					swipe_min_touches: 1,
+					swipe_direction: "horizontal",
+					drag_block_vertical: false
+				}
+				,
+				arrows: {
+					style: "uranus",
+					enable: true,
+					hide_onmobile: false,
+					hide_onleave: true,
+					hide_delay: 200,
+					hide_delay_mobile: 1200,
+					tmp: '',
+					left: {
+						h_align: "left",
+						v_align: "center",
+						h_offset: 20,
+						v_offset: 0
+					},
+					right: {
+						h_align: "right",
+						v_align: "center",
+						h_offset: 20,
+						v_offset: 0
+					}
+				}
+				,
+				bullets: {
+					enable: true,
+					hide_onmobile: false,
+					style: "hermes",
+					hide_onleave: false,
+					direction: "horizontal",
+					h_align: "center",
+					v_align: "bottom",
+					h_offset: 0,
+					v_offset: 20,
+					space: 5,
+					tmp: ''
+				}
+			},
+			parallax: {
+				type: "mouse",
+				origo: "enterpoint",
+				speed: 6000,
+				levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47, 48, 49, 50, 51, 55],
+				type: "mouse",
+			},
+			visibilityLevels: [1240, 1024, 778, 480],
+			gridwidth: 1170,
+			gridheight: 840,
+			shadow: 0,
+			spinner: "spinner0",
+			stopLoop: "off",
+			stopAfterLoops: -1,
+			stopAtSlide: -1,
+			shuffle: "off",
+			autoHeight: "off",
+			fullScreenAutoWidth: "off",
+			fullScreenAlignForce: "off",
+			fullScreenOffsetContainer: "",
+			fullScreenOffset: "",
+			disableProgressBar: "on",
+			hideThumbsOnMobile: "off",
+			hideSliderAtLimit: 0,
+			hideCaptionAtLimit: 0,
+			hideAllCaptionAtLilmit: 0,
+			debugMode: false,
+			fallbacks: {
+				simplifyAll: "off",
+				nextSlideOnWindowFocus: "off",
+				disableFocusListener: false,
+			}
+		});
+	});
+</script>
 
 </body>
+
+<!-- Mirrored from demo.esmeth.com/archtech/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 16 Jan 2017 21:38:22 GMT -->
 </html>

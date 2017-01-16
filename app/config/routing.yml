@@ -3,6 +3,9 @@ app:
     type:     annotation
 
 home:
-    path: "/"
+    path: '/'
     defaults: { _controller: AppBundle:Site:index }
 
+sale:
+   path: '/sales'
+   defaults: { _controller: AppBundle:Site:sale }

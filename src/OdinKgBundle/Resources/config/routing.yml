@@ -1,3 +1,0 @@
-odin_kg_homepage:
-    path:     /
-    defaults: { _controller: OdinKgBundle:Index:index }
