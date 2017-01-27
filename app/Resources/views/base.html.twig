@@ -47,6 +47,7 @@
 
 							<div class="logo">
 								<a href="{{ path('home') }}">
+									{#<h3>Красная Горка</h3>#}
 									<img src="{{ asset('assets/images/logo.png') }}" alt="">
 								</a>
 							</div>
@@ -62,7 +63,7 @@
 										</li>
 
 										<li>
-											<a href="home.html">
+											<a href="{{ path('rent') }}">
 												{{ 'header.lease' | trans }}
 											</a>
 										</li>
@@ -80,7 +81,7 @@
 										</li>
 
 										<li>
-											<a href="home.html">
+											<a href="{{ path ('contact') }}">
 												{{ 'header.contacts' | trans }}
 											</a>
 										</li>
@@ -126,12 +127,27 @@
 							</div>
 
 							<div class="header-right">
-								<div class="social">
-									<a href="#"><i class="fa fa-facebook"></i></a>
-									<a href="#"><i class="fa fa-instagram"></i></a>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-									<a href="#"><i class="fa fa-youtube"></i></a>
-								</div>
+								<nav class="main-nav">
+									<ul class="sf-menu">
+										<li>
+											<a href="{{ path('sale') }}">
+                                                {{ 'header.login' | trans }}
+											</a>
+										</li>
+
+										<li>
+											<a href="">
+                                                {{ 'header.register' | trans }}
+											</a>
+										</li>
+									</ul>
+								</nav>
+								{#<div class="social">#}
+									{#<a href="#"><i class="fa fa-facebook"></i></a>#}
+									{#<a href="#"><i class="fa fa-instagram"></i></a>#}
+									{#<a href="#"><i class="fa fa-twitter"></i></a>#}
+									{#<a href="#"><i class="fa fa-youtube"></i></a>#}
+								{#</div>#}
 							</div>
 
 						</div>
@@ -155,39 +171,39 @@
 						<div class="row">
 							<div class="col-sm-6 col-md-3">
 								<div class="widget">
-									<h3 class="widget-title">About Us</h3>
+									<h3 class="widget-title">О компании</h3>
 									<p>Lorem ipsum dolor sit amet, conser sicing elit. Excepturi possimus odit
 										repudiandae corporis molestias, dicta, sunt quibusdam et esse unde.</p>
 								</div>
 							</div> <!-- /.col-md-3 -->
 							<div class="col-sm-6 col-md-3">
 								<div class="widget">
-									<h3 class="widget-title">Finished Projects</h3>
+									<h3 class="widget-title">Портфолио</h3>
 									<div class="small-projects clearfix">
 										<a href="project-single.html" class="thumb">
-											<img src="assets/images/small-1.jpg" alt="">
+											<img src="{{ asset('assets/images/small-1.jpg') }}" alt="">
 										</a>
 										<a href="project-single.html" class="thumb">
-											<img src="assets/images/small-2.jpg" alt="">
+											<img src="{{ asset('assets/images/small-2.jpg') }}" alt="">
 										</a>
 										<a href="project-single.html" class="thumb">
-											<img src="assets/images/small-3.jpg" alt="">
+											<img src="{{ asset('assets/images/small-3.jpg') }}" alt="">
 										</a>
 										<a href="project-single.html" class="thumb">
-											<img src="assets/images/small-4.jpg" alt="">
+											<img src="{{ asset('assets/images/small-4.jpg') }}" alt="">
 										</a>
 										<a href="project-single.html" class="thumb">
-											<img src="assets/images/small-5.jpg" alt="">
+											<img src="{{ asset('assets/images/small-5.jpg') }}" alt="">
 										</a>
 										<a href="project-single.html" class="thumb">
-											<img src="assets/images/small-6.jpg" alt="">
+											<img src="{{ asset('assets/images/small-6.jpg') }}" alt="">
 										</a>
 									</div>
 								</div>
 							</div> <!-- /.col-md-3 -->
 							<div class="col-sm-6 col-md-3">
 								<div class="widget">
-									<h3 class="widget-title">Quick Links</h3>
+									<h3 class="widget-title">Полезные ссылки</h3>
 									<div class="quick-links row">
 										<div class="col-sm-6">
 											<ul>
@@ -210,12 +226,14 @@
 							</div> <!-- /.col-md-3 -->
 							<div class="col-sm-6 col-md-3">
 								<div class="widget">
-									<h3 class="widget-title">Contact Info</h3>
+									<h3 class="widget-title">Контакты</h3>
 									<div class="contact-info">
-										<p><i class="fa fa-location-arrow"></i>2561 Round Table Drive Cincinnati, OH
-											45202</p>
-										<p><i class="fa fa-phone"></i><a href="#">513-784-5268</a></p>
-										<p><i class="fa fa-envelope"></i><a href="#">support@esmeth.com</a></p>
+										<p>
+											<i class="fa fa-location-arrow"></i>
+											ул. Молодёжная, 46, г. Одинцово, Московская обл.
+										</p>
+										<p><i class="fa fa-phone"></i><a href="#">8-985-760-85-81</a></p>
+										<p><i class="fa fa-envelope"></i><a href="#">6612388@mail.ru</a></p>
 									</div>
 								</div>
 							</div> <!-- /.col-md-3 -->
@@ -226,7 +244,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-12">
-								&copy; Construction &amp; Architecture Premium Template
+								&copy; Группа компаний "Красная Горка"
 							</div>
 						</div> <!-- /.row -->
 					</div> <!-- /.container -->
@@ -236,7 +254,8 @@
 	</div> <!-- /.main-wrapper -->
 
 </div> <!-- /.site-wrapper -->
-
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwVpNQB9COvDUNPpbn7YOUtiuDpzum18Y&callback=initMap"
+        type="text/javascript"></script>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/joinable/animsition.min.js') }}"></script>
 <script src="{{ asset('assets/js/joinable/autogrow.min.js') }}"></script>
@@ -251,6 +270,7 @@
 <script src="{{ asset('assets/js/joinable/wow.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 <!-- Revolution Slider -->
 <script src="{{ asset('assets/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
 <script src="{{ asset('assets/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
@@ -262,6 +282,48 @@
 <script src="{{ asset('assets/revolution/js/revolution.extension.navigation.min.js') }}"></script>
 <script src="{{ asset('assets/revolution/js/revolution.extension.migration.min.js') }}"></script>
 <script src="{{ asset('assets/revolution/js/revolution.extension.parallax.min.js') }}"></script>
+
+<script type="text/javascript">
+    // When the window has finished loading create our google map below
+    google.maps.event.addDomListener(window, 'load', init);
+
+    function init() {
+        // Basic options for a simple Google Map
+        // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+        var mapOptions = {
+            // How zoomed in you want the map to start at (always required)
+            zoom: 16,
+            zoomControl: true,
+
+            // The latitude and longitude to center the map (always required)
+            center: new google.maps.LatLng(55.677408, 37.271089),
+
+            disableDoubleClickZoom: false,
+            scrollwheel: false,
+            mapTypeControl: false,
+            streetViewControl: false,
+
+            // How you would like to style the map.
+            // This is where you would paste any style found on Snazzy Maps.
+            mapTypeId: google.maps.MapTypeId.TERRAIN,
+            styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}]
+        };
+
+        // Get the HTML DOM element that will contain your map
+        // We are using a div with id="map" seen below in the <body>
+        var mapElement = document.getElementById('map');
+
+        // Create the Google Map using our element and options defined above
+        var map = new google.maps.Map(mapElement, mapOptions);
+
+        // Let's also add a marker while we're at it
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(55.677408, 37.271089),
+            map: map,
+            title: 'Snazzy!'
+        });
+    }
+</script>
 
 <script type="text/javascript">
 	var revapi5;
