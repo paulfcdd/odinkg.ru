@@ -3,6 +3,17 @@ app:
     type:     annotation
 
 home:
-    path: "/"
+    path: '/'
     defaults: { _controller: AppBundle:Site:index }
 
+sale:
+   path: '/sales'
+   defaults: { _controller: AppBundle:Site:sale }
+
+rent:
+   path: '/rent'
+   defaults: { _controller: AppBundle:Site:rent }
+
+contact:
+   path: '/contact'
+   defaults: { _controller: AppBundle:Site:contact }
