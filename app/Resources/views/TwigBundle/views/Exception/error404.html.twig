@@ -1,4 +1,29 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
+    <div class="main-wrapper">
+
+        <section class="page-content">
+            <div class="error-404">
+                <i class="error-symbol fa fa-exclamation-circle"></i>
+                <div class="error-text">
+                    <h2>Ошибка 404</h2>
+                    <p class="subtitle">Страница не найдена!</p>
+                    <p>Запрошенная Вами страница удалена или не существует!
+                        <br>
+                        Попробуйте вернуться на главную и начать все сначала
+                    </p>
+                </div>
+                <hr>
+                <div class="error-form">
+                    {#<form class="form-half" method="get" action="#">#}
+                        {#<input type="text" class="form-control" placeholder="Search...">#}
+                        {#<button type="submit"><i class="fa fa-search"></i></button>#}
+                    {#</form>#}
+                    <a href="{{ path('home') }}"><i class="fa fa-angle-left"></i>&nbsp;На главную</a>
+                </div>
+            </div>
+        </section> <!-- /.service-listing -->
+
+    </div> <!-- /.main-wrapper -->
 {% endblock %}

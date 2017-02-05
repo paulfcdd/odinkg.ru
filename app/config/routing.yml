@@ -2,9 +2,24 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
 home:
     path: '/'
     defaults: { _controller: AppBundle:Site:index }
+
+admin:
+    path: '/admin'
+    defaults: { _controller: AppBundle:Admin\Admin:dashboard }
+
+fos_user_security_login:
+    path: '/login'
+    defaults: { _controller: AppBundle:Security:login }
+
+logout:
+    path: '/logout'
+    defaults: { _controller: FOSUserBundle:Security:logout }
 
 sale:
    path: '/sales'
@@ -18,10 +33,10 @@ contact:
    path: '/contact'
    defaults: { _controller: AppBundle:Site:contact }
 
+not_found:
+   path: '/not-found'
+   defaults: { _controller: AppBundle:Site:notFound }
+
 single_service:
    path: '/{service_name}'
    defaults: { _controller: AppBundle:ServicesPage:singleService }
-
-not_found:
-   path: '/page-not-found'
-   defaults: { _controller: AppBundle:Site:notFound }

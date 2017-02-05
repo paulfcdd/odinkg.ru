@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class ServicePage
@@ -27,19 +28,19 @@ class ServicePage
 
     /**
      * @var string
-     * @ORM\Column()
+     * @ORM\Column(nullable=true)
      */
     private $title;
 
     /**
      * @var string
-     * @ORM\Column(name="keywords", type="text", length=1000)
+     * @ORM\Column(name="keywords", type="text", length=1000, nullable=true)
      */
     private $keywords;
 
     /**
      * @var string
-     * @ORM\Column(name="description", type="text", length=1000)
+     * @ORM\Column(name="description", type="text", length=1000, nullable=true)
      */
     private $description;
 
@@ -51,7 +52,7 @@ class ServicePage
 
     /**
      * @var string
-     * @ORM\Column()
+     * @ORM\Column(nullable=true)
      */
     private $pageSecondaryTitle;
 
@@ -60,6 +61,24 @@ class ServicePage
      * @ORM\Column(name="page_content", type="text", length=10000)
      */
     private $pageContent;
+
+    /**
+     * @var DateTime $dateCreated
+     * @ORM\Column(name="date_created", type="datetime")
+     */
+    private $dateCreated;
+
+    /**
+     * @var DateTime $dateLastUpdated
+     * @ORM\Column(name="date_last_updated", type="datetime", nullable=true)
+     */
+    private $dateLastUpdated;
+
+    /**
+     * @var boolean $enabled
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    private $enabled;
 
     /**
      * Get id
@@ -237,5 +256,77 @@ class ServicePage
     public function getPageContent()
     {
         return $this->pageContent;
+    }
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     *
+     * @return ServicePage
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * Set dateLastUpdated
+     *
+     * @param \DateTime $dateLastUpdated
+     *
+     * @return ServicePage
+     */
+    public function setDateLastUpdated($dateLastUpdated)
+    {
+        $this->dateLastUpdated = $dateLastUpdated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLastUpdated
+     *
+     * @return \DateTime
+     */
+    public function getDateLastUpdated()
+    {
+        return $this->dateLastUpdated;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     *
+     * @return ServicePage
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 }

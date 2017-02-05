@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru-RU">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
@@ -188,9 +187,18 @@
 								<nav class="main-nav">
 									<ul class="sf-menu">
 										<li>
-											<a href="{{ path('sale') }}">
-                                                {{ 'header.login' | trans }}
-											</a>
+
+											{% if app.user %}
+												{% if app.user.roles[0] == 'ROLE_SUPER_ADMIN' %}
+													<a href="{{ path('admin') }}">
+														Админ
+													</a>
+												{% endif %}
+												{% else %}
+													<a href="{{ path('fos_user_security_login') }}">
+                                                        {{ 'header.login' | trans }}
+													</a>
+											{% endif %}
 										</li>
 
 										<li>

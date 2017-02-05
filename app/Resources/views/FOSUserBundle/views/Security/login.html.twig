@@ -1,0 +1,40 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% extends "FOSUserBundle/views/layout.html.twig" %}
+
+{% block fos_user_content %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+
+    <div>
+        <div>
+        </div>
+        <h3>"Красная горка"&nbsp;&copy;</h3>
+        <p>Вход в панель управления</p>
+
+        <form class="m-t" role="form" action="{{ path("fos_user_security_check") }}" method="post">
+            {% if csrf_token %}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="username">{{ 'security.login.username'|trans }}</label>
+                <input type="text" id="username" class="form-control" name="_username" value="{{ last_username }}"
+                       required="required"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">{{ 'security.login.password'|trans }}</label>
+                <input type="password" id="password" class="form-control" name="_password" required="required"/>
+            </div>
+
+            <button class="btn btn-primary block full-width m-b"
+                    type="submit" id="_submit" name="_submit">
+                {{ 'security.login.submit'|trans }}
+            </button>
+        </form>
+
+    </div>
+{% endblock %}
