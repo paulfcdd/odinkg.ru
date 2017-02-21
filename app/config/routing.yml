@@ -37,6 +37,10 @@ not_found:
    path: '/not-found'
    defaults: { _controller: AppBundle:Site:notFound }
 
-single_service:
-   path: '/{service_name}'
-   defaults: { _controller: AppBundle:ServicesPage:singleService }
+service_page.list:
+   path: '/admin/page/list'
+   defaults: { _controller: AppBundle:Admin\Page:listPages }
+
+service_page.manage:
+   path: '/admin/page/{page}'
+   defaults: { _controller: AppBundle:Admin\Page:managePage, page: null }

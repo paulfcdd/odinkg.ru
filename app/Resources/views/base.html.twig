@@ -1,493 +1,64 @@
 <!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="ru_RU">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
-	<title>{% block title %}{% endblock %}</title>
-
-	<!-- Revolution Slider -->
-	<link rel="stylesheet" href="{{ asset('assets/revolution/css/settings.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/revolution/css/layers.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/revolution/css/navigation.css') }}">
-
-	<link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i" rel="stylesheet">
-	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/simple-line-icons.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/elegant-icons.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/nivo-lightbox.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/animsition.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-
-	<link rel="icon" href="{{ asset('assets/images/favicon_160x160.png') }}" sizes="32x32"/>
-	<link rel="icon" href="{{ asset('assets/images/favicon_icon.png') }}" sizes="192x192">
-	<link rel="apple-touch-icon-precomposed" href="{{ asset('assets/images/favicon_icon.png') }}">
-	<meta name="msapplication-TileImage" content="{{ asset('assets/images/favicon_icon.png') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/simple-line-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/elegant-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    {% block custom_css %}{% endblock %}
 </head>
-<body class="fixed-header">
+<body>
 
-<a href="#" class="back-to-top" title="Back to top">
-	<i class="icon-arrow-up"></i>
-</a>
+<div class="wrapper">
 
-<div class="site-wrapper animsition">
+    <div class="header">
+        <nav class="navbar navbar-inverse navbar-fixed-top page-main-navbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">WebSiteName</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{{ path('home') }}">Home</a></li>
+                        <li><a href="#">Page 1</a></li>
+                        <li><a href="#">Page 2</a></li>
+                        <li><a href="#">Page 3</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> </a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-	{% block header %}
-		<header class="mobile-header visible-sm visible-xs">
-			<div class="mobile-header-inner header-light">
-				<div class="container wrapper">
-					<div class="row">
-						<div class="col-sm-12 clearfix">
-							<div class="logo">
-								<a href="{{ path('home') }}">
-									<img src="{{ asset('assets/images/logo.png') }}" alt="">
-								</a>
-							</div>
-							<div class="mobile-menu-toggle">
-								<a href="#" id="toggle-nav">
-									<span class="top-line"></span>
-									<span class="middle-line"></span>
-									<span class="bottom-line"></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<nav class="mobile-navigation">
-				<div class="container wrapper">
-					<div class="mobile-nav-content">
-						<ul>
-							<li>
-								<a href="{{ path('sale') }}">
-                                    {{ 'header.sale' | trans }}
-								</a>
-							</li>
+    <div class="footer">
 
-							<li>
-								<a href="{{ path('rent') }}">
-                                    {{ 'header.lease' | trans }}
-								</a>
-							</li>
+    </div>
+</div>
 
-							<li>
-								<a href="home.html">
-                                    {{ 'header.projects' | trans }}
-								</a>
-							</li>
+</div><!-- .wrapper -->
 
-							<li>
-								<a href="home.html">
-                                    {{ 'header.news' | trans }}
-								</a>
-							</li>
-
-							<li>
-								<a href="{{ path ('contact') }}">
-                                    {{ 'header.contacts' | trans }}
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</header>
-		<header class="header-type-1 hidden-sm hidden-xs">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="header-navigation">
-
-							<div class="logo">
-								<a href="{{ path('home') }}">
-									<img src="{{ asset('assets/images/logo.png') }}" alt="">
-								</a>
-							</div>
-
-							<div class="main-menu">
-								<nav class="main-nav">
-									<ul class="sf-menu">
-
-										<li>
-											<a href="{{ path('sale') }}">
-												{{ 'header.sale' | trans }}
-											</a>
-										</li>
-
-										<li>
-											<a href="{{ path('rent') }}">
-												{{ 'header.lease' | trans }}
-											</a>
-										</li>
-
-										<li>
-											<a href="home.html">
-												{{ 'header.projects' | trans }}
-											</a>
-										</li>
-
-										<li>
-											<a href="home.html">
-												{{ 'header.news' | trans }}
-											</a>
-										</li>
-
-										<li>
-											<a href="{{ path ('contact') }}">
-												{{ 'header.contacts' | trans }}
-											</a>
-										</li>
-										{#<li><a href="#">Services</a>#}
-											{#<ul class="sub-menu">#}
-												{#<li><a href="services.html">All Services</a></li>#}
-												{#<li><a href="service-single.html">Construction</a></li>#}
-												{#<li><a href="service-single.html">General Contracting</a></li>#}
-												{#<li><a href="service-single.html">Isolation</a></li>#}
-												{#<li><a href="service-single.html">Electric Welding</a></li>#}
-											{#</ul>#}
-										{#</li>#}
-										{#<li><a href="#">Pages</a>#}
-											{#<ul class="sub-menu">#}
-												{#<li><a href="about-us.html">About Us</a></li>#}
-												{#<li><a href="about-me.html">About Me</a></li>#}
-												{#<li><a href="team.html">Our Team</a></li>#}
-												{#<li><a href="404.html">404 Page</a></li>#}
-												{#<li><a href="faqs.html">FAQs</a></li>#}
-												{#<li><a href="contact.html">Contact</a></li>#}
-												{#<li><a href="contact-2.html">Contact v2</a></li>#}
-											{#</ul>#}
-										{#</li>#}
-										{#<li><a href="#">Projects</a>#}
-											{#<ul class="sub-menu">#}
-												{#<li><a href="projects-2.html">Projects — 2 Columns</a></li>#}
-												{#<li><a href="projects.html">Projects — 3 Columns</a></li>#}
-												{#<li><a href="projects-4.html">Projects — 4 Columns</a></li>#}
-												{#<li><a href="projects-masonry.html">Projects Masonry</a></li>#}
-												{#<li><a href="project-single.html">Project Details</a></li>#}
-											{#</ul>#}
-										{#</li>#}
-										{#<li><a href="#">Blog</a>#}
-											{#<ul class="sub-menu">#}
-												{#<li><a href="blog.html">Blog Standard</a></li>#}
-												{#<li><a href="blog-grid.html">Blog Grid</a></li>#}
-												{#<li><a href="blog-masonry.html">Blog Masonry</a></li>#}
-												{#<li><a href="blog-single.html">Single Post</a></li>#}
-											{#</ul>#}
-										{#</li>#}
-									</ul>
-								</nav>
-							</div>
-
-							<div class="header-right">
-								<nav class="main-nav">
-									<ul class="sf-menu">
-										<li>
-
-											{% if app.user %}
-												{% if app.user.roles[0] == 'ROLE_SUPER_ADMIN' %}
-													<a href="{{ path('admin') }}">
-														Админ
-													</a>
-												{% endif %}
-												{% else %}
-													<a href="{{ path('fos_user_security_login') }}">
-                                                        {{ 'header.login' | trans }}
-													</a>
-											{% endif %}
-										</li>
-
-										<li>
-											<a href="">
-                                                {{ 'header.register' | trans }}
-											</a>
-										</li>
-									</ul>
-								</nav>
-								{#<div class="social">#}
-									{#<a href="#"><i class="fa fa-facebook"></i></a>#}
-									{#<a href="#"><i class="fa fa-instagram"></i></a>#}
-									{#<a href="#"><i class="fa fa-twitter"></i></a>#}
-									{#<a href="#"><i class="fa fa-youtube"></i></a>#}
-								{#</div>#}
-							</div>
-
-						</div>
-					</div> <!-- /.col-md-12 -->
-				</div> <!-- /.row -->
-			</div> <!-- /.container -->
-		</header> <!-- /.header-type-1 -->
-
-	{% endblock %}
-
-	<div class="main-wrapper">
-
-		{% block content %}
-
-		{% endblock %}
-
-		{% block footer %}
-			<footer class="site-footer">
-				<div class="widgetized-area">
-					<div class="container wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.4s">
-						<div class="row">
-							<div class="col-sm-6 col-md-3">
-								<div class="widget">
-									<h3 class="widget-title">О компании</h3>
-									<p>Lorem ipsum dolor sit amet, conser sicing elit. Excepturi possimus odit
-										repudiandae corporis molestias, dicta, sunt quibusdam et esse unde.</p>
-								</div>
-							</div> <!-- /.col-md-3 -->
-							<div class="col-sm-6 col-md-3">
-								<div class="widget">
-									<h3 class="widget-title">Портфолио</h3>
-									<div class="small-projects clearfix">
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-1.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-2.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-3.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-4.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-5.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-6.jpg') }}" alt="">
-										</a>
-									</div>
-								</div>
-							</div> <!-- /.col-md-3 -->
-							<div class="col-sm-6 col-md-3">
-								<div class="widget">
-									<h3 class="widget-title">Полезные ссылки</h3>
-									<div class="quick-links row">
-										<div class="col-sm-6">
-											<ul>
-												<li><a href="#">Home</a></li>
-												<li><a href="#">Services</a></li>
-												<li><a href="#">FAQs</a></li>
-												<li><a href="#">Projects</a></li>
-												<li><a href="#">Contact</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-6">
-											<ul>
-												<li><a href="#">Help</a></li>
-												<li><a href="#">Support</a></li>
-												<li><a href="#">Testimonials</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div> <!-- /.col-md-3 -->
-							<div class="col-sm-6 col-md-3">
-								<div class="widget">
-									<h3 class="widget-title">Контакты</h3>
-									<div class="contact-info">
-										<p>
-											<i class="fa fa-location-arrow"></i>
-											ул. Молодёжная, 46, г. Одинцово, Московская обл.
-										</p>
-										<p><i class="fa fa-phone"></i><a href="#">8-985-760-85-81</a></p>
-										<p><i class="fa fa-envelope"></i><a href="#">6612388@mail.ru</a></p>
-									</div>
-								</div>
-							</div> <!-- /.col-md-3 -->
-						</div> <!-- /.row -->
-					</div> <!-- /.container -->
-				</div> <!-- /.widgetized-area -->
-				<div class="copyright">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12">
-								&copy; Группа компаний "Красная Горка"
-							</div>
-						</div> <!-- /.row -->
-					</div> <!-- /.container -->
-				</div> <!-- /.copyright -->
-			</footer>
-		{% endblock %}
-	</div> <!-- /.main-wrapper -->
-
-</div> <!-- /.site-wrapper -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwVpNQB9COvDUNPpbn7YOUtiuDpzum18Y&callback=initMap"
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwVpNQB9COvDUNPpbn7YOUtiuDpzum18Y&callback=initMap"
         type="text/javascript"></script>
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/animsition.min.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/autogrow.min.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/hoverIntent.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/imagesloaded.pkgd.min.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/isotope.pkgd.min.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/jquery.fitvids.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/jquery.nicescroll.min.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/nivo-lightbox.min.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/superfish.js') }}"></script>
-<script src="{{ asset('assets/js/joinable/wow.min.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-<!-- Revolution Slider -->
-<script src="{{ asset('assets/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/revolution.extension.video.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/revolution.extension.slideanims.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/revolution.extension.actions.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/revolution.extension.layeranimation.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/revolution.extension.kenburn.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/revolution.extension.navigation.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/revolution.extension.migration.min.js') }}"></script>
-<script src="{{ asset('assets/revolution/js/revolution.extension.parallax.min.js') }}"></script>
-
-<script type="text/javascript">
-    // When the window has finished loading create our google map below
-    google.maps.event.addDomListener(window, 'load', init);
-
-    function init() {
-        // Basic options for a simple Google Map
-        // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-        var mapOptions = {
-            // How zoomed in you want the map to start at (always required)
-            zoom: 16,
-            zoomControl: true,
-
-            // The latitude and longitude to center the map (always required)
-            center: new google.maps.LatLng(55.677408, 37.271089),
-
-            disableDoubleClickZoom: false,
-            scrollwheel: false,
-            mapTypeControl: false,
-            streetViewControl: false,
-
-            // How you would like to style the map.
-            // This is where you would paste any style found on Snazzy Maps.
-            mapTypeId: google.maps.MapTypeId.TERRAIN,
-            styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}]
-        };
-
-        // Get the HTML DOM element that will contain your map
-        // We are using a div with id="map" seen below in the <body>
-        var mapElement = document.getElementById('map');
-
-        // Create the Google Map using our element and options defined above
-        var map = new google.maps.Map(mapElement, mapOptions);
-
-        // Let's also add a marker while we're at it
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(55.677408, 37.271089),
-            map: map,
-            title: 'Snazzy!'
-        });
-    }
-</script>
-
-<script type="text/javascript">
-	var revapi5;
-	$(document).ready(function () {
-		revapi5 = $('#slider-1').show().revolution({
-			sliderType: 'standard',
-			sliderLayout: 'auto',
-			jsFileLocation: '',
-			dottedOverlay: 'none',
-			delay: 5000,
-			lazyType: "none",
-			navigation: {
-				keyboardNavigation: "off",
-				keyboard_direction: "horizontal",
-				mouseScrollNavigation: "off",
-				mouseScrollReverse: "default",
-				onHoverStop: "off",
-				touch: {
-					touchenabled: "on",
-					swipe_threshold: 0.7,
-					swipe_min_touches: 1,
-					swipe_direction: "horizontal",
-					drag_block_vertical: false
-				}
-				,
-				arrows: {
-					style: "uranus",
-					enable: true,
-					hide_onmobile: false,
-					hide_onleave: true,
-					hide_delay: 200,
-					hide_delay_mobile: 1200,
-					tmp: '',
-					left: {
-						h_align: "left",
-						v_align: "center",
-						h_offset: 20,
-						v_offset: 0
-					},
-					right: {
-						h_align: "right",
-						v_align: "center",
-						h_offset: 20,
-						v_offset: 0
-					}
-				}
-				,
-				bullets: {
-					enable: true,
-					hide_onmobile: false,
-					style: "hermes",
-					hide_onleave: false,
-					direction: "horizontal",
-					h_align: "center",
-					v_align: "bottom",
-					h_offset: 0,
-					v_offset: 20,
-					space: 5,
-					tmp: ''
-				}
-			},
-			parallax: {
-				type: "mouse",
-				origo: "enterpoint",
-				speed: 6000,
-				levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47, 48, 49, 50, 51, 55],
-				type: "mouse",
-			},
-			visibilityLevels: [1240, 1024, 778, 480],
-			gridwidth: 1170,
-			gridheight: 840,
-			shadow: 0,
-			spinner: "spinner0",
-			stopLoop: "off",
-			stopAfterLoops: -1,
-			stopAtSlide: -1,
-			shuffle: "off",
-			autoHeight: "off",
-			fullScreenAutoWidth: "off",
-			fullScreenAlignForce: "off",
-			fullScreenOffsetContainer: "",
-			fullScreenOffset: "",
-			disableProgressBar: "on",
-			hideThumbsOnMobile: "off",
-			hideSliderAtLimit: 0,
-			hideCaptionAtLimit: 0,
-			hideAllCaptionAtLilmit: 0,
-			debugMode: false,
-			fallbacks: {
-				simplifyAll: "off",
-				nextSlideOnWindowFocus: "off",
-				disableFocusListener: false,
-			}
-		});
-	});
-</script>
-
+<script src="{{ asset('bower_components/jquery/dist/jquery.js') }}"></script>
+<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.js') }}"></script>
+{% block custom_js %}{% endblock %}
 </body>
-
-<!-- Mirrored from demo.esmeth.com/archtech/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 16 Jan 2017 21:38:22 GMT -->
 </html>

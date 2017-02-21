@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\ServicePage;
+use AppBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SiteController extends Controller
@@ -12,9 +12,7 @@ class SiteController extends Controller
 
        $em = $this->getDoctrine()->getManager();
 
-       return $this->render('odinkg/front/index.html.twig',[
-		    'services' => $em->getRepository(ServicePage::class)->findAll()
-        ]);
+       return $this->render('odinkg/front2/index.html.twig');
 	}
 
 	public function saleAction(){

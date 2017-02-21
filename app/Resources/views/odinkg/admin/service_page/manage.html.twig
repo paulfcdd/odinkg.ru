@@ -1,0 +1,224 @@
+{% extends 'odinkg/admin/base.html.twig' %}
+
+{% block page_title %}
+    {% if page is not null %}
+        {{ page.pageTitle }}
+    {% else %}
+        Новая страница
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            {% if error is not null %}
+                <div class="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {{ error.message }}
+                    <br />
+                    <label>Код ошибки: {{ error.code }}</label>
+                </div>
+            {% endif %}
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        {% if page is not null %}
+                            Управление страницей "{{ page.pageTitle }}"
+                        {% else %}
+                            Новая страница
+                        {% endif %}
+                    </h5>
+                </div>
+
+                <div class="ibox-content">
+
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ form_label(form.slug) }}
+                        </label>
+
+                        <div class="col-sm-10">
+                            {{ form_widget(form.slug, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ form_label(form.title) }}
+                        </label>
+
+                        <div class="col-sm-10">
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ form_label(form.keywords) }}
+                        </label>
+
+                        <div class="col-sm-10">
+                            {{ form_widget(form.keywords, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ form_label(form.description) }}
+                        </label>
+
+                        <div class="col-sm-10">
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ form_label(form.pageTitle) }}
+                        </label>
+
+                        <div class="col-sm-10">
+                            {{ form_widget(form.pageTitle, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ form_label(form.pageSecondaryTitle) }}
+                        </label>
+
+                        <div class="col-sm-10">
+                            {{ form_widget(form.pageSecondaryTitle, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ form_label(form.pageContent) }}
+                        </label>
+
+                        <div class="col-sm-10">
+                            {{ form_widget(form.pageContent, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ form_label(form.enabled) }}
+                        </label>
+
+                        <div class="col-sm-10">
+                            {{ form_widget(form.enabled, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <button class="btn btn-rounded btn-success">
+                        <span class="fa fa-floppy-o"></span>&nbsp;Сохранить
+                    </button>
+                    {{ form_end(form) }}
+                </div>
+
+
+                {#<div class="ibox-content">#}
+
+                    {#{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}#}
+
+                    {#<div class="col-lg-6 ibox">#}
+                        {#<div class="ibox-title">#}
+                            {#<h5>SEO</h5>#}
+                        {#</div>#}
+                        {#<div class="ibox-content">#}
+                            {#<div class="form-group">#}
+                                {#<label class="col-sm-2 control-label">#}
+                                    {#{{ form_label(form.slug) }}#}
+                                {#</label>#}
+
+                                {#<div class="col-sm-10">#}
+                                    {#{{ form_widget(form.slug, {'attr': {'class': 'form-control'}}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="hr-line-dashed"></div>#}
+                            {#<div class="form-group">#}
+                                {#<label class="col-sm-2 control-label">#}
+                                    {#{{ form_label(form.title) }}#}
+                                {#</label>#}
+
+                                {#<div class="col-sm-10">#}
+                                    {#{{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="hr-line-dashed"></div>#}
+                            {#<div class="form-group">#}
+                                {#<label class="col-sm-2 control-label">#}
+                                    {#{{ form_label(form.keywords) }}#}
+                                {#</label>#}
+
+                                {#<div class="col-sm-10">#}
+                                    {#{{ form_widget(form.keywords, {'attr': {'class': 'form-control'}}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="hr-line-dashed"></div>#}
+                            {#<div class="form-group">#}
+                                {#<label class="col-sm-2 control-label">#}
+                                    {#{{ form_label(form.description) }}#}
+                                {#</label>#}
+
+                                {#<div class="col-sm-10">#}
+                                    {#{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+
+                    {#<div class="col-lg-6 ibox">#}
+                        {#<div class="ibox-title">#}
+                            {#<h5>Основной контент</h5>#}
+                        {#</div>#}
+                        {#<div class="ibox-content">#}
+                            {#<div class="form-group">#}
+                                {#<label class="col-sm-2 control-label">#}
+                                    {#{{ form_label(form.pageTitle) }}#}
+                                {#</label>#}
+
+                                {#<div class="col-sm-10">#}
+                                    {#{{ form_widget(form.pageTitle, {'attr': {'class': 'form-control'}}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="hr-line-dashed"></div>#}
+                            {#<div class="form-group">#}
+                                {#<label class="col-sm-2 control-label">#}
+                                    {#{{ form_label(form.pageSecondaryTitle) }}#}
+                                {#</label>#}
+
+                                {#<div class="col-sm-10">#}
+                                    {#{{ form_widget(form.pageSecondaryTitle, {'attr': {'class': 'form-control'}}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="hr-line-dashed"></div>#}
+                            {#<div class="form-group">#}
+                                {#<label class="col-sm-2 control-label">#}
+                                    {#{{ form_label(form.pageContent) }}#}
+                                {#</label>#}
+
+                                {#<div class="col-sm-10">#}
+                                    {#{{ form_widget(form.pageContent, {'attr': {'class': 'form-control'}}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="hr-line-dashed"></div>#}
+                        {#</div>#}
+                    {#</div>#}
+
+                    {#<div class="ibox-footer">#}
+                        {#fdfkd#}
+                    {#</div>#}
+                    {#{{ form_end(form) }}#}
+
+                {#</div>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
