@@ -6,3 +6,10 @@ header:
     contacts: 'Контакты'
     login: 'Вход'
     register: 'Регистрация'
+
+
+admin:
+    role:
+        admin: 'Администратор'
+    contact:
+        label: 'Контакты'

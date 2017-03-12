@@ -27,6 +27,7 @@
 	<link rel="apple-touch-icon-precomposed" href="{{ asset('assets/images/favicon_icon.png') }}">
 	<meta name="msapplication-TileImage" content="{{ asset('assets/images/favicon_icon.png') }}">
 
+	{% block custom_css %}{% endblock %}
 </head>
 <body class="fixed-header">
 
@@ -86,12 +87,6 @@
                                     {{ 'header.news' | trans }}
 								</a>
 							</li>
-
-							<li>
-								<a href="{{ path ('contact') }}">
-                                    {{ 'header.contacts' | trans }}
-								</a>
-							</li>
 						</ul>
 					</div>
 				</div>
@@ -132,53 +127,21 @@
 										</li>
 
 										<li>
+											<a href="#">Услуги</a>
+											<ul class="sub-menu">
+												<li><a href="services.html">All Services</a></li>
+												<li><a href="service-single.html">Construction</a></li>
+												<li><a href="service-single.html">General Contracting</a></li>
+												<li><a href="service-single.html">Isolation</a></li>
+												<li><a href="service-single.html">Electric Welding</a></li>
+											</ul>
+										</li>
+
+										<li>
 											<a href="home.html">
 												{{ 'header.news' | trans }}
 											</a>
 										</li>
-
-										<li>
-											<a href="{{ path ('contact') }}">
-												{{ 'header.contacts' | trans }}
-											</a>
-										</li>
-										{#<li><a href="#">Services</a>#}
-											{#<ul class="sub-menu">#}
-												{#<li><a href="services.html">All Services</a></li>#}
-												{#<li><a href="service-single.html">Construction</a></li>#}
-												{#<li><a href="service-single.html">General Contracting</a></li>#}
-												{#<li><a href="service-single.html">Isolation</a></li>#}
-												{#<li><a href="service-single.html">Electric Welding</a></li>#}
-											{#</ul>#}
-										{#</li>#}
-										{#<li><a href="#">Pages</a>#}
-											{#<ul class="sub-menu">#}
-												{#<li><a href="about-us.html">About Us</a></li>#}
-												{#<li><a href="about-me.html">About Me</a></li>#}
-												{#<li><a href="team.html">Our Team</a></li>#}
-												{#<li><a href="404.html">404 Page</a></li>#}
-												{#<li><a href="faqs.html">FAQs</a></li>#}
-												{#<li><a href="contact.html">Contact</a></li>#}
-												{#<li><a href="contact-2.html">Contact v2</a></li>#}
-											{#</ul>#}
-										{#</li>#}
-										{#<li><a href="#">Projects</a>#}
-											{#<ul class="sub-menu">#}
-												{#<li><a href="projects-2.html">Projects — 2 Columns</a></li>#}
-												{#<li><a href="projects.html">Projects — 3 Columns</a></li>#}
-												{#<li><a href="projects-4.html">Projects — 4 Columns</a></li>#}
-												{#<li><a href="projects-masonry.html">Projects Masonry</a></li>#}
-												{#<li><a href="project-single.html">Project Details</a></li>#}
-											{#</ul>#}
-										{#</li>#}
-										{#<li><a href="#">Blog</a>#}
-											{#<ul class="sub-menu">#}
-												{#<li><a href="blog.html">Blog Standard</a></li>#}
-												{#<li><a href="blog-grid.html">Blog Grid</a></li>#}
-												{#<li><a href="blog-masonry.html">Blog Masonry</a></li>#}
-												{#<li><a href="blog-single.html">Single Post</a></li>#}
-											{#</ul>#}
-										{#</li>#}
 									</ul>
 								</nav>
 							</div>
@@ -186,26 +149,32 @@
 							<div class="header-right">
 								<nav class="main-nav">
 									<ul class="sf-menu">
-										<li>
-
-											{% if app.user %}
-												{% if app.user.roles[0] == 'ROLE_SUPER_ADMIN' %}
-													<a href="{{ path('admin') }}">
-														Админ
-													</a>
-												{% endif %}
-												{% else %}
-													<a href="{{ path('fos_user_security_login') }}">
-                                                        {{ 'header.login' | trans }}
-													</a>
-											{% endif %}
-										</li>
 
 										<li>
-											<a href="">
-                                                {{ 'header.register' | trans }}
+											<a href="{{ path ('contact') }}">
+                                                {{ 'header.contacts' | trans }}
 											</a>
 										</li>
+										{#<li>#}
+
+											{#{% if app.user %}#}
+												{#{% if app.user.roles[0] == 'ROLE_SUPER_ADMIN' %}#}
+													{#<a href="{{ path('admin') }}">#}
+														{#Админ#}
+													{#</a>#}
+												{#{% endif %}#}
+												{#{% else %}#}
+													{#<a href="{{ path('fos_user_security_login') }}">#}
+                                                        {#{{ 'header.login' | trans }}#}
+													{#</a>#}
+											{#{% endif %}#}
+										{#</li>#}
+
+										{#<li>#}
+											{#<a href="">#}
+                                                {#{{ 'header.register' | trans }}#}
+											{#</a>#}
+										{#</li>#}
 									</ul>
 								</nav>
 								{#<div class="social">#}
@@ -320,8 +289,6 @@
 	</div> <!-- /.main-wrapper -->
 
 </div> <!-- /.site-wrapper -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwVpNQB9COvDUNPpbn7YOUtiuDpzum18Y&callback=initMap"
-        type="text/javascript"></script>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/joinable/animsition.min.js') }}"></script>
 <script src="{{ asset('assets/js/joinable/autogrow.min.js') }}"></script>
@@ -486,7 +453,7 @@
 		});
 	});
 </script>
-
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwVpNQB9COvDUNPpbn7YOUtiuDpzum18Y&callback=initMap" type="text/javascript"></script>
 </body>
 
 <!-- Mirrored from demo.esmeth.com/archtech/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 16 Jan 2017 21:38:22 GMT -->

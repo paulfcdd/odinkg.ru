@@ -13,6 +13,10 @@ admin:
     path: '/admin'
     defaults: { _controller: AppBundle:Admin\Admin:dashboard }
 
+admin.contact:
+    path: '/admin/contact'
+    defaults: { _controller: AppBundle:Admin\Contact:manage }
+
 fos_user_security_login:
     path: '/login'
     defaults: { _controller: AppBundle:Security:login }
