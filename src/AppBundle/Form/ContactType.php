@@ -4,7 +4,6 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-
 use Symfony\Component\Form\Extension\Core\Type\{
     HiddenType, SubmitType, TextType
 };
@@ -17,9 +16,6 @@ class ContactType extends AbstractType
         $builder
             ->add('address', TextType::class, [
                 'mapped' => false,
-//                'attr' => [
-//                    'onFocus' => 'geolocate()'
-//                ]
             ])
             ->add('email', TextType::class)
             ->add('phone1', TextType::class)
