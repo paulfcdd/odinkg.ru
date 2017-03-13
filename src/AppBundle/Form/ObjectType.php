@@ -72,6 +72,7 @@ class ObjectType extends AbstractType
             ])
             ->add('totalPrice', IntegerType::class, [
                 'label' => 'Общая цена',
+                'required' => false,
                 'label_attr' => [
                     'class' => 'col-sm-2 control-label'
                 ]
@@ -104,6 +105,12 @@ class ObjectType extends AbstractType
                 'label' => 'Сохранить объект',
                 'attr' => [
                     'class' => 'btn btn-primary'
+                ]
+            ])
+            ->add('title', TextType::class, [
+                'label' => 'Название объекта',
+                'label_attr' => [
+                    'class' => 'col-sm-2 control-label'
                 ]
             ]);
     }

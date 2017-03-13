@@ -25,6 +25,14 @@ admin.object.add:
     path: '/admin/object/add'
     defaults: { _controller: AppBundle:Admin/Object:addObject}
 
+admin.object.edit:
+    path: '/admin/object/{object}/edit'
+    defaults:  { _controller: AppBundle:Admin/Object:editObject }
+
+admin.object.delete:
+    path: '/admin/object/delete/{object}'
+    defaults: { _controller: AppBundle:Admin/Object:deleteObject }
+
 fos_user_security_login:
     path: '/login'
     defaults: { _controller: AppBundle:Security:login }

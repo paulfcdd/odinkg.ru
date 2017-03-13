@@ -15,25 +15,10 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Список всех объектов</h5>
-                <div class="ibox-tools">
-                    <a href="{{ path('admin.object.add') }}">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#">Config option 1</a>
-                        </li>
-                        <li><a href="#">Config option 2</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
             <div class="ibox-content">
-
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <table class="table table-striped table-bordered table-hover object-list">
                         <thead>
                         <tr>
                             <th>Назавание объекта</th>
@@ -42,26 +27,47 @@
                             <th>Статус</th>
                             <th>Площадь</th>
                             <th>Дата создания</th>
+                            <th>Изменить объект</th>
+                            <th>Удалить объект</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
-                            <tr>
-                                <td>{{ object.title }}</td>
-                                <td>{{ object.getTypeById(object.type) }}</td>
-                                <td>
-                                    {% if object.type == 1  %}
-                                        {{ object.totalPrice }}
-                                    {% else %}
-                                        {{ object.pricePerUnit }} / м<sup>2</sup>
-                                    {% endif %}
-                                </td>
-                                <td>{{ object.getSaleStatusById(object.status) }}</td>
-                                <td>{{ object.square }}  м<sup>2</sup> </td>
-                                <td>
-                                    {{ object.dateCreated | date('d.m.Y') }}
-                                </td>
-                            </tr>
+                            {% if object.dateRemoved is null %}
+                                <tr id="object-{{ object.id }}">
+                                    <td>{{ object.title }}</td>
+                                    <td>{{ object.getTypeById(object.type) }}</td>
+                                    <td>
+                                        {% if object.type == 1  %}
+                                            ${{ object.totalPrice }}
+                                        {% else %}
+                                            ${{ object.pricePerUnit }} / м<sup>2</sup>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ object.getSaleStatusById(object.status) }}</td>
+                                    <td>
+                                        {% if object.type == 1  %}
+                                            {{ object.square }}  м<sup>2</sup>
+                                        {% else %}
+                                            {{ object.square }}  соток
+                                        {% endif %}</td>
+                                    <td>
+                                        {{ object.dateCreated | date('d.m.Y') }}
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="btn btn-primary btn-block" href="{{ path('admin.object.edit', {
+                                            'object': object.id
+                                        }) }}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-block delete-object" data-objectId="{{ object.id }}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                         </tbody>
                         <tfoot>
@@ -72,11 +78,17 @@
                             <th>Статус</th>
                             <th>Площадь</th>
                             <th>Дата создания</th>
+                            <th>Изменить объект</th>
+                            <th>Удалить объект</th>
                         </tr>
                         </tfoot>
                     </table>
                 </div>
-
+            </div>
+            <div class="ibox-footer">
+                <a class="btn btn-primary" href="{{ path('admin.object.add') }}">
+                    <i class="fa fa-plus"></i>&nbsp;Добавить новый объект
+                </a>
             </div>
         </div>
 
@@ -93,15 +105,15 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
-            $('.dataTables-example').DataTable({
+            $('.object-list').DataTable({
                 pageLength: 10,
                 responsive: true,
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     {extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Объекты Красная Горка'},
+                    {extend: 'pdf', title: 'Объекты Красная Горка'},
 
                     {
                         extend: 'print',
@@ -119,6 +131,21 @@
             });
 
         });
+
+
+        $('.delete-object').on('click', function () {
+            var objectId = $(this).attr('data-objectId'),
+                urlPattern = '{{ path('admin.object.delete', {'object': '_object'}) }}';
+
+
+            $.ajax({
+                url: urlPattern.replace('_object', objectId),
+                method: 'POST',
+                success:function (data) {
+                    $('#object-'+data).remove();
+                }
+            });
+        })
 
     </script>
 {% endblock %}
