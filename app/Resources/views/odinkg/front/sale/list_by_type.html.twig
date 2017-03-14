@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="page-title-wrapper">
-        <div class="page-title-bg" style="background-image: url('{{ asset('assets/images/services-bg.jpg') }}');"></div>
+        <div class="page-title-bg" style="background-image: url('{{ asset('assets/images/'~app.request.get('type')~'.jpg') }}');"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
@@ -11,7 +11,6 @@
                         <div class="page-title-content">
                             {% set type = 'object.by_type.'~ app.request.get('type') %}
                             <h2>{{ type | trans }}</h2>
-                            <p>Дома и земельные участки на продажу</p>
                         </div>
                     </div>
                 </div>
@@ -47,7 +46,7 @@
                     <div class="row">
                         {% if objects is not empty %}
                             {% for object in objects %}
-                                <div class="col-sm-6" style="border: 1px solid black">
+                                <div class="col-sm-6">
                                     <article class="image-service wow fadeIn" data-wow-duration="0.7s"
                                              data-wow-delay="0.2s">
                                         <div class="thumb">
@@ -71,9 +70,13 @@
                                             <small>Тип: {{ object.getTypeById(object.type) }}</small>
                                             <small class="pull-right">
                                                 Статус: {{ object.getSaleStatusById(object.saleStatus) }}</small>
-                                            <p>
-                                                {{ object.objectDescription }}
-                                            </p>
+
+                                            {% if object.objectDescription | length > 120 %}
+                                                {% set description = object.objectDescription | slice(0, 120) ~ '...' %}
+                                            {% else %}
+                                                {% set description = object.objectDescription %}
+                                            {% endif %}
+                                            <p>{{ description }}</p>
                                         </div>
                                     </article>
                                 </div> <!-- /.col-sm-6 -->

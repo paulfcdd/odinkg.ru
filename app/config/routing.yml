@@ -9,6 +9,22 @@ home:
     path: '/'
     defaults: { _controller: AppBundle:Site:index }
 
+fos_user_security_login:
+    path: '/login'
+    defaults: { _controller: AppBundle:Security:login }
+
+logout:
+    path: '/logout'
+    defaults: { _controller: FOSUserBundle:Security:logout }
+
+contact:
+   path: '/contact'
+   defaults: { _controller: AppBundle:Site:contact }
+
+not_found:
+   path: '/404'
+   defaults: { _controller: AppBundle:Site:notFound }
+
 sale:
    path: '/sales'
    defaults: { _controller: AppBundle:Site:sale }
@@ -18,7 +34,19 @@ sale.sort_by_type:
     defaults: { _controller: AppBundle:Site:salesByType}
 
 sale.single_object:
-    path: '/sale/{type}/{object}'
+    path: '/sales/{type}/{object}'
+    defaults: { _controller: AppBundle:Site:singleObjectView }
+
+rent:
+   path: '/rent'
+   defaults: { _controller: AppBundle:Site:rent }
+
+rent.sort_by_type:
+   path: '/rent/{type}'
+   defaults: { _controller: AppBundle:Site:rentByType }
+
+rent.single_object:
+    path: '/rent/{type}/{object}'
     defaults: { _controller: AppBundle:Site:singleObjectView }
 
 admin:
@@ -56,28 +84,3 @@ admin.object.bin.repair:
 admin.object.bin.remove:
     path: '/admin/object/{object}/remove'
     defaults: { _controller: AppBundle:Admin/Object:removeFromBin }
-
-
-fos_user_security_login:
-    path: '/login'
-    defaults: { _controller: AppBundle:Security:login }
-
-logout:
-    path: '/logout'
-    defaults: { _controller: FOSUserBundle:Security:logout }
-
-rent:
-   path: '/rent'
-   defaults: { _controller: AppBundle:Site:rent }
-
-contact:
-   path: '/contact'
-   defaults: { _controller: AppBundle:Site:contact }
-
-not_found:
-   path: '/404'
-   defaults: { _controller: AppBundle:Site:notFound }
-
-single_service:
-   path: '/{service_name}'
-   defaults: { _controller: AppBundle:ServicesPage:singleService }

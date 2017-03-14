@@ -3,14 +3,14 @@
 {% block content %}
 
     <div class="page-title-wrapper">
-        <div class="page-title-bg" style="background-image: url('{{ asset('assets/images/services-bg.jpg') }}');"></div>
+        <div class="page-title-bg" style="background-image: url('{{ asset('assets/images/'~app.request.get('type')~'.jpg') }}');"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="page-title-inner">
                         <div class="page-title-content">
-                            <h2>Аренда</h2>
-                            <p>Дома и земельные участки в аренду</p>
+                            {% set type = 'object.by_type.'~ app.request.get('type') %}
+                            <h2>{{ type | trans }}</h2>
                         </div>
                     </div>
                 </div>
@@ -46,29 +46,30 @@
                     <div class="row">
                         {% if objects is not empty %}
                             {% for object in objects %}
-                                {% set type = 'object.by_type.'~ object.getTypeById(object.type) %}
                                 <div class="col-sm-6">
-                                    <article class="image-service wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.2s">
+                                    <article class="image-service wow fadeIn" data-wow-duration="0.7s"
+                                             data-wow-delay="0.2s">
                                         <div class="thumb">
                                             <a href="{{ path('sale.single_object', {
-                                                'type': object.getTypeById(object.type),
+                                                'type': app.request.get('type'),
                                                 'object': object.id
-                                            }) }}" target="_blank">
+                                            }) }}">
                                                 <img width="700" height="450" src="assets/images/service-1.jpg" alt="">
                                                 <span class="overlay">
-                                                    <i class="icon-eye"></i>
-                                                </span>
+                        <i class="icon-eye"></i>
+                        </span>
                                             </a>
                                         </div>
                                         <div class="service-content">
                                             <h3>
                                                 <a href="{{ path('sale.single_object', {
-                                                    'type': object.getTypeById(object.type),
+                                                    'type': app.request.get('type'),
                                                     'object': object.id
-                                                }) }}" target="_blank">{{ object.title }}</a>
+                                                }) }}">{{ object.title }}</a>
                                             </h3>
-                                            <small>Тип: {{ type | trans }}</small>
-                                            <small class="pull-right">Статус: {{ object.getSaleStatusById(object.saleStatus) }}</small>
+                                            <small>Тип: {{ object.getTypeById(object.type) }}</small>
+                                            <small class="pull-right">
+                                                Статус: {{ object.getSaleStatusById(object.saleStatus) }}</small>
 
                                             {% if object.objectDescription | length > 120 %}
                                                 {% set description = object.objectDescription | slice(0, 120) ~ '...' %}

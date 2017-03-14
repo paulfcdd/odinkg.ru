@@ -34,9 +34,10 @@
                         <tbody>
                         {% for object in objects %}
                             {% if object.dateRemoved is null %}
+                                {% set type = 'object.by_type.'~ object.getTypeById(object.type) %}
                                 <tr id="object-{{ object.id }}">
                                     <td>{{ object.title }}</td>
-                                    <td>{{ object.getTypeById(object.type) }}</td>
+                                    <td>{{ type | trans }}</td>
                                     <td>
                                         {% if object.type == 1  %}
                                             ${{ object.totalPrice }}

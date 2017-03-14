@@ -46,13 +46,14 @@
                     <div class="row">
                         {% if objects is not empty %}
                             {% for object in objects %}
-                                <div class="col-sm-6" style="border: 1px solid black">
+                                {% set type = 'object.by_type.'~ object.getTypeById(object.type) %}
+                                <div class="col-sm-6">
                                     <article class="image-service wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.2s">
                                         <div class="thumb">
                                             <a href="{{ path('sale.single_object', {
                                                 'type': object.getTypeById(object.type),
                                                 'object': object.id
-                                            }) }}">
+                                            }) }}" target="_blank">
                                                 <img width="700" height="450" src="assets/images/service-1.jpg" alt="">
                                                 <span class="overlay">
                                                     <i class="icon-eye"></i>
@@ -64,13 +65,17 @@
                                                 <a href="{{ path('sale.single_object', {
                                                     'type': object.getTypeById(object.type),
                                                     'object': object.id
-                                                }) }}">{{ object.title }}</a>
+                                                }) }}" target="_blank">{{ object.title }}</a>
                                             </h3>
-                                            <small>Тип: {{ object.getTypeById(object.type) }}</small>
+                                            <small>Тип: {{ type | trans }}</small>
                                             <small class="pull-right">Статус: {{ object.getSaleStatusById(object.saleStatus) }}</small>
-                                            <p>
-                                                {{ object.objectDescription }}
-                                            </p>
+
+                                            {% if object.objectDescription | length > 120 %}
+                                                {% set description = object.objectDescription | slice(0, 120) ~ '...' %}
+                                            {% else %}
+                                                {% set description = object.objectDescription %}
+                                            {% endif %}
+                                            <p>{{ description }}</p>
                                         </div>
                                     </article>
                                 </div> <!-- /.col-sm-6 -->

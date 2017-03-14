@@ -66,7 +66,10 @@ class SiteController extends Controller
     public function singleObjectViewAction(Object $object, $type)
     {
 
-        return $this->render(':odinkg/front/sale:detail_view.html.twig');
+
+        return $this->render(':odinkg/front/sale:detail_view.html.twig', [
+            'object' => $object
+        ]);
     }
 
     public function contactAction()
@@ -76,7 +79,40 @@ class SiteController extends Controller
 
     public function rentAction()
     {
-        return $this->render('odinkg/front/rent.html.twig');
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getRepository(Object::class);
+
+        $query = $em->createQueryBuilder('o')
+            ->where('o.saleStatus = :status')
+            ->andWhere('o.dateRemoved IS NULL')
+            ->setParameter('status', 2)
+            ->getQuery();
+
+        return $this->render('odinkg/front/rent.html.twig', [
+            'objects' => $query->getResult()
+        ]);
+    }
+
+    public function rentByTypeAction($type){
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getRepository(Object::class);
+
+        $query = $em->createQueryBuilder('o')
+            ->where('o.saleStatus = :status')
+            ->andWhere('o.type = :type')
+            ->andWhere('o.dateRemoved IS NULL')
+            ->setParameter('type', self::OBJECT_TYPE[$type])
+            ->setParameter('status', 2)
+            ->getQuery();
+
+        return $this->render(':odinkg/front/rent:list_by_type.html.twig', [
+            'objects' => $query->getResult()
+        ]);
+    }
+
+    public function singleObjectRentViewAction(Object $object, $type){
+
     }
 
     public function notFoundAction()
