@@ -3,8 +3,11 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Object;
 use AppBundle\Entity\ServicePage;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\ExpressionLanguage\Tests\Node\Obj;
 
 class SiteController extends Controller
 {
@@ -18,7 +21,19 @@ class SiteController extends Controller
 	}
 
 	public function saleAction(){
-	    return $this->render('odinkg/front/sale.html.twig', []);
+
+//        /** @var EntityManager $em */
+//        $em = $this->getDoctrine()->getRepository(Object::class);
+//
+//        $query = $em->createQueryBuilder('o')
+//            ->where('o.dateRemoved IS NOT NULL')
+//            ->andWhere('o.status = :status')
+//            ->setParameter('status', 1)
+//            ->getQuery();
+
+	    return $this->render('odinkg/front/sale.html.twig', [
+	        'objects' => $this->getDoctrine()->getRepository(Object::class)->findAll()
+        ]);
     }
 
     public function contactAction(){

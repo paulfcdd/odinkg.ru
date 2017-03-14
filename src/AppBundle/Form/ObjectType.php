@@ -57,7 +57,6 @@ class ObjectType extends AbstractType
                 ]
             ])
             ->add('square', IntegerType::class, [
-                'required' => false,
                 'label' => 'Площадь',
                 'label_attr' => [
                     'class' => 'col-sm-2 control-label'
@@ -72,7 +71,6 @@ class ObjectType extends AbstractType
             ])
             ->add('totalPrice', IntegerType::class, [
                 'label' => 'Общая цена',
-                'required' => false,
                 'label_attr' => [
                     'class' => 'col-sm-2 control-label'
                 ]

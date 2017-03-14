@@ -7,6 +7,12 @@
 
 {% block custom_css %}
     {#<link href="{{ asset('admin/css/plugins/iCheck/custom.css') }}">#}
+    <style>
+        .not-required {
+            color:  orange;
+            font-weight: 600;
+        }
+    </style>
 {% endblock %}
 
 {% block content_block %}
@@ -14,7 +20,7 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Добавление нового объекта
-                    <small> (Поля, отмеченные *, обязательны к заполнению) </small>
+                    <small> (Поля, помеченные как <span class="not-required">Не обязательно</span>, могут быть пустыми) </small>
                 </h5>
             </div>
             <div class="ibox-content">
@@ -50,6 +56,7 @@
                 <div class="form-group">
                     {{ form_label(form.highway) }}
                     <div class="col-sm-10">
+                        <small class="not-required">Не обязательно</small>
                         {{ form_widget(form.highway, {
                             'attr': {
                                 'class': 'form-control'
@@ -61,6 +68,7 @@
                 <div class="form-group">
                     {{ form_label(form.location) }}
                     <div class="col-sm-10">
+                        <small class="not-required">Не обязательно</small>
                         {{ form_widget(form.location, {
                             'attr': {
                                 'class': 'form-control'
@@ -72,6 +80,7 @@
                 <div class="form-group">
                     {{ form_label(form.plotDecription) }}
                     <div class="col-sm-10">
+                        <small class="not-required">Не обязательно</small>
                         {{ form_widget(form.plotDecription, {
                             'attr': {
                                 'class': 'form-control',
@@ -107,6 +116,7 @@
                 <div class="form-group">
                     {{ form_label(form.pricePerUnit) }}
                     <div class="col-sm-10">
+                        <small class="not-required">Не обязательно</small>
                         {{ form_widget(form.pricePerUnit, {
                             'attr': {
                                 'class': 'form-control'

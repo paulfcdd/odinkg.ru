@@ -1,8 +1,8 @@
 {% extends 'odinkg/admin/base.html.twig' %}
 
 {% block top_block %}
-    <h2>Объекты</h2>
-    <small>Список всех объектов</small>
+    <h2>Корзина</h2>
+    <small>Удаленные объекты</small>
 {% endblock %}
 
 {% block custom_css %}
@@ -14,7 +14,7 @@
 
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Список всех объектов</h5>
+                <h5>Список удаленных объектов</h5>
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
@@ -26,14 +26,14 @@
                             <th>Цена</th>
                             <th>Статус</th>
                             <th>Площадь</th>
-                            <th>Дата создания</th>
-                            <th>Изменить объект</th>
-                            <th>Удалить объект</th>
+                            <th>Дата удаления</th>
+                            <th>Восстановить</th>
+                            <th>Удалить из корзины</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
-                            {% if object.dateRemoved is null %}
+                            {% if object.dateRemoved is not null %}
                                 <tr id="object-{{ object.id }}">
                                     <td>{{ object.title }}</td>
                                     <td>{{ object.getTypeById(object.type) }}</td>
@@ -52,17 +52,15 @@
                                             {{ object.square }}  соток
                                         {% endif %}</td>
                                     <td>
-                                        {{ object.dateCreated | date('d.m.Y') }}
+                                        {{ object.dateRemoved | date('d.m.Y') }}
                                     </td>
                                     <td class="text-center">
-                                        <a class="btn btn-primary btn-block" href="{{ path('admin.object.edit', {
-                                            'object': object.id
-                                        }) }}">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
+                                        <button class="btn btn-primary btn-block undo-deleting" data-objectId="{{ object.id }}">
+                                            <i class="fa fa-undo"></i>
+                                        </button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btn-block delete-object" data-objectId="{{ object.id }}">
+                                        <button class="btn btn-danger btn-block delete-from-bin" data-objectId="{{ object.id }}">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
@@ -70,27 +68,12 @@
                             {% endif %}
                         {% endfor %}
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Назавание объекта</th>
-                            <th>Тип объекта</th>
-                            <th>Цена</th>
-                            <th>Статус</th>
-                            <th>Площадь</th>
-                            <th>Дата создания</th>
-                            <th>Изменить объект</th>
-                            <th>Удалить объект</th>
-                        </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
             <div class="ibox-footer">
-                <a class="btn btn-primary" href="{{ path('admin.object.add') }}">
-                    <i class="fa fa-plus"></i>&nbsp;Добавить новый объект
-                </a>
-                <a class="btn btn-info pull-right" href="{{ path('admin.object.bin') }}">
-                    <i class="fa fa-trash"></i> Корзина
+                <a class="btn btn-primary" href="{{ path('admin.object') }}">
+                    <i class="fa fa-list-ol"></i>&nbsp;Вернуться к списку объектов
                 </a>
             </div>
         </div>
@@ -115,8 +98,8 @@
                 buttons: [
                     {extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Объекты Красная Горка'},
-                    {extend: 'pdf', title: 'Объекты Красная Горка'},
+                    {extend: 'excel', title: 'Удаленные объекты'},
+                    {extend: 'pdf', title: 'Удаленные объекты'},
 
                     {
                         extend: 'print',
@@ -136,10 +119,23 @@
         });
 
 
-        $('.delete-object').on('click', function () {
+        $('.undo-deleting').on('click', function () {
             var objectId = $(this).attr('data-objectId'),
-                urlPattern = '{{ path('admin.object.delete', {'object': '_object'}) }}';
+                urlPattern = '{{ path('admin.object.bin.repair', {'object': '_object'}) }}';
 
+            $.ajax({
+                url: urlPattern.replace('_object', objectId),
+                method: 'POST',
+                success:function (data) {
+                    $('#object-'+data).remove();
+                }
+            });
+
+        });
+
+        $('.delete-from-bin').on('click', function () {
+            var objectId = $(this).attr('data-objectId'),
+                urlPattern = '{{ path('admin.object.bin.remove', {'object': '_object'}) }}';
 
             $.ajax({
                 url: urlPattern.replace('_object', objectId),

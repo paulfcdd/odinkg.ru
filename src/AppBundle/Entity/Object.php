@@ -132,12 +132,6 @@ class Object
      * @var integer
      * @ORM\Column(type="integer", length = 1)
      */
-    private $status = 0;
-
-    /**
-     * @var integer
-     * @ORM\Column(type="boolean", length = 1)
-     */
     private $saleStatus;
 
     /**
@@ -525,30 +519,6 @@ class Object
     }
 
     /**
-     * Set status
-     *
-     * @param boolean $status
-     *
-     * @return $this
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return boolean
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
      * Set saleStatus
      *
      * @param boolean $saleStatus
@@ -577,7 +547,7 @@ class Object
      *
      * @param string $title
      *
-     * @return Object
+     * @return string
      */
     public function setTitle($title)
     {

@@ -1,6 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
+
     <div class="page-title-wrapper">
         <div class="page-title-bg" style="background-image: url('{{ asset('assets/images/services-bg.jpg') }}');"></div>
         <div class="container">
@@ -8,8 +9,8 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="page-title-inner">
                         <div class="page-title-content">
-                            <h2>Продажа</h2>
-                            <p>В эту строчку можно будет вставить дополнительное описание либо информацию</p>
+                            <h2>Our Services</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci suscipit nisi necessitatibus dolor maiores at corporis animi.</p>
                         </div>
                     </div>
                 </div>
@@ -21,7 +22,30 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-12">
+                <div class="col-md-3">
+                    <div class="sidebar">
+                        <div class="services-widget widget">
+                            <h3 class="widget-title">Services Listing</h3>
+                            <ul>
+                                <li><a href="service-single.html">Construction</a></li>
+                                <li><a href="service-single.html">General Contracting</a></li>
+                                <li><a href="service-single.html">Isolation</a></li>
+                                <li><a href="service-single.html">Ellectric Welding</a></li>
+                            </ul>
+                        </div> <!-- /.widget -->
+                        <div class="contact-widget widget">
+                            <h3 class="widget-title">Contact Info</h3>
+                            <div class="contact-info">
+                                <p><i class="fa fa-location-arrow"></i>2561 Round Table Drive Cincinnati, OH 45202</p>
+                                <p><i class="fa fa-phone"></i><a href="#">513-784-5268</a></p>
+                                <p><i class="fa fa-envelope"></i><a href="#">support@esmeth.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.col-md-3  -->
+
+                {{ dump(objects) }}
+                <div class="col-md-9">
                     <div class="row">
                         <div class="col-sm-6">
                             <article class="image-service wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.2s">
