@@ -3,48 +3,84 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Object;
-use AppBundle\Entity\ServicePage;
+use AppBundle\Entity\{
+    Object, ServicePage
+};
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\ExpressionLanguage\Tests\Node\Obj;
 
 class SiteController extends Controller
 {
-    public function indexAction(){
 
-       $em = $this->getDoctrine()->getManager();
+    const OBJECT_TYPE = [
+        'house' => 1,
+        'plot' => 2
+    ];
 
-       return $this->render('odinkg/front/index.html.twig',[
-		    'services' => $em->getRepository(ServicePage::class)->findAll()
-        ]);
-	}
+    public function indexAction()
+    {
 
-	public function saleAction(){
+        $em = $this->getDoctrine()->getManager();
 
-//        /** @var EntityManager $em */
-//        $em = $this->getDoctrine()->getRepository(Object::class);
-//
-//        $query = $em->createQueryBuilder('o')
-//            ->where('o.dateRemoved IS NOT NULL')
-//            ->andWhere('o.status = :status')
-//            ->setParameter('status', 1)
-//            ->getQuery();
-
-	    return $this->render('odinkg/front/sale.html.twig', [
-	        'objects' => $this->getDoctrine()->getRepository(Object::class)->findAll()
+        return $this->render('odinkg/front/index.html.twig', [
+            'services' => $em->getRepository(ServicePage::class)->findAll()
         ]);
     }
 
-    public function contactAction(){
-	    return $this->render('odinkg/front/contact.html.twig');
+    public function saleAction()
+    {
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getRepository(Object::class);
+
+        $query = $em->createQueryBuilder('o')
+            ->where('o.saleStatus = :status')
+            ->andWhere('o.dateRemoved IS NULL')
+            ->setParameter('status', 1)
+            ->getQuery();
+
+        return $this->render('odinkg/front/sale.html.twig', [
+            'objects' => $query->getResult()
+        ]);
     }
 
-    public function rentAction(){
+    public function salesByTypeAction($type) {
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getRepository(Object::class);
+
+        $query = $em->createQueryBuilder('o')
+            ->where('o.saleStatus = :status')
+            ->andWhere('o.type = :type')
+            ->andWhere('o.dateRemoved IS NULL')
+            ->setParameter('type', self::OBJECT_TYPE[$type])
+            ->setParameter('status', 1)
+            ->getQuery();
+
+        return $this->render(':odinkg/front/sale:list_by_type.html.twig', [
+            'objects' => $query->getResult()
+        ]);
+    }
+
+    public function singleObjectViewAction(Object $object, $type)
+    {
+
+        return $this->render(':odinkg/front/sale:detail_view.html.twig');
+    }
+
+    public function contactAction()
+    {
+        return $this->render('odinkg/front/contact.html.twig');
+    }
+
+    public function rentAction()
+    {
         return $this->render('odinkg/front/rent.html.twig');
     }
 
-    public function notFoundAction(){
+    public function notFoundAction()
+    {
         return $this->render('TwigBundle/views/Exception/error404.html.twig');
     }
 }

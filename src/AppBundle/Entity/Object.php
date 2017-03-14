@@ -13,8 +13,8 @@ class Object
 {
 
     const TYPE = [
-        'Дом/коттедж' => 1,
-        'Участок' => 2
+        'house' => 1,
+        'plot' => 2
     ];
 
     const SALE_TYPE = [

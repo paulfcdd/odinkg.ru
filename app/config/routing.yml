@@ -9,6 +9,18 @@ home:
     path: '/'
     defaults: { _controller: AppBundle:Site:index }
 
+sale:
+   path: '/sales'
+   defaults: { _controller: AppBundle:Site:sale }
+
+sale.sort_by_type:
+    path: '/sales/{type}'
+    defaults: { _controller: AppBundle:Site:salesByType}
+
+sale.single_object:
+    path: '/sale/{type}/{object}'
+    defaults: { _controller: AppBundle:Site:singleObjectView }
+
 admin:
     path: '/admin'
     defaults: { _controller: AppBundle:Admin\Admin:dashboard }
@@ -53,10 +65,6 @@ fos_user_security_login:
 logout:
     path: '/logout'
     defaults: { _controller: FOSUserBundle:Security:logout }
-
-sale:
-   path: '/sales'
-   defaults: { _controller: AppBundle:Site:sale }
 
 rent:
    path: '/rent'

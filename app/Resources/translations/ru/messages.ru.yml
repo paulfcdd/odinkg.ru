@@ -13,3 +13,8 @@ admin:
         admin: 'Администратор'
     contact:
         label: 'Контакты'
+
+object:
+    by_type:
+        house: 'Дома/коттеджи'
+        plot: 'Участки'

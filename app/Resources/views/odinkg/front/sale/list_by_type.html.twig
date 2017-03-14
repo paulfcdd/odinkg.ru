@@ -9,7 +9,8 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="page-title-inner">
                         <div class="page-title-content">
-                            <h2>Продажа</h2>
+                            {% set type = 'object.by_type.'~ app.request.get('type') %}
+                            <h2>{{ type | trans }}</h2>
                             <p>Дома и земельные участки на продажу</p>
                         </div>
                     </div>
@@ -47,27 +48,29 @@
                         {% if objects is not empty %}
                             {% for object in objects %}
                                 <div class="col-sm-6" style="border: 1px solid black">
-                                    <article class="image-service wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.2s">
+                                    <article class="image-service wow fadeIn" data-wow-duration="0.7s"
+                                             data-wow-delay="0.2s">
                                         <div class="thumb">
                                             <a href="{{ path('sale.single_object', {
-                                                'type': object.getTypeById(object.type),
+                                                'type': app.request.get('type'),
                                                 'object': object.id
                                             }) }}">
                                                 <img width="700" height="450" src="assets/images/service-1.jpg" alt="">
                                                 <span class="overlay">
-                                                    <i class="icon-eye"></i>
-                                                </span>
+                        <i class="icon-eye"></i>
+                        </span>
                                             </a>
                                         </div>
                                         <div class="service-content">
                                             <h3>
                                                 <a href="{{ path('sale.single_object', {
-                                                    'type': object.getTypeById(object.type),
+                                                    'type': app.request.get('type'),
                                                     'object': object.id
                                                 }) }}">{{ object.title }}</a>
                                             </h3>
                                             <small>Тип: {{ object.getTypeById(object.type) }}</small>
-                                            <small class="pull-right">Статус: {{ object.getSaleStatusById(object.saleStatus) }}</small>
+                                            <small class="pull-right">
+                                                Статус: {{ object.getSaleStatusById(object.saleStatus) }}</small>
                                             <p>
                                                 {{ object.objectDescription }}
                                             </p>
