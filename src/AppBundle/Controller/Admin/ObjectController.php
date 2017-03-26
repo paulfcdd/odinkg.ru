@@ -12,9 +12,15 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ObjectController extends Controller
 {
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/admin/object", name="admin.object")
+     */
     public function listObjectAction(){
 
         return $this->render(':odinkg/admin/object:list.html.twig',[
@@ -25,6 +31,7 @@ class ObjectController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Route("/admin/object/add", name="admin.object.add")
      */
     public function addObjectAction(Request $request){
 
@@ -55,6 +62,7 @@ class ObjectController extends Controller
      * @param Object $object
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Route("/admin/object/{object}/edit", name="admin.object.edit")
      */
     public function editObjectAction(Object $object, Request $request) {
 
@@ -126,6 +134,7 @@ class ObjectController extends Controller
      * @param Request $request
      * @param Object $object
      * @return JsonResponse
+     * @Route("/admin/object/delete/{object}", name="admin.object.delete")
      */
     public function deleteObjectAction(Request $request, Object $object){
         if ($request->isMethod('post')) {
@@ -140,6 +149,7 @@ class ObjectController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/admin/object/bin", name="admin.object.bin")
      */
     public function objectBinAction () {
 
@@ -159,6 +169,7 @@ class ObjectController extends Controller
      * @param Request $request
      * @param Object $object
      * @return JsonResponse
+     * @Route("/admin/object/{object}/repair", name="admin.object.bin.repair")
      */
     public function repairObjectAction(Request $request, Object $object) {
         if ($request->isMethod('post')) {
@@ -173,6 +184,7 @@ class ObjectController extends Controller
      * @param Request $request
      * @param Object $object
      * @return JsonResponse
+     * @Route("/admin/object/{object}/remove", name="admin.object.bin.remove")
      */
     public function removeFromBinAction(Request $request, Object $object){
         if ($request->isMethod('post')) {
