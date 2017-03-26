@@ -49,19 +49,27 @@
                         {% if objects is not empty %}
                             {% for object in objects %}
 
-                                {{ dump(object.getImages()) }}
+                                {% if object.images is not empty %}
+                                    {% set firstImage = object.images|first %}
+                                    {% else %}
+                                        {% set firstImage = null %}
+                                {% endif %}
 
                                 {% set type = 'object.by_type.'~ object.getTypeById(object.type) %}
+                                {#{{ dump(firstImage) }}#}
                                 <div class="col-sm-6">
                                     <article class="image-service wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.2s">
-                                        <div class="thumb">
-                                            <a href="#" target="_blank">
-                                                <img width="700" height="450" src="assets/images/service-1.jpg" alt="">
-                                                <span class="overlay">
+
+                                        {% if firstImage is not null %}
+                                            <div class="thumb">
+                                                <a href="#" target="_blank">
+                                                    <img width="700" height="450" src="{{ asset('upload/objects/'~firstImage.name) }}" alt="">
+                                                    <span class="overlay">
                                                     <i class="icon-eye"></i>
                                                 </span>
-                                            </a>
-                                        </div>
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                         <div class="service-content">
                                             <h3>
                                                 <a href="{{ path('object.single', {
