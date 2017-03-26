@@ -2,3 +2,4 @@
 vendor/
 var/
 app/config/parameters.yml
+web/upload/**
