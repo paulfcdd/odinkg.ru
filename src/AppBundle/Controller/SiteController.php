@@ -80,19 +80,10 @@ class SiteController extends Controller
         return $this->render('odinkg/front/contact.html.twig');
     }
 
-    public function rentAction()
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getRepository(Object::class);
-
-        $query = $em->createQueryBuilder('o')
-            ->where('o.saleStatus = :status')
-            ->andWhere('o.dateRemoved IS NULL')
-            ->setParameter('status', 2)
-            ->getQuery();
-
-        return $this->render('odinkg/front/rent.html.twig', [
-            'objects' => $query->getResult()
-        ]);
+    /**
+     * @Route("/project/list", name="project.list")
+     */
+    public function showProjectListAction(){
+        return $this->render(':odinkg/front/project:project_list.html.twig');
     }
 }
