@@ -28,8 +28,14 @@
                         <div class="services-widget widget">
                             <h3 class="widget-title">Категории объектов</h3>
                             <ul>
-                                <li><a href="#">Дома/коттеджи</a></li>
-                                <li><a href="#">Участки</a></li>
+                                <li><a href="{{ path('object.show_by_type', {
+                                        'status': app.request.get('status'),
+                                        'type': 'house'
+                                    }) }}">Дома/коттеджи</a></li>
+                                <li><a href="{{ path('object.show_by_type', {
+                                        'status': app.request.get('status'),
+                                        'type': 'plot'
+                                    }) }}">Участки</a></li>
                             </ul>
                         </div> <!-- /.widget -->
                         <div class="contact-widget widget">
@@ -47,6 +53,9 @@
                     {#{{ dump(objects) }}#}
                     <div class="row">
                         {% if objects is not empty %}
+
+
+
                             {% for object in objects %}
 
                                 {% if object.images is not empty %}
@@ -56,13 +65,15 @@
                                 {% endif %}
 
                                 {% set type = 'object.by_type.'~ object.getTypeById(object.type) %}
-                                {#{{ dump(firstImage) }}#}
                                 <div class="col-sm-6">
                                     <article class="image-service wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.2s">
 
                                         {% if firstImage is not null %}
                                             <div class="thumb">
-                                                <a href="#" target="_blank">
+                                                <a href="{{ path('object.single', {
+                                                    'status': status,
+                                                    'object': object.id
+                                                }) }}" target="_blank">
                                                     <img width="700" height="450" src="{{ asset('upload/objects/'~firstImage.name) }}" alt="">
                                                     <span class="overlay">
                                                     <i class="icon-eye"></i>
