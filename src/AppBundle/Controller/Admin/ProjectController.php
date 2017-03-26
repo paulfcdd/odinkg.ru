@@ -3,15 +3,17 @@
 namespace AppBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class ProjectController
+class ProjectController extends Controller
 {
 
     /**
-     * @Route("")
+     * @Route("/admin/project", name="admin.project")
      */
-    public function showProjectListAction() {
+    public function listProjectAction() {
 
+        return $this->render(':odinkg/admin/project:project_list.html.twig');
     }
 
 }
