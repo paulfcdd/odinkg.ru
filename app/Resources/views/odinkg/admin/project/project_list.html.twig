@@ -1,0 +1,160 @@
+{% extends 'odinkg/admin/base.html.twig' %}
+
+{% block top_block %}
+    <h2>Проекты</h2>
+    <small>Список всех проектов</small>
+{% endblock %}
+
+{% block custom_css %}
+    <link href="{{ asset('admin/css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content_block %}
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Таблица проектов</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover object-list">
+                        <thead>
+                        <tr>
+                            <th>Назавание проекта</th>
+                            <th>Тип проекта</th>
+                            <th>Цена</th>
+                            <th>Статус</th>
+                            <th>Площадь</th>
+                            <th>Дата создания</th>
+                            <th>Изменить проект</th>
+                            <th>Удалить проект</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {#{% for object in objects %}#}
+                            {#{% if object.dateRemoved is null %}#}
+                                {#{% set type = 'object.by_type.'~ object.getTypeById(object.type) %}#}
+                                {#<tr id="object-{{ object.id }}">#}
+                                    {#<td>{{ object.title }}</td>#}
+                                    {#<td>{{ type | trans }}</td>#}
+                                    {#<td>#}
+                                        {#{% if object.type == 1  %}#}
+                                            {#${{ object.totalPrice }}#}
+                                        {#{% else %}#}
+                                            {#${{ object.pricePerUnit }} / м<sup>2</sup>#}
+                                        {#{% endif %}#}
+                                    {#</td>#}
+                                    {#<td>{{ object.getSaleStatusById(object.saleStatus) }}</td>#}
+                                    {#<td>#}
+                                        {#{% if object.type == 1  %}#}
+                                            {#{{ object.square }}  м<sup>2</sup>#}
+                                        {#{% else %}#}
+                                            {#{{ object.square }}  соток#}
+                                        {#{% endif %}</td>#}
+                                    {#<td>#}
+                                        {#{{ object.dateCreated | date('d.m.Y') }}#}
+                                    {#</td>#}
+                                    {#<td class="text-center">#}
+                                        {#<a class="btn btn-primary btn-block" href="{{ path('admin.object.edit', {#}
+                                            {#'object': object.id#}
+                                        {#}) }}">#}
+                                            {#<i class="fa fa-edit"></i>#}
+                                        {#</a>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<button class="btn btn-danger btn-block delete-object" data-objectId="{{ object.id }}">#}
+                                            {#<i class="fa fa-trash"></i>#}
+                                        {#</button>#}
+                                    {#</td>#}
+                                {#</tr>#}
+                            {#{% endif %}#}
+                        {#{% endfor %}#}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Назавание проекта</th>
+                            <th>Тип проекта</th>
+                            <th>Цена</th>
+                            <th>Статус</th>
+                            <th>Площадь</th>
+                            <th>Дата создания</th>
+                            <th>Изменить проект</th>
+                            <th>Удалить проект</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="ibox-footer">
+                <a class="btn btn-primary" href="{{ path('admin.object.add') }}">
+                    <i class="fa fa-plus"></i>&nbsp;Добавить новый проект
+                </a>
+                <a class="btn btn-info pull-right" href="{{ path('admin.object.bin') }}">
+                    <i class="fa fa-trash"></i> Корзина
+                </a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{{ asset('admin/js/plugins/dataTables/datatables.min.js') }}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('admin/js/inspinia.js') }}"></script>
+    <script src="{{ asset('admin/js/plugins/pace/pace.min.js') }}"></script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function () {
+            $('.object-list').DataTable({
+                pageLength: 10,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                oLanguage: {
+                    "sSearch": "{{ 'Фильтр' }}:",
+                    "sLengthMenu": "{{ 'Показывать _MENU_ проектов' }}",
+                    "sInfo": "{{ 'Показаны от _START_ до _END_ проектов из _TOTAL_' }}"
+                },
+                buttons: [
+                    {extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'Объекты Красная Горка'},
+                    {extend: 'pdf', title: 'Объекты Красная Горка'},
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+        });
+
+
+        $('.delete-object').on('click', function () {
+            var objectId = $(this).attr('data-objectId'),
+                urlPattern = '{{ path('admin.object.delete', {'object': '_object'}) }}';
+
+
+            $.ajax({
+                url: urlPattern.replace('_object', objectId),
+                method: 'POST',
+                success:function (data) {
+                    $('#object-'+data).remove();
+                }
+            });
+        })
+
+    </script>
+{% endblock %}

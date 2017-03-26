@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="page-title-wrapper">
+        <div class="page-title-bg" style="background-image: url('{{ asset('assets/images/service-s.jpg') }}');"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title-inner">
+                        <div class="page-title-content">
+                            <h2>{{ service.pageTitle }}</h2>
+                            <p>{{ service.pageSecondaryTitle }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /.page-titel-wrapper -->
+
+    <section class="services-listing page-content no-padding-bottom">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="sidebar">
+                        <div class="contact-widget widget">
+                            <h3 class="widget-title">Contact Info</h3>
+                            <div class="contact-info">
+                                <p><i class="fa fa-location-arrow"></i>2561 Round Table Drive Cincinnati, OH 45202</p>
+                                <p><i class="fa fa-phone"></i><a href="#">513-784-5268</a></p>
+                                <p><i class="fa fa-envelope"></i><a href="#">support@esmeth.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.col-md-3  -->
+
+                <div class="col-md-9 service-single">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <article class="image-service">
+                                <div class="service-content">
+                                    <h2>{{ service.pageTitle }}</h2>
+                                    <p>{{ service.pageSecondaryTitle }}</p>
+                                    <ul class="list-arrow">
+                                        <li>Nulla vel nisl et nisi bibendum rhoncus.</li>
+                                        <li>Ut nec felis id orci accumsan tincidunt quis vitae tortor.</li>
+                                        <li>Fusce faucibus purus ut erat malesuada scelerisque.</li>
+                                        <li>Sed vel lorem pretium, rutrum lorem nec, auctor felis.</li>
+                                        <li>Aliquam pulvinar ipsum a pulvinar egestas.</li>
+                                    </ul>
+                                    <p>Quisque quis aliquam mi, in pharetra nibh. Vestibulum gravida sapien et fringilla tincidunt. Phasellus dapibus facilisis scelerisque. Integer auctor lorem nulla, sit amet sodales arcu auctor ac. Sed at lectus pulvinar, interdum tellus cursus, fermentum augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed eros nulla, rhoncus id faucibus non, dapibus id nisi. Vestibulum interdum vel augue et consequat. Praesent mattis a tortor non lobortis.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div> <!-- /.row -->
+                </div> <!-- /.col-md-9 -->
+
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </section> <!-- /.service-listing -->
+
+    <div class="mid-space"></div>
+
+{% endblock %}

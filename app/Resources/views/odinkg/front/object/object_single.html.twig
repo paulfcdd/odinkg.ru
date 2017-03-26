@@ -1,0 +1,133 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="main-wrapper">
+
+        <div class="page-title-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>{{ object.title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="page-content single-project no-padding-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+
+                            {% set imageFirst = object.images|first %}
+
+                            {% for image in object.images %}
+                                {% if image.id == imageFirst.id %}
+                                    <div class="col-md-12">
+                                        <div class="image-holder">
+                                            <a href="{{ asset('upload/objects/'~image.name) }}" class="lightbox"  data-lightbox-gallery="gallery1">
+                                                <img src="{{ asset('upload/objects/'~image.name) }}" alt="{{ image.alt }}" title="{{ image.title }}">
+                                                <div class="project-overlay">
+													<span class="link-holder">
+														<i class="icon-eye"></i>
+													</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                        <div class="col-md-3">
+                                            <div class="image-holder">
+                                                <a href="{{ asset('upload/objects/'~image.name) }}" class="lightbox"  data-lightbox-gallery="gallery1">
+                                                    <img src="{{ asset('upload/objects/'~image.name) }}" alt="{{ image.alt }}" title="{{ image.title }}">
+                                                    <div class="project-overlay">
+													<span class="link-holder">
+														<i class="icon-eye"></i>
+													</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="project-info">
+                            <h4 class="accent">Объект номер {{ object.id }}</h4>
+                            <h2 class="project-title">{{ object.title }}</h2>
+                            <p>
+                                {{ object.objectDescription }}
+                            </p>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <th class="text-center" colspan="2">Данные об объекте</th>
+                                </tr>
+                                <tr>
+                                    <td>Шоссе</td>
+                                    <td>{{ object.highway }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Населенный пункт</td>
+                                    <td>{{ object.location }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Площадь</td>
+                                    <td>{{ object.square }} м<sup>2</sup></td>
+                                </tr>
+                                <tr>
+                                    <td>Цена</td>
+                                    <td>${{ object.totalPrice }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" colspan="2">Данные продавца</th>
+                                </tr>
+                                <tr>
+                                    <td>Имя</td>
+                                    <td>{{ object.contactName }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Телефон</td>
+                                    <td>{{ object.contactPhone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>E-mail</td>
+                                    <td>{{ object.contactEmail }} м<sup>2</sup></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-space"></div>
+            <div class="white-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="single-project-nav clearfix">
+                                <div class="prev">
+                                    <a href="#">
+                                        <span class="fa fa-angle-left"></span>
+                                    </a>
+                                </div>
+                                <div class="back-to">
+                                    <a href="#">
+                                        <span class="fa fa-th"></span>
+                                    </a>
+                                </div>
+                                <div class="next">
+                                    <a href="#">
+                                        <span class="fa fa-angle-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- /.page-content -->
+        <div class="mid-space"></div>
+    </div> <!-- /.main-wrapper -->
+{% endblock %}
