@@ -4,14 +4,15 @@ namespace AppBundle\Service;
 
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageUploader
 {
 
+    /** @var EntityManager $em */
     protected $em;
 
+    /** @var string $uploadDirectory */
     protected $uploadDirectory;
 
     /** @var  UploadedFile $file */

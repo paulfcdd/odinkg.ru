@@ -87,7 +87,7 @@ class ObjectController extends Controller
                         $image
                             ->setForeignKey($object->getId())
                             ->setEntity(Object::class)
-                            ->setName($fileName)
+                            ->setName($fileName.'.'.$photo['file']->getClientOriginalExtension())
                             ->setDescription($photo['description'])
                             ->setAlt(trim($photo['alt']))
                             ->setTitle(trim($photo['title']));
@@ -105,8 +105,20 @@ class ObjectController extends Controller
             return $this->redirectToRoute('admin.object');
         }
 
+        $images = $em->createQueryBuilder()
+            ->select('i')
+            ->from(Image::class, 'i')
+            ->where('i.entity = :entity')
+            ->andWhere('i.foreignKey = :foreignKey')
+            ->setParameters([
+                'entity' => Object::class,
+                'foreignKey' => $object->getId()
+            ])
+            ->getQuery();
+
         return $this->render(':odinkg/admin/object:add.html.twig', [
             'form' => $form->createView(),
+            'images' => $images->getResult(),
         ]);
     }
 
