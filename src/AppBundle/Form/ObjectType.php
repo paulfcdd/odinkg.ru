@@ -5,7 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Object;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{
-    ChoiceType, EmailType, IntegerType, NumberType, SubmitType, TextareaType, TextType
+    ChoiceType, CollectionType, EmailType, FileType, IntegerType, NumberType, SubmitType, TextareaType, TextType
 };
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +18,9 @@ class ObjectType extends AbstractType
             ->add('type', ChoiceType::class,[
                 'label' => 'Тип объекта',
                 'choices' => Object::TYPE,
+            ])
+            ->add('title', TextType::class, [
+                'label' => 'Название объекта',
             ])
             ->add('saleStatus', ChoiceType::class, [
                 'label' => 'Статус объекта',
@@ -66,8 +69,12 @@ class ObjectType extends AbstractType
                     'class' => 'btn btn-primary btn-block'
                 ]
             ])
-            ->add('title', TextType::class, [
-                'label' => 'Название объекта',
+            ->add('photos', CollectionType::class, [
+                'label' => false,
+                'mapped' => false,
+                'entry_type' => ImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true
             ]);
     }
 

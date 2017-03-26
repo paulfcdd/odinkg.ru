@@ -2,10 +2,12 @@
 
 namespace AppBundle\Controller\Admin;
 
-
+use AppBundle\Entity\Image;
 use AppBundle\Entity\Object;
 use AppBundle\Form\ObjectType;
+use AppBundle\Service\ImageUploader;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,22 +22,25 @@ class ObjectController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addObjectAction(Request $request){
 
-        $form = $this->createForm(ObjectType::class);
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
 
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ObjectType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            echo '<pre>';
-//            var_dump($form->getData());
-//            die;
+            $em->persist($form->getData()
+                ->setDateCreated(new \DateTime())
+            );
 
-           $em = $this->getDoctrine()->getManager();
-           $em->persist($form->getData()->setDateCreated(
-               \DateTime::createFromFormat('d.m.Y', date('d.m.Y'))
-           ));
            $em->flush();
 
             return $this->redirectToRoute('admin.object');
@@ -46,20 +51,55 @@ class ObjectController extends Controller
         ]);
     }
 
-
+    /**
+     * @param Object $object
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function editObjectAction(Object $object, Request $request) {
 
-        $form = $this->createForm(ObjectType::class);
+        /** @var EntityManager $em */
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
 
-        $form->setData($object);
-
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ObjectType::class)
+            ->setData($object)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $form->getData()->setDateUpdated(
-                \DateTime::createFromFormat('d.m.Y', date('d.m.Y'))
-            );
+
+            if ($form['photos']->getData()) {
+
+                foreach ($form['photos']->getData() as $photo) {
+
+                    $fileName = trim(strtolower(str_replace(' ', '_', ($photo['name']))));
+
+                    $uploader = $this->get('app.image_uploader')
+                        ->setDir('objects')
+                        ->setFile($photo['file'])
+                        ->setFileName($fileName)
+                        ->upload();
+
+                    if ($uploader) {
+                        $image = new Image();
+                        $image
+                            ->setForeignKey($object->getId())
+                            ->setEntity(Object::class)
+                            ->setName($fileName)
+                            ->setDescription($photo['description'])
+                            ->setAlt(trim($photo['alt']))
+                            ->setTitle(trim($photo['title']));
+                        $em->persist($image);
+                    }
+                }
+            }
+
+            $form
+                ->getData()
+                ->setDateUpdated(new \DateTime());
+
             $em->flush();
 
             return $this->redirectToRoute('admin.object');
@@ -70,6 +110,11 @@ class ObjectController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Object $object
+     * @return JsonResponse
+     */
     public function deleteObjectAction(Request $request, Object $object){
         if ($request->isMethod('post')) {
             $em = $this->getDoctrine()->getManager();
@@ -81,6 +126,9 @@ class ObjectController extends Controller
         }
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function objectBinAction () {
 
         /** @var EntityRepository $em */
@@ -95,6 +143,11 @@ class ObjectController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Object $object
+     * @return JsonResponse
+     */
     public function repairObjectAction(Request $request, Object $object) {
         if ($request->isMethod('post')) {
             $em = $this->getDoctrine()->getManager();
@@ -104,6 +157,11 @@ class ObjectController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param Object $object
+     * @return JsonResponse
+     */
     public function removeFromBinAction(Request $request, Object $object){
         if ($request->isMethod('post')) {
             $objectId = $object->getId();
