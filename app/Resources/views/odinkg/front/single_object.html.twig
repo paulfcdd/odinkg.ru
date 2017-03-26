@@ -1,0 +1,146 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="main-wrapper">
+        {#{{ dump(object) }}#}
+        <div class="page-title-wrapper">
+            <div class="page-title-bg" style="background-image: url('assets/images/service-s.jpg');"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="page-title-inner">
+                            <div class="page-title-content">
+                                <h2>{{ object.title }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.page-titel-wrapper -->
+
+        <section class="services-listing page-content no-padding-bottom">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="sidebar">
+                            <div class="contact-widget widget">
+                                <h3 class="widget-title">Информация о продавце</h3>
+                                <div class="contact-info">
+                                    <p><i class="fa fa-user"></i>{{ object.contactName }}</p>
+                                    <p><i class="fa fa-phone"></i><a href="#">{{ object.contactPhone }}</a></p>
+                                    <p><i class="fa fa-envelope"></i><a href="mailto:{{ object.contactEmail }}">{{ object.contactEmail }}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.col-md-3  -->
+
+                    <div class="col-md-9 service-single">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <article class="image-service">
+                                    <div class="thumb-single wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.4s">
+                                        <img width="960" height="625" src="assets/images/service-single.jpg" alt="">
+                                    </div>
+                                    <div class="service-content">
+                                        <h2>{{ object.title }}</h2>
+                                        <p>{{ object.objectDescription }}</p>
+                                        <h3>Детальная информация</h3>
+                                        <table class="table table-responsive">
+                                            <tr>
+                                                <th>Шоссе</th>
+                                                <td>{{ object.highway }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Коммуникации</th>
+                                                <td>{{ object.communications }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Населенный пункт</th>
+                                                <td>{{ object.location }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Площадь</th>
+                                                <td>{{ object.square }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Цена</th>
+                                                <td>{{ object.totalPrice }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </article>
+                            </div>
+                        </div> <!-- /.row -->
+                    </div> <!-- /.col-md-9 -->
+
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </section> <!-- /.service-listing -->
+
+        <div class="mid-space"></div>
+
+        {#<section class="section-block white-section">#}
+        {#<div class="container">#}
+        {#<div class="row">#}
+        {#<div class="col-md-offset-2 col-md-8 text-center section-title-wrapper">#}
+        {#<h2 class="section-title style-1">Projects From This Service</h2>#}
+        {#<p>Dolor sit amet, consectetur adipiscing elit. Etiam eleifend at eros a finibus.</p>#}
+        {#</div>#}
+        {#</div>#}
+        {#<div class="row projects-container">#}
+        {#<div class="col-sm-6 col-md-3">#}
+        {#<article class="project-entry-1 wow fadeInCdb" data-wow-duration="0.7s" data-wow-delay="0.2s">#}
+        {#<div class="image-holder">#}
+        {#<a href="project-single.html">#}
+        {#<img width="800" height="500" src="assets/images/project-1.jpg" alt="">#}
+        {#<h2 class="project-title">Opera House</h2>#}
+        {#<span class="project-overlay"></span>#}
+        {#<span class="overlay-triangle"></span>#}
+        {#</a>#}
+        {#</div>#}
+        {#</article>#}
+        {#</div>#}
+        {#<div class="col-sm-6 col-md-3">#}
+        {#<article class="project-entry-1 wow fadeInCdb" data-wow-duration="0.7s" data-wow-delay="0.5s">#}
+        {#<div class="image-holder">#}
+        {#<a href="project-single.html">#}
+        {#<img width="800" height="500" src="assets/images/project-2.jpg" alt="">#}
+        {#<h2 class="project-title">Modern Architecture</h2>#}
+        {#<span class="project-overlay"></span>#}
+        {#<span class="overlay-triangle"></span>#}
+        {#</a>#}
+        {#</div>#}
+        {#</article>#}
+        {#</div>#}
+        {#<div class="col-sm-6 col-md-3">#}
+        {#<article class="project-entry-1 wow fadeInCdb" data-wow-duration="0.7s" data-wow-delay="0.8s">#}
+        {#<div class="image-holder">#}
+        {#<a href="project-single.html">#}
+        {#<img width="800" height="500" src="assets/images/project-3.jpg" alt="">#}
+        {#<h2 class="project-title">Best Constructed</h2>#}
+        {#<span class="project-overlay"></span>#}
+        {#<span class="overlay-triangle"></span>#}
+        {#</a>#}
+        {#</div>#}
+        {#</article>#}
+        {#</div>#}
+        {#<div class="col-sm-6 col-md-3">#}
+        {#<article class="project-entry-1 wow fadeInCdb" data-wow-duration="0.7s" data-wow-delay="1.1s">#}
+        {#<div class="image-holder">#}
+        {#<a href="project-single.html">#}
+        {#<img width="800" height="500" src="assets/images/project-4.jpg" alt="">#}
+        {#<h2 class="project-title">Skyscraper</h2>#}
+        {#<span class="project-overlay"></span>#}
+        {#<span class="overlay-triangle"></span>#}
+        {#</a>#}
+        {#</div>#}
+        {#</article>#}
+        {#</div>#}
+        {#</div>#}
+        {#</div>#}
+        {#<div class="mid-space"></div>#}
+        {#</section>#}
+
+    </div> <!-- /.main-wrapper -->
+{% endblock %}

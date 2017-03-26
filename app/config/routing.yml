@@ -5,9 +5,13 @@ app:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-home:
-    path: '/'
-    defaults: { _controller: AppBundle:Site:index }
+admin:
+    path: '/admin'
+    defaults: { _controller: AppBundle:Admin\Admin:dashboard }
+
+#home:
+#    path: '/'
+#    defaults: { _controller: AppBundle:Site:index }
 
 fos_user_security_login:
     path: '/login'
@@ -25,33 +29,29 @@ not_found:
    path: '/404'
    defaults: { _controller: AppBundle:Site:notFound }
 
-sale:
-   path: '/sales'
-   defaults: { _controller: AppBundle:Site:sale }
+#sale:
+#   path: '/sales'
+#   defaults: { _controller: AppBundle:Site:sale }
+#
+#sale.sort_by_type:
+#    path: '/sales/{type}'
+#    defaults: { _controller: AppBundle:Site:salesByType}
+#
+#sale.single_object:
+#    path: '/sales/{type}/{object}'
+#    defaults: { _controller: AppBundle:Site:singleObjectView }
 
-sale.sort_by_type:
-    path: '/sales/{type}'
-    defaults: { _controller: AppBundle:Site:salesByType}
-
-sale.single_object:
-    path: '/sales/{type}/{object}'
-    defaults: { _controller: AppBundle:Site:singleObjectView }
-
-rent:
-   path: '/rent'
-   defaults: { _controller: AppBundle:Site:rent }
-
-rent.sort_by_type:
-   path: '/rent/{type}'
-   defaults: { _controller: AppBundle:Site:rentByType }
-
-rent.single_object:
-    path: '/rent/{type}/{object}'
-    defaults: { _controller: AppBundle:Site:singleObjectView }
-
-admin:
-    path: '/admin'
-    defaults: { _controller: AppBundle:Admin\Admin:dashboard }
+#rent:
+#   path: '/rent'
+#   defaults: { _controller: AppBundle:Site:rent }
+#
+#rent.sort_by_type:
+#   path: '/rent/{type}'
+#   defaults: { _controller: AppBundle:Site:rentByType }
+#
+#rent.single_object:
+#    path: '/rent/{type}/{object}'
+#    defaults: { _controller: AppBundle:Site:singleObjectView }
 
 admin.contact:
     path: '/admin/contact'

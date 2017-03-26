@@ -65,13 +65,13 @@
 					<div class="mobile-nav-content">
 						<ul>
 							<li>
-								<a href="{{ path('sale') }}">
+								<a href="{{ path('object.show_by_status', {'status': 'sale'}) }}">
                                     {{ 'header.sale' | trans }}
 								</a>
 							</li>
 
 							<li>
-								<a href="{{ path('rent') }}">
+								<a href="{{ path('object.show_by_status', {'status': 'rent'}) }}">
                                     {{ 'header.lease' | trans }}
 								</a>
 							</li>
@@ -109,14 +109,14 @@
 									<ul class="sf-menu">
 
 										<li>
-											<a href="{{ path('sale') }}">
-												{{ 'header.sale' | trans }}
+											<a href="{{ path('object.show_by_status', {'status': 'sale'}) }}">
+                                                {{ 'header.sale' | trans }}
 											</a>
 										</li>
 
 										<li>
-											<a href="{{ path('rent') }}">
-												{{ 'header.lease' | trans }}
+											<a href="{{ path('object.show_by_status', {'status': 'rent'}) }}">
+                                                {{ 'header.lease' | trans }}
 											</a>
 										</li>
 
