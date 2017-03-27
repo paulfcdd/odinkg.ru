@@ -1,0 +1,303 @@
+{% extends '::base.html.twig' %}
+
+{% set status = app.request.get('status')%}
+
+{% block content %}
+    <div class="main-wrapper">
+
+        <div class="page-title-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>Новости сайта</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content blog-standard">
+            <div class="container">
+                <div class="row">
+                    <!-- Blog Content -->
+                    <div class="col-md-8 col-sm-12">
+                        <div class="row">
+                            <div class="blog-masonry">
+                                <div class="col-sm-6 post-masonry">
+                                    <article class="post-entry">
+                                        <div class="post-image">
+                                            <a href="blog-single.html">
+                                                <img width="1100" height="630" src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">
+                                                <span class="filter-grayscale"></span>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+                                            <h4 class="post-title"><a href="blog-single.html">Life After the Handover – Interview with Hans Kristian</a></h4>
+                                            <div class="post-meta">
+                                                <span><i class="icon-user"></i> By <a href="blog-single.html">Esmet</a></span>
+                                                <span><a href="blog-single.html"><i class="icon-speech"></i> 3 Comments</a></span>
+                                            </div>
+                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam soluta ullam qui molestiae...</p>
+                                            <a href="blog-single.html">Continue Reading</a>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="col-sm-6 post-masonry">
+                                    <article class="post-entry">
+                                        <div class="post-image owl-slider">
+                                            <div>
+                                                <a href="blog-single.html">
+                                                    <img width="1100" height="630" src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">
+                                                    <span class="filter-grayscale"></span>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="blog-single.html">
+                                                    <img width="1100" height="630" src="assets/images/blog-l3.jpg" alt="">
+                                                    <span class="filter-grayscale"></span>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="blog-single.html">
+                                                    <img width="1100" height="630" src="assets/images/blog-l4.jpg" alt="">
+                                                    <span class="filter-grayscale"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="post-content">
+                                            <h4 class="post-title"><a href="blog-single.html">Gallery Post Format</a></h4>
+                                            <div class="post-meta">
+                                                <span><i class="icon-user"></i> By <a href="blog-single.html">Esmet</a></span>
+                                                <span><a href="blog-single.html"><i class="icon-speech"></i> 3 Comments</a></span>
+                                            </div>
+                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam soluta ullam qui molestiae...</p>
+                                            <a href="blog-single.html">Continue Reading</a>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="col-sm-6 post-masonry">
+                                    <article class="post-entry">
+                                        <div class="post-image video-content">
+                                            <iframe src="https://player.vimeo.com/video/24506451?title=0&amp;byline=0&amp;portrait=0&amp;color=4584be" width="800" height="450"></iframe>
+                                        </div>
+                                        <div class="post-content">
+                                            <h4 class="post-title"><a href="blog-single.html">Embed Video Content Here</a></h4>
+                                            <div class="post-meta">
+                                                <span><i class="icon-user"></i> By <a href="blog-single.html">Esmet</a></span>
+                                                <span><a href="blog-single.html"><i class="icon-speech"></i> 3 Comments</a></span>
+                                            </div>
+                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam soluta ullam qui molestiae...</p>
+                                            <a href="blog-single.html">Continue Reading</a>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="col-sm-6 post-masonry">
+                                    <article class="post-entry">
+                                        <div class="post-image">
+                                            <a href="blog-single.html">
+                                                <img width="1100" height="630" src="assets/images/blog-l5.jpg" alt="">
+                                                <span class="filter-grayscale"></span>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+                                            <h4 class="post-title"><a href="blog-single.html">Life After the Handover – Interview with Hans Kristian</a></h4>
+                                            <div class="post-meta">
+                                                <span><i class="icon-user"></i> By <a href="blog-single.html">Esmet</a></span>
+                                                <span><a href="blog-single.html"><i class="icon-speech"></i> 3 Comments</a></span>
+                                            </div>
+                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam soluta ullam qui molestiae...</p>
+                                            <a href="blog-single.html">Continue Reading</a>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="col-sm-6 post-masonry">
+                                    <article class="post-entry format-quote">
+                                        <div class="post-content">
+                                            <div class="quote-holder">
+                                                <h4 class="post-title"><a href="blog-single.html">"We shape our buildings; thereafter they shape us."</a></h4>
+                                                <div class="post-meta">
+                                                    <span><i class="icon-user"></i> By <a href="blog-single.html">Esmet</a></span>
+                                                    <span><a href="blog-single.html"><i class="icon-speech"></i> 3 Comments</a></span>
+                                                </div>
+                                                <p class="description">- Winston Churchill</p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="blog-pagination">
+                                    <ul>
+                                        <li><a href="#"><span class="fa fa-angle-left"></span></a></li>
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#"><span class="fa fa-angle-right"></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row -->
+                    </div>
+                    <!-- Sidebar -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="blog-sidebar">
+                            <div class="widget search-form">
+                                <h4 class="widget-title">Search</h4>
+                                <form method="get" id="searchform" action="#">
+                                    <input type="text" class="form-control" placeholder="Search" name="s" id="s">
+                                    <input type="submit" id="searchsubmit" value="U">
+                                </form>
+                            </div>
+                            <!-- widget -->
+                            <div class="widget latest-posts">
+                                <h4 class="widget-title">Latest Posts</h4>
+                                <ul>
+                                    <li><a href="#">Top 14 Most Common Mistakes</a><span>14 December, 2015</span></li>
+                                    <li><a href="#">Life After the Handover</a><span>14 December, 2015</span></li>
+                                    <li><a href="#">This is a Blog Post Quote</a><span>14 December, 2015</span></li>
+                                    <li><a href="#">Interview with Hans Kristian</a><span>14 December, 2015</span></li>
+                                </ul>
+                            </div>
+                            <!-- widget -->
+                            <div class="widget">
+                                <h4 class="widget-title">Projects</h4>
+                                <div class="small-projects clearfix">
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-1.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-2.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-3.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-4.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-5.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-6.jpg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- widget -->
+                            <div class="widget">
+                                <h4 class="widget-title">Categories</h4>
+                                <ul>
+                                    <li><a href="#">Decoration</a></li>
+                                    <li><a href="#">Interior</a></li>
+                                    <li><a href="#">Construction</a></li>
+                                    <li><a href="#">Architecture</a></li>
+                                    <li><a href="#">Engineer</a></li>
+                                    <li><a href="#">Wood Working</a></li>
+                                </ul>
+                            </div>
+                            <!-- widget -->
+                            <div class="widget">
+                                <h4 class="widget-title">Archives</h4>
+                                <ul>
+                                    <li><a href="#">September 2016</a></li>
+                                    <li><a href="#">August 2016</a></li>
+                                    <li><a href="#">July 2016</a></li>
+                                    <li><a href="#">June 2016</a></li>
+                                    <li><a href="#">May 2016</a></li>
+                                    <li><a href="#">April 2016</a></li>
+                                    <li><a href="#">March 2016</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.page-content -->
+
+        <footer class="site-footer">
+            <div class="widgetized-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="widget">
+                                <h3 class="widget-title">About Us</h3>
+                                <p>Lorem ipsum dolor sit amet, conser sicing elit. Excepturi possimus odit repudiandae corporis molestias, dicta, sunt quibusdam et esse unde.</p>
+                            </div>
+                        </div> <!-- /.col-md-3 -->
+                        <div class="col-sm-6 col-md-3">
+                            <div class="widget">
+                                <h3 class="widget-title">Finished Projects</h3>
+                                <div class="small-projects clearfix">
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-1.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-2.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-3.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-4.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-5.jpg" alt="">
+                                    </a>
+                                    <a href="project-single.html" class="thumb">
+                                        <img src="assets/images/small-6.jpg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div> <!-- /.col-md-3 -->
+                        <div class="col-sm-6 col-md-3">
+                            <div class="widget">
+                                <h3 class="widget-title">Quick Links</h3>
+                                <div class="quick-links row">
+                                    <div class="col-sm-6">
+                                        <ul>
+                                            <li><a href="#">Home</a></li>
+                                            <li><a href="#">Services</a></li>
+                                            <li><a href="#">FAQs</a></li>
+                                            <li><a href="#">Projects</a></li>
+                                            <li><a href="#">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <ul>
+                                            <li><a href="#">Help</a></li>
+                                            <li><a href="#">Support</a></li>
+                                            <li><a href="#">Testimonials</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- /.col-md-3 -->
+                        <div class="col-sm-6 col-md-3">
+                            <div class="widget">
+                                <h3 class="widget-title">Contact Info</h3>
+                                <div class="contact-info">
+                                    <p><i class="fa fa-location-arrow"></i>2561 Round Table Drive Cincinnati, OH 45202</p>
+                                    <p><i class="fa fa-phone"></i><a href="#">513-784-5268</a></p>
+                                    <p><i class="fa fa-envelope"></i><a href="#">support@esmeth.com</a></p>
+                                </div>
+                            </div>
+                        </div> <!-- /.col-md-3 -->
+                    </div> <!-- /.row -->
+                </div> <!-- /.container -->
+            </div> <!-- /.widgetized-area -->
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            &copy; Construction &amp; Architecture Premium Template
+                        </div>
+                    </div> <!-- /.row -->
+                </div> <!-- /.container -->
+            </div> <!-- /.copyright -->
+        </footer>
+
+    </div> <!-- /.main-wrapper -->
+{% endblock %}
