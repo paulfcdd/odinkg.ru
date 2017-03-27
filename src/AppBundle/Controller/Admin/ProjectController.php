@@ -9,7 +9,7 @@ class ProjectController extends Controller
 {
 
     /**
-     * @Route("/admin/project", name="admin.project")
+     * @Route("/dashboard/project", name="admin.project")
      */
     public function listProjectAction() {
 

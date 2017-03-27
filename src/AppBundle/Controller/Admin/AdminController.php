@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/admin", name="admin")
+     * @Route("/dashboard", name="admin")
      */
     public function dashboardAction(){
 
