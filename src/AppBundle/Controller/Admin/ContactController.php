@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/admin/contact", name="admin.contact")
+     * @Route("/dashboard/contact", name="admin.contact")
      */
     public function manageAction() {
 

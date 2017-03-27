@@ -31,15 +31,15 @@ security:
             anonymous: true
 
         admin:
-            pattern: ^/admin(.*)
+            pattern: ^/dashboard(.*)
             form_login:
                 provider: fos_userbundle
-                login_path: /admin/login
-                check_path: /admin/login_check
-                default_target_path: /admin
+                login_path: /dashboard/login
+                check_path: /dashboard/login_check
+                default_target_path: /dashboard
             logout:
-                path: /admin/logout
-                target: /admin/login
+                path: /dashboard/logout
+                target: /dashboard/login
             anonymous: true
             context: application
 
@@ -47,9 +47,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/resetting$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/profile/, role: ROLE_USER }
-#        - { path: ^/user/, role: ROLE_USER }
-        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/dashboard/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/dashboard/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/dashboard, role: ROLE_ADMIN }
