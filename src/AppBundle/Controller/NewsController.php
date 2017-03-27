@@ -11,6 +11,7 @@ class NewsController extends Controller
 {
     /**
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/news", name="news.list")
      */
     public function newsListPage(Request $request){

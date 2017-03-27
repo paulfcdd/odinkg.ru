@@ -78,7 +78,7 @@
 							</li>
 
 							<li>
-								<a href="home.html">
+								<a href="#">
                                     {{ 'header.projects' | trans }}
 								</a>
 							</li>
@@ -130,11 +130,9 @@
 										<li>
 											<a href="#">Услуги</a>
 											<ul class="sub-menu">
-												<li><a href="services.html">All Services</a></li>
-												<li><a href="service-single.html">Construction</a></li>
-												<li><a href="service-single.html">General Contracting</a></li>
-												<li><a href="service-single.html">Isolation</a></li>
-												<li><a href="service-single.html">Electric Welding</a></li>
+												<li><a href="#">Пример 1</a></li>
+												<li><a href="#">Пример 2</a></li>
+												<li><a href="#">Пример 3</a></li>
 											</ul>
 										</li>
 
@@ -156,26 +154,6 @@
                                                 {{ 'header.contacts' | trans }}
 											</a>
 										</li>
-										{#<li>#}
-
-											{#{% if app.user %}#}
-												{#{% if app.user.roles[0] == 'ROLE_SUPER_ADMIN' %}#}
-													{#<a href="{{ path('admin') }}">#}
-														{#Админ#}
-													{#</a>#}
-												{#{% endif %}#}
-												{#{% else %}#}
-													{#<a href="{{ path('fos_user_security_login') }}">#}
-                                                        {#{{ 'header.login' | trans }}#}
-													{#</a>#}
-											{#{% endif %}#}
-										{#</li>#}
-
-										{#<li>#}
-											{#<a href="">#}
-                                                {#{{ 'header.register' | trans }}#}
-											{#</a>#}
-										{#</li>#}
 									</ul>
 								</nav>
 								{#<div class="social">#}
