@@ -20,6 +20,9 @@
     <link href="{{ asset('admin/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('admin/css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+
+
     {% block custom_css %}{% endblock %}
 </head>
 
@@ -57,21 +60,28 @@
                     </div>
                 </li>
 
-                <li>
+                <li id="contact">
                     <a href="{{ path('admin.contact') }}">
                         <i class="fa fa-th-large"></i>
                         <span class="nav-label">{{ 'admin.contact.label' | trans }}</span>
                     </a>
                 </li>
 
-                <li>
+                <li id="object">
                     <a href="{{ path('admin.object') }}"><i class="fa fa-home"></i> <span
                                 class="nav-label">Объекты</span></a>
                 </li>
 
-                <li>
-                    <a href="{{ path('admin.project') }}"><i class="fa fa-briefcase"></i> <span
-                                class="nav-label">Проекты</span></a>
+                <li id="project">
+                    <a href="{{ path('admin.project') }}">
+                        <i class="fa fa-briefcase"></i><span class="nav-label">Проекты</span>
+                    </a>
+                </li>
+
+                <li id="news">
+                    <a href="{{ path('admin.news') }}">
+                        <i class="fa fa-newspaper-o"></i><span class="nav-label">Новости</span>
+                    </a>
                 </li>
 
                 {#<li>#}
@@ -239,6 +249,60 @@
 <script src="{{ asset('admin/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('admin/js/inspinia.js') }}"></script>
 <script src="{{ asset('admin/js/plugins/pace/pace.min.js') }}"></script>
+<script src="{{ asset('admin/js/plugins/dataTables/datatables.min.js') }}"></script>
+<!-- Custom and plugin javascript -->
+<script src="{{ asset('admin/js/inspinia.js') }}"></script>
+<script src="{{ asset('admin/js/plugins/pace/pace.min.js') }}"></script>
+
+
+<script>
+    /*INIT DATATABLE FOR EACH TABLE WITH CLASS smartTable*/
+    $(document).ready(function () {
+
+        var route = '{{ app.request.get('_route') }}',
+            currentPage = route.replace('admin.', '');
+
+        $('#'+currentPage).toggleClass('active');
+
+        $('.smartTable').DataTable({
+            pageLength: 10,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+            oLanguage: {
+                "sSearch": "{{ 'Фильтр' }}:",
+                "sLengthMenu": "{{ 'Показывать _MENU_ объектов' }}",
+                "sInfo": "{{ 'Показаны от _START_ до _END_ объектов из _TOTAL_' }}",
+                "sZeroRecords": "Нет данных для отображения",
+                oPaginate: {
+                    "sNext": "Следующая",
+                    "sPrevious": "Предыдущая"
+                }
+            },
+            buttons: [
+                {extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'Объекты Красная Горка'},
+                {extend: 'pdf', title: 'Объекты Красная Горка'},
+
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+    });
+</script>
+
+
 {% block custom_js %}
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwVpNQB9COvDUNPpbn7YOUtiuDpzum18Y&callback=initMap"
