@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block custom_css %}
-    <link href="{{ asset('admin/css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content_block %}
@@ -18,7 +17,7 @@
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover object-list">
+                    <table class="table table-striped table-bordered table-hover smartTable">
                         <thead>
                         <tr>
                             <th>Назавание проекта</th>
@@ -100,47 +99,7 @@
 {% endblock %}
 
 {% block custom_js %}
-    <script src="{{ asset('admin/js/plugins/dataTables/datatables.min.js') }}"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="{{ asset('admin/js/inspinia.js') }}"></script>
-    <script src="{{ asset('admin/js/plugins/pace/pace.min.js') }}"></script>
-
-    <!-- Page-Level Scripts -->
     <script>
-        $(document).ready(function () {
-            $('.object-list').DataTable({
-                pageLength: 10,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                oLanguage: {
-                    "sSearch": "{{ 'Фильтр' }}:",
-                    "sLengthMenu": "{{ 'Показывать _MENU_ проектов' }}",
-                    "sInfo": "{{ 'Показаны от _START_ до _END_ проектов из _TOTAL_' }}"
-                },
-                buttons: [
-                    {extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'Объекты Красная Горка'},
-                    {extend: 'pdf', title: 'Объекты Красная Горка'},
-
-                    {
-                        extend: 'print',
-                        customize: function (win) {
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                        }
-                    }
-                ]
-
-            });
-
-        });
-
 
         $('.delete-object').on('click', function () {
             var objectId = $(this).attr('data-objectId'),
