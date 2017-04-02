@@ -21,6 +21,7 @@
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
 
     <link href="{{ asset('admin/css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bower_components/summernote/dist/summernote.css') }}" rel="stylesheet">
 
 
     {% block custom_css %}{% endblock %}
@@ -253,7 +254,8 @@
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('admin/js/inspinia.js') }}"></script>
 <script src="{{ asset('admin/js/plugins/pace/pace.min.js') }}"></script>
-
+<script src="{{ asset('bower_components/summernote/dist/summernote.js') }}"></script>
+<script src="{{ asset('bower_components/summernote/dist/lang/summernote-ru-RU.min.js') }}"></script>
 
 <script>
     /*INIT DATATABLE FOR EACH TABLE WITH CLASS smartTable*/
@@ -298,6 +300,24 @@
             ]
 
         });
+
+        $('.news-editor').summernote({
+            lang: 'ru-RU',
+            height: 300,
+            callbacks: {
+                onImageUpload: function (image) {
+                   $.ajax({
+                       method: 'post',
+                       url: '{{ path('test.test') }}',
+                       data: image,
+                       success: function (data) {
+                           console.log(data);
+                       }
+                   })
+                }
+            }
+        });
+
 
     });
 </script>

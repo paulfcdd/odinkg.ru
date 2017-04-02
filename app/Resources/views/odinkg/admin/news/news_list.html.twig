@@ -14,7 +14,7 @@
 
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Все </h5>
+                <h5>Все новости</h5>
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
@@ -27,47 +27,32 @@
                             <th>Автор</th>
                             <th>Дата создания</th>
                             <th>Дата изменения</th>
+                            <th>Действия</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {#{% for object in objects %}#}
-                            {#{% if object.dateRemoved is null %}#}
-                                {#{% set type = 'object.by_type.'~ object.getTypeById(object.type) %}#}
-                                {#<tr id="object-{{ object.id }}">#}
-                                    {#<td>{{ object.title }}</td>#}
-                                    {#<td>{{ type | trans }}</td>#}
-                                    {#<td>#}
-                                        {#{% if object.type == 1  %}#}
-                                            {#${{ object.totalPrice }}#}
-                                        {#{% else %}#}
-                                            {#${{ object.pricePerUnit }} / м<sup>2</sup>#}
-                                        {#{% endif %}#}
-                                    {#</td>#}
-                                    {#<td>{{ object.getSaleStatusById(object.saleStatus) }}</td>#}
-                                    {#<td>#}
-                                        {#{% if object.type == 1  %}#}
-                                            {#{{ object.square }}  м<sup>2</sup>#}
-                                        {#{% else %}#}
-                                            {#{{ object.square }}  соток#}
-                                        {#{% endif %}</td>#}
-                                    {#<td>#}
-                                        {#{{ object.dateCreated | date('d.m.Y') }}#}
-                                    {#</td>#}
-                                    {#<td class="text-center">#}
-                                        {#<a class="btn btn-primary btn-block" href="{{ path('admin.object.edit', {#}
-                                            {#'object': object.id#}
-                                        {#}) }}">#}
-                                            {#<i class="fa fa-edit"></i>#}
-                                        {#</a>#}
-                                    {#</td>#}
-                                    {#<td>#}
-                                        {#<button class="btn btn-danger btn-block delete-object" data-objectId="{{ object.id }}">#}
-                                            {#<i class="fa fa-trash"></i>#}
-                                        {#</button>#}
-                                    {#</td>#}
-                                {#</tr>#}
-                            {#{% endif %}#}
-                        {#{% endfor %}#}
+                        {% for _news in news %}
+                            <tr>
+                                <td>{{ _news.id }}</td>
+                                <td>{{ _news.title }}</td>
+                                <td>{{ _news.content| striptags | slice(0, 150) }}</td>
+                                <td>{{ _news.author }}</td>
+                                <td>{{ _news.dateCreated|date('d.m.Y') }}</td>
+                                <td></td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a href="{{ path('admin.news.edit', {
+                                            'news': _news.id
+                                        }) }}" type="button" class="btn btn-success">
+                                            <span class="fa fa-edit"></span>
+                                        </a>
+                                        <a href="#" type="button" class="btn btn-danger">
+                                            <span class="fa fa-trash"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                         <tfoot>
                         <tr>
@@ -77,13 +62,14 @@
                             <th>Автор</th>
                             <th>Дата создания</th>
                             <th>Дата изменения</th>
+                            <th>Действия</th>
                         </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
             <div class="ibox-footer">
-                <a class="btn btn-primary" href="{{ path('admin.news.manage') }}">
+                <a class="btn btn-primary" href="{{ path('admin.news.add') }}">
                     <i class="fa fa-plus"></i>&nbsp;Добавить новость
                 </a>
                 <a class="btn btn-info pull-right" href="{{ path('admin.object.bin') }}">

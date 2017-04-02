@@ -20,6 +20,10 @@ class NewsType extends AbstractType
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Содержание новости'
+            ])
+            ->add('image', ImageType::class, [
+                'label' => 'Иллюстрация к новости',
+                'mapped' => false,
             ]);
     }
 

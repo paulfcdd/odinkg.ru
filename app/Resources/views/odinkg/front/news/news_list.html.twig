@@ -15,6 +15,8 @@
             </div>
         </div>
 
+        {#{{ dump(news) }}#}
+
         <div class="page-content blog-standard">
             <div class="container">
                 <div class="row">
@@ -22,58 +24,93 @@
                     <div class="col-md-8 col-sm-12">
                         <div class="row">
                             <div class="blog-masonry">
-                                <div class="col-sm-6 post-masonry">
-                                    <article class="post-entry">
-                                        <div class="post-image">
-                                            <a href="#">
-                                                <img width="1100" height="630" src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">
-                                                <span class="filter-grayscale"></span>
-                                            </a>
-                                        </div>
-                                        <div class="post-content">
-                                            <h4 class="post-title"><a href="#">Новость 1</a></h4>
-                                            <div class="post-meta">
-                                                <span><i class="icon-user"></i> Автор: <a href="$">Админ</a></span>
-                                                <span><a href="№"><i class="icon-speech"></i> 3 комментария</a></span>
-                                            </div>
-                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam soluta ullam qui molestiae...</p>
-                                            <a href="№">Читать дальше</a>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="col-sm-6 post-masonry">
-                                    <article class="post-entry">
-                                        <div class="post-image owl-slider">
-                                            <div>
-                                                <a href="#">
-                                                    <img width="1100" height="630" src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">
-                                                    <span class="filter-grayscale"></span>
-                                                </a>
-                                            </div>
-                                            <div>
-                                                <a href="#">
-                                                    <img width="1100" height="630" src="assets/images/blog-l3.jpg" alt="">
-                                                    <span class="filter-grayscale"></span>
-                                                </a>
-                                            </div>
-                                            <div>
-                                                <a href="#">
-                                                    <img width="1100" height="630" src="assets/images/blog-l4.jpg" alt="">
-                                                    <span class="filter-grayscale"></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="post-content">
-                                            <h4 class="post-title"><a href="#">Новость 2</a></h4>
-                                            <div class="post-meta">
-                                                <span><i class="icon-user"></i> Автор: <a href="#">Админ</a></span>
-                                                <span><a href="#"><i class="icon-speech"></i> 3 комментария</a></span>
-                                            </div>
-                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam soluta ullam qui molestiae...</p>
-                                            <a href="#">Читать дальше</a>
-                                        </div>
-                                    </article>
-                                </div>
+                              {% for item in news %}
+                                  {#{{ dump(item.content|length) }}#}
+                                  {#{{ dump(item.content|striptags|length) }}#}
+                                  <div class="col-sm-6 post-masonry">
+                                      <article class="post-entry">
+                                          <div class="post-image">
+                                              <a href="#">
+                                                  <img width="1100" height="630"
+                                                       src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">
+                                                  <span class="filter-grayscale"></span>
+                                              </a>
+                                          </div>
+                                          <div class="post-content">
+                                              <h4 class="post-title">
+                                                  <a href="#">
+                                                      {{ item.title }}
+                                                  </a>
+                                              </h4>
+                                              <div class="post-meta">
+                                                  <span><i class="icon-user"></i> Автор: <a href="#">{{ item.author.username }}</a></span>
+                                                  <span><a href="#"><i class="icon-calendar"></i>{{ item.dateCreated|date('d.m.Y') }}</a></span>
+                                              </div>
+                                              <div class="post-text" data-charlimit="150">
+                                                  {{ item.content | raw }}
+                                              </div>
+                                              <a href="#">Читать дальше</a>
+                                          </div>
+                                      </article>
+                                  </div>
+                              {% endfor %}
+                                {#<div class="col-sm-6 post-masonry">#}
+                                    {#<article class="post-entry">#}
+                                        {#<div class="post-image">#}
+                                            {#<a href="#">#}
+                                                {#<img width="1100" height="630"#}
+                                                     {#src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">#}
+                                                {#<span class="filter-grayscale"></span>#}
+                                            {#</a>#}
+                                        {#</div>#}
+                                        {#<div class="post-content">#}
+                                            {#<h4 class="post-title"><a href="#">Новость 1</a></h4>#}
+                                            {#<div class="post-meta">#}
+                                                {#<span><i class="icon-user"></i> Автор: <a href="#">Админ</a></span>#}
+                                                {#<span><a href="#"><i class="icon-speech"></i> 3 комментария</a></span>#}
+                                            {#</div>#}
+                                            {#<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing#}
+                                                {#elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam#}
+                                                {#soluta ullam qui molestiae...</p>#}
+                                            {#<a href="#">Читать дальше</a>#}
+                                        {#</div>#}
+                                    {#</article>#}
+                                {#</div>#}
+
+                                {#<div class="col-sm-6 post-masonry">#}
+                                    {#<article class="post-entry">#}
+                                        {#<div class="post-image owl-slider">#}
+                                            {#<div>#}
+                                                {#<a href="#">#}
+                                                    {#<img width="1100" height="630" src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">#}
+                                                    {#<span class="filter-grayscale"></span>#}
+                                                {#</a>#}
+                                            {#</div>#}
+                                            {#<div>#}
+                                                {#<a href="#">#}
+                                                    {#<img width="1100" height="630" src="assets/images/blog-l3.jpg" alt="">#}
+                                                    {#<span class="filter-grayscale"></span>#}
+                                                {#</a>#}
+                                            {#</div>#}
+                                            {#<div>#}
+                                                {#<a href="#">#}
+                                                    {#<img width="1100" height="630" src="assets/images/blog-l4.jpg" alt="">#}
+                                                    {#<span class="filter-grayscale"></span>#}
+                                                {#</a>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                        {#<div class="post-content">#}
+                                            {#<h4 class="post-title"><a href="#">Новость 2</a></h4>#}
+                                            {#<div class="post-meta">#}
+                                                {#<span><i class="icon-user"></i> Автор: <a href="#">Админ</a></span>#}
+                                                {#<span><a href="#"><i class="icon-speech"></i> 3 комментария</a></span>#}
+                                            {#</div>#}
+                                            {#<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam soluta ullam qui molestiae...</p>#}
+                                            {#<a href="#">Читать дальше</a>#}
+                                        {#</div>#}
+                                    {#</article>#}
+                                {#</div>#}
+
                             </div>
                         </div>
                         <!-- row -->
@@ -168,4 +205,36 @@
             </div>
         </div> <!-- /.page-content -->
     </div> <!-- /.main-wrapper -->
+{% endblock %}
+
+{% block customjs %}
+    <script>
+        $(document).ready(function () {
+            var showChar = '',
+                ellipsesText = "...";
+
+            $('.post-text').each(function() {
+                var content = $(this).text();
+                showChar = $(this).attr('data-charlimit');
+
+                if(content.length > showChar) {
+
+                    var showPart = content.substr(0, showChar),
+                        hidePart = content.substr(showChar, content.length - showChar);
+
+                    var html = showPart + '...';
+
+                    $(this).html(html);
+                }
+
+            });
+
+//            var foo = $('.post-text');
+//
+//            $.each(foo, function (key, val) {
+//                console.log($(val).text());
+//            })
+
+        })
+    </script>
 {% endblock %}

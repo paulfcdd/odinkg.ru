@@ -35,14 +35,14 @@ class News
     private $dateUpdated;
 
     /**
-     * @var integer
-     * @ORM\Column(name="author", type="integer", length=11)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */
     private $author;
 
     /**
      * @var string
-     * @ORM\Column(name="content", type="string", length=1000)
+     * @ORM\Column(name="content", type="string", length=2000)
      */
     private $content;
 
@@ -65,11 +65,13 @@ class News
     /**
      * Set dateCreated
      *
-     * @return $this
+     * @param \DateTime $dateCreated
+     *
+     * @return News
      */
-    public function setDateCreated()
+    public function setDateCreated($dateCreated)
     {
-        $this->dateCreated = new \DateTime();
+        $this->dateCreated = $dateCreated;
 
         return $this;
     }
@@ -87,11 +89,13 @@ class News
     /**
      * Set dateUpdated
      *
-     * @return $this
+     * @param \DateTime $dateUpdated
+     *
+     * @return News
      */
-    public function setDateUpdated()
+    public function setDateUpdated($dateUpdated)
     {
-        $this->dateUpdated = new \DateTime();
+        $this->dateUpdated = $dateUpdated;
 
         return $this;
     }
