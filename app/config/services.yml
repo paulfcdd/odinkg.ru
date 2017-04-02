@@ -12,3 +12,7 @@ services:
         class: AppBundle\Listener\ImageRelationSubscriber
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    app.crudable:
+        class: AppBundle\Service\Crudable
+        arguments: ["@doctrine.orm.entity_manager"]
