@@ -15,4 +15,4 @@ services:
 
     app.crudable:
         class: AppBundle\Service\Crudable
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager", "@app.image_uploader"]

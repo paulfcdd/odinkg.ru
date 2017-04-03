@@ -303,19 +303,7 @@
 
         $('.news-editor').summernote({
             lang: 'ru-RU',
-            height: 300,
-            callbacks: {
-                onImageUpload: function (image) {
-                   $.ajax({
-                       method: 'post',
-                       url: '{{ path('test.test') }}',
-                       data: image,
-                       success: function (data) {
-                           console.log(data);
-                       }
-                   })
-                }
-            }
+            height: 300
         });
 
 
