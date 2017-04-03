@@ -128,8 +128,23 @@ class Crudable
         }
     }
 
-    public function deleteToBin() {
 
+    /**
+     * @return bool
+     */
+    public function delete() {
+
+        $data = $this->getData();
+
+        if ($data->getDateRemoved()) {
+            $this->em->remove($data);
+        } else {
+            $data->setDateRemoved(new \DateTime());
+        }
+
+        $this->em->flush();
+
+        return true;
     }
 
     /**

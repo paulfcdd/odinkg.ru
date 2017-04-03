@@ -32,7 +32,7 @@
                         </thead>
                         <tbody>
                         {% for _news in news %}
-                            <tr>
+                            <tr id="object-{{ _news.id }}">
                                 <td>{{ _news.id }}</td>
                                 <td>{{ _news.title }}</td>
                                 <td>{{ _news.content| striptags | slice(0, 150) }}</td>
@@ -46,9 +46,9 @@
                                         }) }}" type="button" class="btn btn-success">
                                             <span class="fa fa-edit"></span>
                                         </a>
-                                        <a href="#" type="button" class="btn btn-danger">
+                                        <button class="btn btn-danger delete-action" data-id="{{ _news.id }}">
                                             <span class="fa fa-trash"></span>
-                                        </a>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -85,16 +85,16 @@
 
     <script>
 
-        $('.delete-object').on('click', function () {
-            var objectId = $(this).attr('data-objectId'),
-                urlPattern = '{{ path('admin.object.delete', {'object': '_object'}) }}';
+        $('.delete-action').on('click', function () {
+            var id = $(this).attr('data-id'),
+                urlPattern = '{{ path('admin.news.delete', {'news': '_news'}) }}';
 
 
             $.ajax({
-                url: urlPattern.replace('_object', objectId),
+                url: urlPattern.replace('_news', id),
                 method: 'POST',
-                success:function (data) {
-                    $('#object-'+data).remove();
+                success: function () {
+                    $('#object-'+id).remove();
                 }
             });
         })

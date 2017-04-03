@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\{
-    Response, Request
+    JsonResponse, Response, Request
 };
 
 class NewsController extends Controller
@@ -30,7 +30,7 @@ class NewsController extends Controller
     public function newsPageAction(Request $request)
     {
         return $this->render(':odinkg/admin/news:news_list.html.twig', [
-            'news' => $this->getDoctrine()->getRepository(News::class)->findAll(),
+            'news' => $this->getDoctrine()->getRepository(News::class)->findByDateRemoved(null)
         ]);
     }
 
@@ -98,10 +98,18 @@ class NewsController extends Controller
     }
 
     /**
+     * @param News $news
      * @Route("/dashboard/news/delete/{news}", name="admin.news.delete")
      * @Method("POST")
+     * @return JsonResponse
      */
-    public function deleteNewsAction(Request $request, News $news){
+    public function deleteNewsAction(News $news)
+    {
+        $this
+            ->get('app.crudable')
+            ->setData($news)
+            ->delete();
 
+        return JsonResponse::create();
     }
 }

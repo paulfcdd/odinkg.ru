@@ -47,6 +47,12 @@ class News
     private $content;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(name="date_removed", type="datetime", nullable=true)
+     */
+    private $dateRemoved;
+
+    /**
      * @var string
      * @ORM\Column()
      */
@@ -180,5 +186,29 @@ class News
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set dateRemoved
+     *
+     * @param \DateTime $dateRemoved
+     *
+     * @return News
+     */
+    public function setDateRemoved($dateRemoved)
+    {
+        $this->dateRemoved = $dateRemoved;
+
+        return $this;
+    }
+
+    /**
+     * Get dateRemoved
+     *
+     * @return \DateTime
+     */
+    public function getDateRemoved()
+    {
+        return $this->dateRemoved;
     }
 }
