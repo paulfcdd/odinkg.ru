@@ -35,7 +35,7 @@ class News
     private $dateUpdated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="news")
      * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */
     private $author;
@@ -57,6 +57,11 @@ class News
      * @ORM\Column()
      */
     private $title;
+
+    public function __construct()
+    {
+        $this->dateCreated = new \DateTime();
+    }
 
     /**
      * Get id

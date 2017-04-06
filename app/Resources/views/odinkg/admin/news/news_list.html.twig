@@ -41,7 +41,7 @@
                                 <td></td>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <a href="{{ path('admin.news.edit', {
+                                        <a href="{{ path('admin.news.manage', {
                                             'news': _news.id
                                         }) }}" type="button" class="btn btn-success">
                                             <span class="fa fa-edit"></span>
@@ -69,10 +69,10 @@
                 </div>
             </div>
             <div class="ibox-footer">
-                <a class="btn btn-primary" href="{{ path('admin.news.add') }}">
+                <a class="btn btn-primary" href="{{ path('admin.news.manage') }}">
                     <i class="fa fa-plus"></i>&nbsp;Добавить новость
                 </a>
-                <a class="btn btn-info pull-right" href="{{ path('admin.object.bin') }}">
+                <a class="btn btn-info pull-right" href="{{ path('admin.news.bin') }}">
                     <i class="fa fa-trash"></i> Корзина
                 </a>
             </div>

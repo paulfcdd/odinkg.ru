@@ -15,4 +15,5 @@ class AdminController extends Controller
 
         return $this->render('odinkg/admin/dashboard.html.twig');
     }
+
 }

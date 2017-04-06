@@ -108,6 +108,7 @@ class Crudable
     public function add()
     {
 
+        /** @var bool $tm */
         $tm = null;
 
         $data = $this->getData();

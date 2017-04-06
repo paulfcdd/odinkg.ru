@@ -23,11 +23,10 @@ use Symfony\Component\HttpFoundation\{
 class NewsController extends Controller
 {
     /**
-     * @param Request $request
      * @Route("/dashboard/news", name="admin.news")
      * @return Response
      */
-    public function newsPageAction(Request $request)
+    public function newsPageAction()
     {
         return $this->render(':odinkg/admin/news:news_list.html.twig', [
             'news' => $this->getDoctrine()->getRepository(News::class)->findByDateRemoved(null)
@@ -35,66 +34,21 @@ class NewsController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @Route("/dashboard/news/add", name="admin.news.add")
+     * @Route("/dashboard/news/bin", name="admin.news.bin")
      */
-    public function addNewsAction(Request $request)
-    {
+    public function binAction(){
 
-        $form = $this
-            ->createForm(NewsType::class)
-            ->handleRequest($request);
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getRepository(News::class);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $removed = $em->createQueryBuilder('n')
+            ->where('n.dateRemoved IS NOT NULL')
+            ->getQuery();
 
-            $form->getData()
-                ->setDateCreated(new \DateTime())
-                ->setAuthor($this->getUser());
-
-            $crudable = $this
-                ->get('app.crudable')
-                ->setUploadDir('news')
-                ->setPhotos($form['image']->getData())
-                ->setData($form->getData());
-
-            return $this->redirectToRoute('admin.news.edit', [
-                'news' => $crudable->add()
-            ]);
-
-        }
-
-        return $this->render(':odinkg/admin/news:news_add.html.twig', [
-            'form' => $form->createView()
+        return $this->render(':odinkg/admin/news:news_bin.html.twig', [
+            'objects' => $removed->getResult(),
         ]);
-    }
 
-    /**
-     * @param Request $request
-     * @param News $news
-     * @Route("/dashboard/news/edit/id{news}", name="admin.news.edit")
-     * @return Response
-     */
-    public function editNewsAction(Request $request, News $news)
-    {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $form = $this
-            ->createForm(NewsType::class, $news)
-            ->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->persist($form->getData());
-
-            $em->flush();
-        }
-
-        return $this->render(':odinkg/admin/news:news_edit.html.twig', [
-            'form' => $form->createView(),
-            'news' => $news
-        ]);
     }
 
     /**
@@ -111,5 +65,44 @@ class NewsController extends Controller
             ->delete();
 
         return JsonResponse::create();
+    }
+
+    /**
+     * @param Request $request
+     * @param News|null $news
+     * @return Response
+     * @Route("/dashboard/news/manage/{news}", name="admin.news.manage", defaults={"news"=null})
+     */
+    public function manageNewsAction(Request $request, News $news = null) {
+
+//        var_dump($news->getId());
+
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this
+            ->createForm(NewsType::class, $news)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if (!$news) {
+                $form->getData()->setAuthor($this->getUser());
+            }
+
+            $crudable = $this
+                ->get('app.crudable')
+                ->setUploadDir('news')
+                ->setPhotos($form['image']->getData())
+                ->setData($form->getData());
+
+            return $this->redirectToRoute('admin.news.manage', [
+                'news' => $crudable->add()
+            ]);
+        }
+
+        return $this->render(':odinkg/admin/news:news_manage.html.twig', [
+            'form' => $form->createView()
+        ]);
+
     }
 }

@@ -19,7 +19,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="News", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="News", mappedBy="author")
      */
     protected $news;
 
