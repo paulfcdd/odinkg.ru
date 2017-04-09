@@ -10,6 +10,9 @@
 {% endblock %}
 
 {% block content_block %}
+
+    {#{{ dump(news.images) }}#}
+
     <div class="col-lg-12">
 
         <div class="ibox float-e-margins">
@@ -39,12 +42,29 @@
                             }) }}
                         </div>
                     </div>
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            {{ form_label(form.image) }}
-                            {{ form_widget(form.image) }}
-                        </div>
-                    </div>
+                    {% if news is not null %}
+
+                        {% if news.images is not null %}
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    {{ form_label(form.image) }}
+                                    {{ form_widget(form.image, {'attr': {
+                                        'required': false
+                                    }}) }}
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                image well be here
+                            </div>
+                        {% endif %}
+                        {% else %}
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    {{ form_label(form.image) }}
+                                    {{ form_widget(form.image) }}
+                                </div>
+                            </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="ibox-footer">

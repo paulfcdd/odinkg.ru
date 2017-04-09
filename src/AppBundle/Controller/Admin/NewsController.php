@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
     Route, Method
 };
 
+use function Sodium\add;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -75,32 +76,29 @@ class NewsController extends Controller
      */
     public function manageNewsAction(Request $request, News $news = null) {
 
-//        var_dump($news->getId());
-
-        $em = $this->getDoctrine()->getManager();
-
         $form = $this
             ->createForm(NewsType::class, $news)
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if (!$news) {
-                $form->getData()->setAuthor($this->getUser());
-            }
-
             $crudable = $this
                 ->get('app.crudable')
-                ->setUploadDir('news')
-                ->setPhotos($form['image']->getData())
                 ->setData($form->getData());
 
+            if (!empty($form['image']->getData())) {
+                $crudable
+                    ->setPhotos($form['image']->getData())
+                    ->setUploadDir('news');
+            }
+
             return $this->redirectToRoute('admin.news.manage', [
-                'news' => $crudable->add()
+                'news' => $crudable->save()
             ]);
         }
 
         return $this->render(':odinkg/admin/news:news_manage.html.twig', [
+            'news' => $news,
             'form' => $form->createView()
         ]);
 

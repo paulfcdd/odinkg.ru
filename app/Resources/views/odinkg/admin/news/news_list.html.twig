@@ -38,7 +38,11 @@
                                 <td>{{ _news.content| striptags | slice(0, 150) }}</td>
                                 <td>{{ _news.author }}</td>
                                 <td>{{ _news.dateCreated|date('d.m.Y') }}</td>
-                                <td></td>
+                                <td>
+                                    {% if _news.dateUpdated is not null %}
+                                        {{ _news.dateUpdated | date('d.m.Y') }}
+                                    {% endif %}
+                                </td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <a href="{{ path('admin.news.manage', {

@@ -7,7 +7,9 @@ use AppBundle\AppBundle;
 use AppBundle\Entity\Image;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManager;
+use FOS\UserBundle\Controller\SecurityController;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class Crudable
 {
@@ -16,6 +18,8 @@ class Crudable
 
     /** @var  ImageUploader $uploader */
     protected $uploader;
+
+    protected $tokenStorage;
 
     protected $data;
 
@@ -31,10 +35,11 @@ class Crudable
      * @param EntityManager $entityManager
      * @param ImageUploader $uploader
      */
-    public function __construct(EntityManager $entityManager, ImageUploader $uploader)
+    public function __construct(EntityManager $entityManager, ImageUploader $uploader, TokenStorage $tokenStorage)
     {
         $this->em = $entityManager;
         $this->uploader = $uploader;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -105,7 +110,7 @@ class Crudable
     /**
      * @return mixed
      */
-    public function add()
+    public function save()
     {
 
         /** @var bool $tm */
@@ -113,20 +118,28 @@ class Crudable
 
         $data = $this->getData();
 
+        if (!$this->getData()->getAuthor()) {
+            $this->getData()->setAuthor($this->tokenStorage->getToken()->getUser());
+        }
+
+//        if ($this->getData()->getAuthor()) {
+//            $this->getData()->setDateUpdated(new \DateTime());
+//        }
+
         $this->em->persist($data);
 
-        if ($this->getPhotos()) {
+        if (!empty(array_filter($this->getPhotos()))) {
+
             $tm = $this->transactionManager($this->getUploadDir(), $data);
+
+            if (!$tm) {
+                return false;
+            }
         }
 
-        if (!$tm) {
-            return false;
-        } else {
+        $this->em->flush();
 
-            $this->em->flush();
-
-            return $data->getId();
-        }
+        return $data->getId();
     }
 
 

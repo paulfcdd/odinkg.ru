@@ -229,7 +229,7 @@
                         </div>
                     </div>
                     <div class="ibox-content ">
-                        {% if images is empty %}
+                        {% if images is not defined %}
                             <p>Нет загруженных изоборажений</p>
                             {% else %}
                                 <div class="carousel slide" id="carousel2">

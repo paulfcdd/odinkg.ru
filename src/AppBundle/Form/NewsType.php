@@ -14,6 +14,9 @@ class NewsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $data = $builder->getData();
+
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Заголовок новости'
@@ -24,6 +27,7 @@ class NewsType extends AbstractType
             ->add('image', ImageType::class, [
                 'label' => 'Иллюстрация к новости',
                 'mapped' => false,
+                'required' => isset($data) ? false : true,
             ]);
     }
 
