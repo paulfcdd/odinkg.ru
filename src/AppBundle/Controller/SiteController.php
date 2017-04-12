@@ -39,7 +39,8 @@ class SiteController extends Controller
         $objects = $this->getDoctrine()->getRepository(Object::class)->findBySaleStatus(Object::SALE_TYPE[$status]);
 
         return $this->render(':odinkg/front/object:objects_list.html.twig', [
-            'objects' => $objects
+            'objects' => $objects,
+            'status' => $status
         ]);
     }
 
@@ -54,7 +55,9 @@ class SiteController extends Controller
 
         return $this->render(':odinkg/front/object:objects_list.html.twig', [
             'objects' => $objects,
-            'contact' => $this->getDoctrine()->getRepository(Contact::class)->findAll()
+            'contact' => $this->getDoctrine()->getRepository(Contact::class)->findAll(),
+            'status' => $status,
+            'type' => $type
         ]);
     }
 
@@ -68,6 +71,7 @@ class SiteController extends Controller
 
         return $this->render(':odinkg/front/object:object_single.html.twig', [
             'object'=> $object,
+            'status' => $status
         ]);
     }
 

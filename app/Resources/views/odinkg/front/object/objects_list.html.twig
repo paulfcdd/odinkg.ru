@@ -1,17 +1,25 @@
 {% extends '::base.html.twig' %}
 
-{% set status = app.request.get('status')%}
+    {% block title %}{{ parent()~status | trans }}{% endblock %}
 
-{% block content %}
-    <div class="page-title-wrapper">
+
+    {% block content %}
+        <div class="page-title-wrapper">
         <div class="page-title-bg" style="background-image: url('{{ asset('assets/images/services-bg.jpg') }}');"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="page-title-inner">
                         <div class="page-title-content">
-                            <h2>Продажа</h2>
-                            <p>Дома и земельные участки на продажу</p>
+                            <h2>{{ status | trans }}</h2>
+
+                            {% set subtitle = status~'_subtitle'  %}
+
+                            {% if type is defined %}
+                                {% set subtitle = type~'_'~status~'_subtitle' %}
+                            {% endif %}
+
+                            <p>{{ subtitle | trans }}</p>
                         </div>
                     </div>
                 </div>

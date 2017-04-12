@@ -1,5 +1,13 @@
 sale: Продажа
 rent: Аренда
+sale_subtitle: 'Дома и земельные участки на продажу'
+rent_subtitle: 'Дома и земельные участки для аренды'
+house: Недвижимость
+house_sale_subtitle: 'Недвижимость на продажу'
+house_rent_subtitle: 'Недвижимость в аренду'
+plot_sale_subtitle: 'Земля на продажу'
+plot_rent_subtitle: 'Земля в аренду'
+
 
 header:
     sale: 'Продажа'
