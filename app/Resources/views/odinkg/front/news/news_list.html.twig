@@ -14,9 +14,6 @@
                 </div>
             </div>
         </div>
-
-        {#{{ dump(news) }}#}
-
         <div class="page-content blog-standard">
             <div class="container">
                 <div class="row">
@@ -24,217 +21,88 @@
                     <div class="col-md-8 col-sm-12">
                         <div class="row">
                             <div class="blog-masonry">
-                              {% for item in news %}
-                                  {#{{ dump(item.content|length) }}#}
-                                  {#{{ dump(item.content|striptags|length) }}#}
-                                  <div class="col-sm-6 post-masonry">
-                                      <article class="post-entry">
-                                          <div class="post-image">
-                                              <a href="#">
-                                                  <img width="1100" height="630"
-                                                       src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">
-                                                  <span class="filter-grayscale"></span>
-                                              </a>
-                                          </div>
-                                          <div class="post-content">
-                                              <h4 class="post-title">
-                                                  <a href="#">
-                                                      {{ item.title }}
-                                                  </a>
-                                              </h4>
-                                              <div class="post-meta">
-                                                  <span><i class="icon-user"></i> Автор: <a href="#">{{ item.author.username }}</a></span>
-                                                  <span><a href="#"><i class="icon-calendar"></i>{{ item.dateCreated|date('d.m.Y') }}</a></span>
-                                              </div>
-                                              <div class="post-text" data-charlimit="150">
-                                                  {{ item.content | raw }}
-                                              </div>
-                                              <a href="#">Читать дальше</a>
-                                          </div>
-                                      </article>
-                                  </div>
-                              {% endfor %}
-                                {#<div class="col-sm-6 post-masonry">#}
-                                    {#<article class="post-entry">#}
-                                        {#<div class="post-image">#}
-                                            {#<a href="#">#}
-                                                {#<img width="1100" height="630"#}
-                                                     {#src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">#}
-                                                {#<span class="filter-grayscale"></span>#}
-                                            {#</a>#}
-                                        {#</div>#}
-                                        {#<div class="post-content">#}
-                                            {#<h4 class="post-title"><a href="#">Новость 1</a></h4>#}
-                                            {#<div class="post-meta">#}
-                                                {#<span><i class="icon-user"></i> Автор: <a href="#">Админ</a></span>#}
-                                                {#<span><a href="#"><i class="icon-speech"></i> 3 комментария</a></span>#}
-                                            {#</div>#}
-                                            {#<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing#}
-                                                {#elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam#}
-                                                {#soluta ullam qui molestiae...</p>#}
-                                            {#<a href="#">Читать дальше</a>#}
-                                        {#</div>#}
-                                    {#</article>#}
-                                {#</div>#}
-
-                                {#<div class="col-sm-6 post-masonry">#}
-                                    {#<article class="post-entry">#}
-                                        {#<div class="post-image owl-slider">#}
-                                            {#<div>#}
-                                                {#<a href="#">#}
-                                                    {#<img width="1100" height="630" src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">#}
-                                                    {#<span class="filter-grayscale"></span>#}
-                                                {#</a>#}
-                                            {#</div>#}
-                                            {#<div>#}
-                                                {#<a href="#">#}
-                                                    {#<img width="1100" height="630" src="assets/images/blog-l3.jpg" alt="">#}
-                                                    {#<span class="filter-grayscale"></span>#}
-                                                {#</a>#}
-                                            {#</div>#}
-                                            {#<div>#}
-                                                {#<a href="#">#}
-                                                    {#<img width="1100" height="630" src="assets/images/blog-l4.jpg" alt="">#}
-                                                    {#<span class="filter-grayscale"></span>#}
-                                                {#</a>#}
-                                            {#</div>#}
-                                        {#</div>#}
-                                        {#<div class="post-content">#}
-                                            {#<h4 class="post-title"><a href="#">Новость 2</a></h4>#}
-                                            {#<div class="post-meta">#}
-                                                {#<span><i class="icon-user"></i> Автор: <a href="#">Админ</a></span>#}
-                                                {#<span><a href="#"><i class="icon-speech"></i> 3 комментария</a></span>#}
-                                            {#</div>#}
-                                            {#<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente mollitia nihil, sunt alias fugit laboriosam aut ipsam soluta ullam qui molestiae...</p>#}
-                                            {#<a href="#">Читать дальше</a>#}
-                                        {#</div>#}
-                                    {#</article>#}
-                                {#</div>#}
-
+                                {% set hidden = 'hidden' %}
+                                {% if news is not empty %}
+                                    {% set hidden = null %}
+                                    {% for item in news %}
+                                        <div class="col-sm-6 post-masonry">
+                                            <article class="post-entry">
+                                                <div class="post-image">
+                                                    <a href="#">
+                                                        <img width="1100" height="630"
+                                                             src="{{ asset('assets/images/blog-l2.jpg') }}" alt="">
+                                                        <span class="filter-grayscale"></span>
+                                                    </a>
+                                                </div>
+                                                <div class="post-content">
+                                                    <h4 class="post-title post-text" data-charlimit="30">
+                                                        <a href="{{ path('news.post', {
+                                                            'post':item.id
+                                                        }) }}">
+                                                            {{ item.title }}
+                                                        </a>
+                                                    </h4>
+                                                    <div class="post-meta">
+                                                        <span><i class="icon-user"></i> Автор: <a href="#">{{ item.author.username }}</a></span>
+                                                        <span><a href="#"><i class="icon-calendar"></i>{{ item.dateCreated|date('d.m.Y') }}</a></span>
+                                                    </div>
+                                                    <div class="post-text" data-charlimit="150" style="min-height: 55px;">
+                                                        {{ item.content | raw }}
+                                                    </div>
+                                                    <a href="{{ path('news.post', {
+                                                        'post':item.id
+                                                    }) }}">
+                                                        Читать дальше
+                                                    </a>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    {% endfor %}
+                                    {% else %}
+                                    <div class="col-xs-12">
+                                        <h4>Нет новостей</h4>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="blog-pagination">
-                                    <ul>
-                                        <li><a href="#"><span class="fa fa-angle-left"></span></a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#"><span class="fa fa-angle-right"></span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- row -->
                     </div>
                     <!-- Sidebar -->
                     <div class="col-md-4 col-sm-12">
-                        <div class="blog-sidebar">
-                            <div class="widget search-form">
-                                <h4 class="widget-title">Search</h4>
-                                <form method="get" id="searchform" action="#">
-                                    <input type="text" class="form-control" placeholder="Search" name="s" id="s">
-                                    <input type="submit" id="searchsubmit" value="U">
-                                </form>
-                            </div>
+                        <div class="blog-sidebar {{ hidden }}">
                             <!-- widget -->
-                            <div class="widget latest-posts">
-                                <h4 class="widget-title">Latest Posts</h4>
-                                <ul>
-                                    <li><a href="#">Top 14 Most Common Mistakes</a><span>14 December, 2015</span></li>
-                                    <li><a href="#">Life After the Handover</a><span>14 December, 2015</span></li>
-                                    <li><a href="#">This is a Blog Post Quote</a><span>14 December, 2015</span></li>
-                                    <li><a href="#">Interview with Hans Kristian</a><span>14 December, 2015</span></li>
-                                </ul>
-                            </div>
-                            <!-- widget -->
-                            <div class="widget">
-                                <h4 class="widget-title">Projects</h4>
-                                <div class="small-projects clearfix">
-                                    <a href="project-single.html" class="thumb">
-                                        <img src="assets/images/small-1.jpg" alt="">
-                                    </a>
-                                    <a href="project-single.html" class="thumb">
-                                        <img src="assets/images/small-2.jpg" alt="">
-                                    </a>
-                                    <a href="project-single.html" class="thumb">
-                                        <img src="assets/images/small-3.jpg" alt="">
-                                    </a>
-                                    <a href="project-single.html" class="thumb">
-                                        <img src="assets/images/small-4.jpg" alt="">
-                                    </a>
-                                    <a href="project-single.html" class="thumb">
-                                        <img src="assets/images/small-5.jpg" alt="">
-                                    </a>
-                                    <a href="project-single.html" class="thumb">
-                                        <img src="assets/images/small-6.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- widget -->
-                            <div class="widget">
-                                <h4 class="widget-title">Categories</h4>
-                                <ul>
-                                    <li><a href="#">Decoration</a></li>
-                                    <li><a href="#">Interior</a></li>
-                                    <li><a href="#">Construction</a></li>
-                                    <li><a href="#">Architecture</a></li>
-                                    <li><a href="#">Engineer</a></li>
-                                    <li><a href="#">Wood Working</a></li>
-                                </ul>
-                            </div>
-                            <!-- widget -->
-                            <div class="widget">
-                                <h4 class="widget-title">Archives</h4>
-                                <ul>
-                                    <li><a href="#">September 2016</a></li>
-                                    <li><a href="#">August 2016</a></li>
-                                    <li><a href="#">July 2016</a></li>
-                                    <li><a href="#">June 2016</a></li>
-                                    <li><a href="#">May 2016</a></li>
-                                    <li><a href="#">April 2016</a></li>
-                                    <li><a href="#">March 2016</a></li>
-                                </ul>
-                            </div>
+                            {{ render(controller('AppBundle:News:latestPostWidget')) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div> <!-- /.page-content -->
+        <div class="mid-space"></div>
+        <div class="mid-space"></div>
     </div> <!-- /.main-wrapper -->
 {% endblock %}
 
 {% block customjs %}
     <script>
         $(document).ready(function () {
-            var showChar = '',
-                ellipsesText = "...";
 
-            $('.post-text').each(function() {
-                var content = $(this).text();
-                showChar = $(this).attr('data-charlimit');
+            $('.post-text').each(function () {
+                var content = $.trim($(this).text()),
+                    charLimit = $(this).attr('data-charlimit'),
+                    ellipsesText = "...";
 
-                if(content.length > showChar) {
+                if (content.length > parseInt(charLimit)) {
 
-                    var showPart = content.substr(0, showChar),
-                        hidePart = content.substr(showChar, content.length - showChar);
+                    var showPart = content.substr(0, charLimit);
 
-                    var html = showPart + '...';
+                    var html = showPart + ellipsesText;
+
+                    console.log(showPart);
+
 
                     $(this).html(html);
                 }
 
             });
-
-//            var foo = $('.post-text');
-//
-//            $.each(foo, function (key, val) {
-//                console.log($(val).text());
-//            })
-
         })
     </script>
 {% endblock %}

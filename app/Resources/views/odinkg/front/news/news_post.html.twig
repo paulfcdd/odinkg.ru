@@ -1,1 +1,90 @@
 {% extends '::base.html.twig' %}
+
+{% set status = app.request.get('status')%}
+
+{% block content %}
+    <div class="main-wrapper">
+
+        <div class="page-title-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>{{ post.title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content blog-standard blog-single">
+            <div class="container">
+                <div class="row">
+                    <!-- Blog Content -->
+                    <div class="col-md-8 col-sm-12">
+                        <article class="post-entry">
+                            <div class="post-image">
+                                <img width="1100" height="630" src="{{ asset('upload/news/'~post.images[0].name) }}" alt="">
+                            </div>
+                            <div class="post-content">
+                                <h4 class="post-title">{{ post.title }}</h4>
+                                <div class="post-meta">
+                                    <span><i class="icon-user"></i> By <a href="#">Esmet</a></span>
+                                    <span><a href="#"><i class="icon-speech"></i> 3 Comments</a></span>
+                                </div>
+                                {{ post.content | raw }}
+                            </div>
+                        </article>
+                        <!-- post-entry -->
+
+                        <!-- author description -->
+                        <div class="blog-single-navigation clearfix">
+                            <div class="prev-post">
+                                {% if prevPost is not null %}
+                                    <a href="{{ path('news.post', {'post': prevPost.id}) }}">
+                                        <span class="icon-arrow-left"></span>
+                                        <h5>Предыдущая</h5>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="next-post">
+                               {% if nextPost is not null %}
+                                   <a href="{{ path('news.post', {'post': nextPost.id}) }}">
+                                       <h5>Следующая</h5>
+                                       <span class="icon-arrow-right"></span>
+                                   </a>
+                                   {% endif %}
+                            </div>
+                        </div>
+                        <!-- blog-single-navigation -->
+
+                        <!-- comments-wrapper -->
+
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="blog-sidebar">
+                            <!-- widget -->
+                            {{ render(controller('AppBundle:News:latestPostWidget')) }}
+
+                            <!-- EXAMPLE OF WIDGET CODE -->
+                            <!-- widget -->
+                            {#<div class="widget">#}
+                                {#<h4 class="widget-title">Categories</h4>#}
+                                {#<ul>#}
+                                    {#<li><a href="#">Decoration</a></li>#}
+                                    {#<li><a href="#">Interior</a></li>#}
+                                    {#<li><a href="#">Construction</a></li>#}
+                                    {#<li><a href="#">Architecture</a></li>#}
+                                    {#<li><a href="#">Engineer</a></li>#}
+                                    {#<li><a href="#">Wood Working</a></li>#}
+                                {#</ul>#}
+                            {#</div>#}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.page-content -->
+    </div> <!-- /.main-wrapper -->
+
+{% endblock %}

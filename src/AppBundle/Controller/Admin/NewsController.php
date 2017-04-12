@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\{
 
 class NewsController extends Controller
 {
+
     /**
      * @Route("/dashboard/news", name="admin.news")
      * @return Response
@@ -49,20 +50,56 @@ class NewsController extends Controller
         return $this->render(':odinkg/admin/news:news_bin.html.twig', [
             'objects' => $removed->getResult(),
         ]);
+    }
+
+    /**
+     * @param News $news
+     * @return JsonResponse
+     * @Route("/dashboard/news/bin/restore/{object}", name="admin.news.bin.restore")
+     */
+    public function restoreFromBin(News $news) {
+        try {
+            $this
+                ->get('app.crudable')
+                ->setData($news)
+                ->restore();
+            return JsonResponse::create();
+        } catch (Exception $exception) {
+            return JsonResponse::create('Error', 500);
+        }
 
     }
 
     /**
      * @param News $news
-     * @Route("/dashboard/news/delete/{news}", name="admin.news.delete")
+     * @return static
+     * @Route("/dashboard/news/bin/remove/{object}", name="admin.news.bin.remove")
+     */
+    public function removeFromBin(News $news) {
+
+        try {
+            $this
+                ->get('app.crudable')
+                ->setData($news)
+                ->remove();
+            return JsonResponse::create();
+        } catch (Exception $exception) {
+            return JsonResponse::create('Error', 500);
+        }
+
+    }
+
+    /**
+     * @param News $object
+     * @Route("/dashboard/news/delete/{object}", name="admin.news.delete")
      * @Method("POST")
      * @return JsonResponse
      */
-    public function deleteNewsAction(News $news)
+    public function deleteNewsAction(News $object)
     {
         $this
             ->get('app.crudable')
-            ->setData($news)
+            ->setData($object)
             ->delete();
 
         return JsonResponse::create();
@@ -81,6 +118,14 @@ class NewsController extends Controller
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if (!$form->getData()->getAuthor()) {
+                $form->getData()->setAuthor($this->getUser());
+            }
+
+            if ($form->getData()->getDateCreated()) {
+                $form->getData()->setDateUpdated(new \DateTime());
+            }
 
             $crudable = $this
                 ->get('app.crudable')
@@ -101,6 +146,5 @@ class NewsController extends Controller
             'news' => $news,
             'form' => $form->createView()
         ]);
-
     }
 }

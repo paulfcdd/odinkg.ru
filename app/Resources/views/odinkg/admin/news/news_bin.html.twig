@@ -35,12 +35,12 @@
                                         {{ object.dateRemoved | date('d.m.Y') }}
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-primary btn-block undo-deleting" data-objectId="{{ object.id }}">
+                                        <button class="btn btn-primary btn-block undo-deleting" data-object="{{ object.id }}">
                                             <i class="fa fa-undo"></i>&nbsp;Восстановить
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btn-block delete-from-bin" data-objectId="{{ object.id }}">
+                                        <button class="btn btn-danger btn-block delete-from-bin" data-object="{{ object.id }}">
                                             <i class="fa fa-trash"></i>&nbsp;Удалить
                                         </button>
                                     </td>
@@ -100,28 +100,29 @@
 
 
         $('.undo-deleting').on('click', function () {
-            var objectId = $(this).attr('data-objectId'),
-                urlPattern = '{{ path('admin.object.bin.repair', {'object': '_object'}) }}';
+            var object = $(this).attr('data-object'),
+                urlPattern = '{{ path('admin.news.bin.restore', {'object': '_object'}) }}';
+
 
             $.ajax({
-                url: urlPattern.replace('_object', objectId),
+                url: urlPattern.replace('_object', object),
                 method: 'POST',
-                success:function (data) {
-                    $('#object-'+data).remove();
+                success:function () {
+                    $('#object-'+object).remove();
                 }
             });
 
         });
 
         $('.delete-from-bin').on('click', function () {
-            var objectId = $(this).attr('data-objectId'),
-                urlPattern = '{{ path('admin.news.delete', {'news': '_news'}) }}';
+            var object = $(this).attr('data-object'),
+                urlPattern = '{{ path('admin.news.delete', {'object': '_object'}) }}';
 
             $.ajax({
-                url: urlPattern.replace('_news', objectId),
+                url: urlPattern.replace('_object', object),
                 method: 'POST',
                 success:function () {
-                    $('#object-'+objectId).remove();
+                    $('#object-'+object).remove();
                 }
             });
         })

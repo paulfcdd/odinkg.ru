@@ -91,7 +91,7 @@
 
         $('.delete-action').on('click', function () {
             var id = $(this).attr('data-id'),
-                urlPattern = '{{ path('admin.news.delete', {'news': '_news'}) }}';
+                urlPattern = '{{ path('admin.news.delete', {'object': '_news'}) }}';
 
 
             $.ajax({

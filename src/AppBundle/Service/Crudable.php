@@ -118,13 +118,6 @@ class Crudable
 
         $data = $this->getData();
 
-        if (!$this->getData()->getAuthor()) {
-            $this->getData()->setAuthor($this->tokenStorage->getToken()->getUser());
-        }
-
-//        if ($this->getData()->getAuthor()) {
-//            $this->getData()->setDateUpdated(new \DateTime());
-//        }
 
         $this->em->persist($data);
 
@@ -159,6 +152,32 @@ class Crudable
         $this->em->flush();
 
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function restore() {
+
+        $this->getData()->setDateRemoved(null);
+
+        $this->em->flush();
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function remove() {
+
+        try {
+            $this->em->remove($this->getData());
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+
     }
 
     /**

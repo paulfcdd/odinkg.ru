@@ -1,0 +1,13 @@
+<div class="widget latest-posts">
+    <h4 class="widget-title">Последние новости</h4>
+    <ul>
+        {% for post in latest %}
+            <li>
+                <a href="{{ path('news.post', {'post': post.id}) }}">
+                    {{ post.title }}
+                </a>
+                <span>{{ post.dateCreated | date('d.m.Y') }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
