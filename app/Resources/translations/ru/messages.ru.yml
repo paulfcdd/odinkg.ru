@@ -1,3 +1,6 @@
+sale: Продажа
+rent: Аренда
+
 header:
     sale: 'Продажа'
     lease: 'Аренда'

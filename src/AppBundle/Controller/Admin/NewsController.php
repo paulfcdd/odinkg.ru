@@ -53,35 +53,16 @@ class NewsController extends Controller
     }
 
     /**
-     * @param News $news
+     * @param News $object
      * @return JsonResponse
      * @Route("/dashboard/news/bin/restore/{object}", name="admin.news.bin.restore")
      */
-    public function restoreFromBin(News $news) {
+    public function restoreFromBin(News $object) {
         try {
             $this
                 ->get('app.crudable')
-                ->setData($news)
+                ->setData($object)
                 ->restore();
-            return JsonResponse::create();
-        } catch (Exception $exception) {
-            return JsonResponse::create('Error', 500);
-        }
-
-    }
-
-    /**
-     * @param News $news
-     * @return static
-     * @Route("/dashboard/news/bin/remove/{object}", name="admin.news.bin.remove")
-     */
-    public function removeFromBin(News $news) {
-
-        try {
-            $this
-                ->get('app.crudable')
-                ->setData($news)
-                ->remove();
             return JsonResponse::create();
         } catch (Exception $exception) {
             return JsonResponse::create('Error', 500);

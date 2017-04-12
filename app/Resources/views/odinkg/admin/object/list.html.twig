@@ -36,6 +36,7 @@
                                 {% set type = 'object.by_type.'~ object.getTypeById(object.type) %}
                                 <tr id="object-{{ object.id }}">
                                     <td>{{ object.title }}</td>
+                                    {#{{ dump(type | trans) }}#}
                                     <td>{{ type | trans }}</td>
                                     <td>
                                         {% if object.type == 1  %}
@@ -44,7 +45,7 @@
                                             ${{ object.pricePerUnit }} / м<sup>2</sup>
                                         {% endif %}
                                     </td>
-                                    <td>{{ object.getSaleStatusById(object.saleStatus) }}</td>
+                                    <td>{{ object.getSaleStatusById(object.saleStatus) | trans }}</td>
                                     <td>
                                         {% if object.type == 1  %}
                                             {{ object.square }}  м<sup>2</sup>

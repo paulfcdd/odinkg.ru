@@ -69,7 +69,7 @@
                                     <article class="image-service wow fadeIn" data-wow-duration="0.7s" data-wow-delay="0.2s">
 
                                         {% if firstImage is not null %}
-                                            <div class="thumb">
+                                            <div class="thumb" style="max-height: 258px;">
                                                 <a href="{{ path('object.single', {
                                                     'status': status,
                                                     'object': object.id
@@ -89,7 +89,7 @@
                                                 }) }}" target="_blank">{{ object.title }}</a>
                                             </h3>
                                             <small>Тип: {{ type | trans }}</small>
-                                            <small class="pull-right">Статус: {{ object.getSaleStatusById(object.saleStatus) }}</small>
+                                            <small class="pull-right">Статус: {{ object.getSaleStatusById(object.saleStatus) | trans }}</small>
 
                                             {% if object.objectDescription | length > 120 %}
                                                 {% set description = object.objectDescription | slice(0, 120) ~ '...' %}

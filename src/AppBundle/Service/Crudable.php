@@ -167,20 +167,6 @@ class Crudable
     }
 
     /**
-     * @return bool
-     */
-    public function remove() {
-
-        try {
-            $this->em->remove($this->getData());
-            return true;
-        } catch (Exception $e) {
-            return false;
-        }
-
-    }
-
-    /**
      * @param $uploadDir
      * @param $data
      * @return bool
