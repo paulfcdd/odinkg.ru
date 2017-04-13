@@ -1,0 +1,206 @@
+{% extends ':odinkg/admin:base.html.twig' %}
+
+{% block top_block %}
+    <h2>Управление проектами</h2>
+{% endblock %}
+
+{% block custom_css %}
+{% endblock %}
+
+{% block content_block %}
+
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Добавление проекта</h5>
+            </div>
+            {{ form_start(form) }}
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            {{ form_label(form.name) }}
+                            {{ form_widget(form.name, {
+                                'attr': {
+                                    'class': 'form-control'
+                                }
+                            }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.description) }}
+                            {{ form_widget(form.description, {
+                                'attr': {
+                                    'class': 'form-control news-editor',
+                                    'cols': '3',
+                                    'rows': '5'
+                                }
+                            }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.price) }}
+                            {{ form_widget(form.price, {
+                                'attr': {
+                                    'class': 'form-control'
+                                }
+                            }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.link) }}
+                            {{ form_widget(form.link, {
+                                'attr': {
+                                    'class': 'form-control'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+
+                    {% set hidden = 'hidden' %}
+                    {% set colsize = 'col-xs-12' %}
+                    {% set images = null %}
+
+                    {% if project.images is defined and project.images is not empty %}
+                        {% set hidden = null %}
+                        {% set colsize = 'col-xs-6' %}
+                        {% set images = project.images %}
+                    {% endif %}
+
+                    <div class="{{ colsize }}">
+                        <div class="form-group review-photos" data-prototype="{{ form_widget(form.photos.vars.prototype)|e('html_attr') }}">
+                            {% for photo in form.photos %}
+                                <div class="col-xs-12" id="{{ photo.fileName.parent.vars.value.id }}">
+                                    {{ form_widget(photo.fileName) }}
+                                    {{ form_widget(photo.alt) }}
+                                    {{ form_widget(photo.title) }}
+                                    {{ form_widget(photo.description) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="{{ colsize }}" {{ hidden }}>
+                        <div class="carousel slide" id="carousel2">
+                            {% if images is not null %}
+                                <div class="carousel-inner">
+
+                                    {% set firstElement = images|first %}
+                                    {% for image in images %}
+
+                                        {% if image.id == firstElement.id %}
+                                            {% set active = 'active' %}
+                                        {% else %}
+                                            {% set active = null %}
+                                        {% endif %}
+
+
+                                        <div class="item {{ active }}" id="item_{{ image.id }}">
+                                            <img alt="image"  class="img-responsive" height="400" src="{{ asset('upload/projects/'~image.name) }}">
+                                            <div class="carousel-caption">
+                                                <p class="remove-photo-btn" data-file="{{ image.id }}">
+                                                    <i class="fa fa-times"></i>&nbsp;Удалить фото
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                                <span class="icon-prev"></span>
+                            </a>
+                            <a data-slide="next" href="#carousel2" class="right carousel-control">
+                                <span class="icon-next"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox-footer">
+                <div class="btn-group">
+                    <a href="{{ path('admin.project.list') }}" type="button" class="btn btn-success"><span class="fa fa-chevron-left"></span>&nbsp;Назад</a>
+                    <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span>&nbsp;Сохранить</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    var $collectionHolder;
+
+    var $addTagLink = $('<div xmlns="http://www.w3.org/1999/html">' +
+        '<a href="#" class="add_tag_link btn btn-flat btn-block btn-primary square-border"><span class="fa fa-plus"></span>&nbsp;Добавить фотографию</a>' +
+        '</div>');
+    var $newLink = $('<div></div>').append($addTagLink);
+
+    jQuery(document).ready(function () {
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('.review-photos');
+
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder.append($newLink);
+
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+        $('.add_tag_link').on('click', function (e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // add a new tag form (see next code block)
+            addTagForm($collectionHolder, $newLink);
+        });
+    });
+
+    function addTagForm($collectionHolder, $newLink) {
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+
+        // get the new index
+        var index = $collectionHolder.data('index');
+
+        // Replace '$$name$$' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        var newForm = prototype.replace(/__name__/g, index);
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<div class="form-group"></div>').append(newForm);
+
+        // also add a remove button, just for this example
+        $newFormLi.append('<div style="margin: 10px 0"><a class="btn square-border btn-block btn-danger remove-tag" href="#">' +
+            '<span class="fa fa-times"></span>&nbsp;Удалить фотографию' +
+            '</a></div>');
+
+        $newLink.before($newFormLi);
+
+        // handle the removal, just for this example
+        $('.remove-tag').click(function (e) {
+            e.preventDefault();
+
+            $(this).closest('div .form-group').remove();
+
+            return false;
+        });
+    }
+
+    $('.remove-photo-btn').click(function () {
+        var file = $(this).data('file'),
+        url = '{{ path('admin.delete_file', {'file': '_file'}) }}';
+
+        $.ajax({
+            url: url.replace('_file', file),
+            method: 'POST',
+            success: function () {
+                $("#item_"+file).remove();
+            },
+            error: function (resp) {
+                alert(resp);
+            }
+        });
+    })
+</script>
+{% endblock %}

@@ -9,6 +9,8 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Controller\SecurityController;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class Crudable
@@ -19,7 +21,14 @@ class Crudable
     /** @var  ImageUploader $uploader */
     protected $uploader;
 
+    /** @var ContainerInterface $container */
+    protected $container;
+
+    /** @var TokenStorage $tokenStorage */
     protected $tokenStorage;
+
+    /** @var Finder $finder */
+    protected $finder;
 
     protected $data;
 
@@ -34,12 +43,16 @@ class Crudable
      * Crudable constructor.
      * @param EntityManager $entityManager
      * @param ImageUploader $uploader
+     * @param TokenStorage $tokenStorage
+     * @param Finder $finder
      */
-    public function __construct(EntityManager $entityManager, ImageUploader $uploader, TokenStorage $tokenStorage)
+    public function __construct(EntityManager $entityManager, ImageUploader $uploader, TokenStorage $tokenStorage, ContainerInterface $container, Finder $finder)
     {
         $this->em = $entityManager;
         $this->uploader = $uploader;
         $this->tokenStorage = $tokenStorage;
+        $this->container = $container;
+        $this->finder = $finder;
     }
 
     /**
@@ -121,7 +134,7 @@ class Crudable
 
         $this->em->persist($data);
 
-        if (!empty(array_filter($this->getPhotos()))) {
+        if ($this->getPhotos()) {
 
             $tm = $this->transactionManager($this->getUploadDir(), $data);
 
@@ -167,11 +180,40 @@ class Crudable
     }
 
     /**
+     * @return bool|string
+     */
+    public function deleteFile() {
+
+        $data = $this->getData();
+
+        $fileName = $data->getName();
+
+        $dir = $this->container->getParameter('upload_directory');
+
+        $this->finder->name($fileName);
+
+        foreach ($this->finder->in($dir) as $item) {
+            unlink($item);
+        }
+
+        $this->em->remove($data);
+
+        try {
+            $this->em->flush();
+            return true;
+        } catch (Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+
+    /**
      * @param $uploadDir
      * @param $data
      * @return bool
      */
     private function transactionManager($uploadDir, $data) {
+
+        $images = null;
 
         $this->em->persist($data);
 
@@ -182,7 +224,13 @@ class Crudable
 
             $this->em->flush();
 
-            $images = $this->photoUploader($this->getPhotos(), $uploadDir, $data->getId());
+            if (!isset($this->getPhotos()['name'])) {
+                foreach ($this->getPhotos() as $photo) {
+                    $images = $this->photoUploader($photo, $uploadDir, $data->getId());
+                }
+            } else {
+                $images = $this->photoUploader($this->getPhotos(), $uploadDir, $data->getId());
+            }
 
             if ($images) {
                 $this->em->getConnection()->commit();

@@ -13,6 +13,10 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
+    app.symfony_finder:
+        class: Symfony\Component\Finder\Finder
+        public: false
+
     app.crudable:
         class: AppBundle\Service\Crudable
-        arguments: ["@doctrine.orm.entity_manager", "@app.image_uploader", "@security.token_storage"]
+        arguments: ["@doctrine.orm.entity_manager", "@app.image_uploader", "@security.token_storage", "@service_container", "@app.symfony_finder"]

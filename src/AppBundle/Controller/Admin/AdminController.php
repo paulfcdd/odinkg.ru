@@ -2,18 +2,47 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
+    Route, Method
+};
+use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * Class AdminController
+ * @package AppBundle\Controller\Admin
+ * @Route("/dashboard")
+ */
 class AdminController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard", name="admin")
+     * @Route("/", name="admin")
      */
     public function dashboardAction(){
 
         return $this->render('odinkg/admin/dashboard.html.twig');
+    }
+
+    /**
+     * @param Image $file
+     * @return JsonResponse
+     * @Route("/delete-file/{file}",  name="admin.delete_file")
+     * @Method("POST")
+     */
+    public function deleteFile(Image $file) {
+
+        $crudable = $this
+            ->get('app.crudable')
+            ->setData($file);
+
+        if ($crudable->deleteFile()) {
+            return JsonResponse::create();
+        } else {
+            return JsonResponse::create($crudable->deleteFile(), 500);
+        }
+
     }
 
 }
