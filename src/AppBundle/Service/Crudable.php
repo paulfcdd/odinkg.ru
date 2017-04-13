@@ -18,7 +18,7 @@ class Crudable
     /** @var EntityManager $em */
     protected $em;
 
-    /** @var  ImageUploader $uploader */
+    /** @var  FileUploader $uploader */
     protected $uploader;
 
     /** @var ContainerInterface $container */
@@ -42,11 +42,11 @@ class Crudable
     /**
      * Crudable constructor.
      * @param EntityManager $entityManager
-     * @param ImageUploader $uploader
+     * @param FileUploader $uploader
      * @param TokenStorage $tokenStorage
      * @param Finder $finder
      */
-    public function __construct(EntityManager $entityManager, ImageUploader $uploader, TokenStorage $tokenStorage, ContainerInterface $container, Finder $finder)
+    public function __construct(EntityManager $entityManager, FileUploader $uploader, TokenStorage $tokenStorage, ContainerInterface $container, Finder $finder)
     {
         $this->em = $entityManager;
         $this->uploader = $uploader;

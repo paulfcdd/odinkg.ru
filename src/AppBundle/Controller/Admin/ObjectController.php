@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Object;
 use AppBundle\Form\ObjectType;
-use AppBundle\Service\ImageUploader;
+use AppBundle\Service\FileUploader;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -84,7 +84,7 @@ class ObjectController extends Controller
 
                     $fileName = trim(strtolower(str_replace(' ', '_', ($photo['name']))));
 
-                    $uploader = $this->get('app.image_uploader')
+                    $uploader = $this->get('app.file_uploader')
                         ->setDir('objects')
                         ->setFile($photo['file'])
                         ->setFileName($fileName)

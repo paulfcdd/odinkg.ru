@@ -3,7 +3,7 @@
 namespace AppBundle\Listener;
 
 use AppBundle\Entity\Image;
-use AppBundle\Entity\Traits\ImageTrait;
+use AppBundle\Entity\Traits\FileTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -17,7 +17,7 @@ class ImageRelationSubscriber implements EventSubscriber
 
     public function postLoad(LifecycleEventArgs $eventArgs) {
 
-        if(!in_array(ImageTrait::class, class_uses($eventArgs->getObject()))) {
+        if(!in_array(FileTrait::class, class_uses($eventArgs->getObject()))) {
             return;
         }
 

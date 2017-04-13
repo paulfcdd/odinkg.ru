@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\ImageTrait;
+use AppBundle\Entity\Traits\FileTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -15,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Project
 {
-    use ImageTrait;
+    use FileTrait;
 
     /**
      * @ORM\Id

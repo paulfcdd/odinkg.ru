@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Traits;
 use AppBundle\Entity\Image;
 use Doctrine\Common\Collections\ArrayCollection;
 
-trait ImageTrait
+trait FileTrait
 {
     /**
      * @var ArrayCollection

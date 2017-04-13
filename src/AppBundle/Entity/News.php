@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\ImageTrait;
+use AppBundle\Entity\Traits\FileTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class News
 {
-    use ImageTrait;
+    use FileTrait;
 
     /**
      * @ORM\Id

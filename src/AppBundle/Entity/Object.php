@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\ImageTrait;
+use AppBundle\Entity\Traits\FileTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Object
 {
 
-    use ImageTrait;
+    use FileTrait;
 
     const TYPE = [
         'house' => 1,

@@ -4,8 +4,8 @@ parameters:
 #    parameter_name: value
 
 services:
-    app.image_uploader:
-        class: AppBundle\Service\ImageUploader
+    app.file_uploader:
+        class: AppBundle\Service\FileUploader
         arguments: ["@doctrine.orm.entity_manager", "%upload_directory%"]
 
     app.image_relations:
@@ -19,4 +19,4 @@ services:
 
     app.crudable:
         class: AppBundle\Service\Crudable
-        arguments: ["@doctrine.orm.entity_manager", "@app.image_uploader", "@security.token_storage", "@service_container", "@app.symfony_finder"]
+        arguments: ["@doctrine.orm.entity_manager", "@app.file_uploader", "@security.token_storage", "@service_container", "@app.symfony_finder"]
