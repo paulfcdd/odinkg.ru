@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Image;
+use AppBundle\Entity\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
     Route, Method
@@ -26,12 +26,12 @@ class AdminController extends Controller
     }
 
     /**
-     * @param Image $file
+     * @param File $file
      * @return JsonResponse
      * @Route("/delete-file/{file}",  name="admin.delete_file")
      * @Method("POST")
      */
-    public function deleteFile(Image $file) {
+    public function deleteFile(File $file) {
 
         $crudable = $this
             ->get('app.crudable')

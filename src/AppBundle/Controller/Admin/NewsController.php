@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\{
-    News, Image
+    News, File
 };
 
 use AppBundle\Form\NewsType;

@@ -9,7 +9,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager", "%upload_directory%"]
 
     app.image_relations:
-        class: AppBundle\Listener\ImageRelationSubscriber
+        class: AppBundle\Listener\FileRelationSubscriber
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 

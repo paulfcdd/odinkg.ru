@@ -6,11 +6,23 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="image")
+ * @ORM\Table(name="file")
  */
 
-class Image
+class File
 {
+    const MIME_TYPE_ICON_MAP = [
+        'image' => 'fa-file-image-o',
+        'audio' => 'fa-file-audio-o',
+        'video' => 'fa-file-video-o',
+        'application/pdf' => 'fa-file-pdf-o',
+        'text/plain' => 'fa-file-text-o',
+        'text/html' => 'fa-file-code-o',
+        'application/json' => 'fa-file-code-o',
+        'application/gzip' => 'fa-file-archive-o',
+        'application/zip' => 'fa-file-archive-o',
+        'application/octet-stream' => 'fa-file-o',
+    ];
 
     /**
      * @ORM\Id
@@ -57,6 +69,12 @@ class Image
     private $title;
 
     /**
+     * @var string
+     * @ORM\Column(name="mime_type", length=100, type="string")
+     */
+    private $mimeType;
+
+    /**
      * Get id
      *
      * @return integer
@@ -71,7 +89,7 @@ class Image
      *
      * @param string $name
      *
-     * @return Image
+     * @return File
      */
     public function setName($name)
     {
@@ -95,7 +113,7 @@ class Image
      *
      * @param string $entity
      *
-     * @return Image
+     * @return File
      */
     public function setEntity($entity)
     {
@@ -119,7 +137,7 @@ class Image
      *
      * @param integer $foreignKey
      *
-     * @return Image
+     * @return File
      */
     public function setForeignKey($foreignKey)
     {
@@ -143,7 +161,7 @@ class Image
      *
      * @param string $description
      *
-     * @return Image
+     * @return File
      */
     public function setDescription($description)
     {
@@ -167,7 +185,7 @@ class Image
      *
      * @param string $alt
      *
-     * @return Image
+     * @return File
      */
     public function setAlt($alt)
     {
@@ -191,7 +209,7 @@ class Image
      *
      * @param string $title
      *
-     * @return Image
+     * @return File
      */
     public function setTitle($title)
     {
@@ -208,5 +226,37 @@ class Image
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
+
+    /**
+     * @param string $mimeType
+     * @return $this
+     */
+    public function setMimeType(string $mimeType)
+    {
+        $this->mimeType = $mimeType;
+
+        return $this;
+    }
+
+    /**
+     * @param $mimeType
+     * @return mixed|string
+     */
+    public function guessIconByMime($mimeType) {
+
+        if (array_key_exists($mimeType, self::MIME_TYPE_ICON_MAP)) {
+            return self::MIME_TYPE_ICON_MAP[$mimeType];
+        } else {
+            return 'fa-question-circle-o';
+        }
     }
 }

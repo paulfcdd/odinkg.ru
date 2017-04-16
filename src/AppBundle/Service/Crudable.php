@@ -3,14 +3,14 @@
 namespace AppBundle\Service;
 
 
-use AppBundle\AppBundle;
-use AppBundle\Entity\Image;
+use AppBundle\Entity\File;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Controller\SecurityController;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class Crudable
@@ -226,10 +226,10 @@ class Crudable
 
             if (!isset($this->getPhotos()['name'])) {
                 foreach ($this->getPhotos() as $photo) {
-                    $images = $this->photoUploader($photo, $uploadDir, $data->getId());
+                    $images = $this->fileUploader($photo, $uploadDir, $data->getId());
                 }
             } else {
-                $images = $this->photoUploader($this->getPhotos(), $uploadDir, $data->getId());
+                $images = $this->fileUploader($this->getPhotos(), $uploadDir, $data->getId());
             }
 
             if ($images) {
@@ -247,34 +247,37 @@ class Crudable
     }
 
     /**
-     * @param $photo
+     * @param $object
      * @param $uploadDir
      * @param $foreignKey
      * @return bool|string
      */
-    private function photoUploader($photo, $uploadDir, $foreignKey) {
+    private function fileUploader($object, $uploadDir, $foreignKey) {
 
-        $fileName = trim(strtolower(str_replace(' ', '_', ($photo['name']))));
+        $fileName = trim(strtolower(str_replace(' ', '_', ($object['name']))));
+
+        $mimeType = $object['file']->getMimeType();
 
         $uploader = $this->uploader
             ->setFileName($fileName)
-            ->setFile($photo['file'])
+            ->setFile($object['file'])
             ->setDir($uploadDir)
             ->upload();
 
         if ($uploader) {
 
-            $image = new Image();
+            $file = new File();
 
-            $image
+            $file
                 ->setForeignKey($foreignKey)
                 ->setEntity($this->getEntity())
-                ->setName($fileName . '.' . $photo['file']->getClientOriginalExtension())
-                ->setDescription($photo['description'])
-                ->setAlt(trim($photo['alt']))
-                ->setTitle(trim($photo['title']));
+                ->setName($fileName . '.' . $object['file']->getClientOriginalExtension())
+                ->setDescription($object['description'])
+                ->setAlt(trim($object['alt']))
+                ->setTitle(trim($object['title']))
+                ->setMimeType($mimeType);
 
-            $this->em->persist($image);
+            $this->em->persist($file);
         }
 
         try {

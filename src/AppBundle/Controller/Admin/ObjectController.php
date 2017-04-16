@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Image;
+use AppBundle\Entity\File;
 use AppBundle\Entity\Object;
 use AppBundle\Form\ObjectType;
 use AppBundle\Service\FileUploader;
@@ -91,7 +91,7 @@ class ObjectController extends Controller
                         ->upload();
 
                     if ($uploader) {
-                        $image = new Image();
+                        $image = new File();
                         $image
                             ->setForeignKey($object->getId())
                             ->setEntity(Object::class)
@@ -115,7 +115,7 @@ class ObjectController extends Controller
 
         $images = $em->createQueryBuilder()
             ->select('i')
-            ->from(Image::class, 'i')
+            ->from(File::class, 'i')
             ->where('i.entity = :entity')
             ->andWhere('i.foreignKey = :foreignKey')
             ->setParameters([

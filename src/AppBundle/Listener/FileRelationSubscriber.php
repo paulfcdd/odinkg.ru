@@ -2,13 +2,13 @@
 
 namespace AppBundle\Listener;
 
-use AppBundle\Entity\Image;
+use AppBundle\Entity\File;
 use AppBundle\Entity\Traits\FileTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
-class ImageRelationSubscriber implements EventSubscriber
+class FileRelationSubscriber implements EventSubscriber
 {
     public function getSubscribedEvents()
     {
@@ -23,7 +23,7 @@ class ImageRelationSubscriber implements EventSubscriber
 
         $result = $eventArgs->getEntityManager()->createQueryBuilder()
             ->select('i')
-            ->from(Image::class, 'i')
+            ->from(File::class, 'i')
             ->where('i.foreignKey = :id')
             ->andWhere('i.entity = :entity')
             ->setParameter('id', $eventArgs->getObject()->getId())
@@ -31,6 +31,6 @@ class ImageRelationSubscriber implements EventSubscriber
             ->getQuery()
             ->getResult();
 
-        $eventArgs->getObject()->setImages(new ArrayCollection($result));
+        $eventArgs->getObject()->setFiles(new ArrayCollection($result));
     }
 }

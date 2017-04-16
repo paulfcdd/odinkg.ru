@@ -1,5 +1,52 @@
 <div id="additional" class="tab-pane row">
-    <div class="col-xs-12">
-        additional block
+    {% set hidden = 'hidden' %}
+    {% set colsize = 'col-xs-12' %}
+
+    {% if project.files is defined and project.files is not empty %}
+        {% set hidden = null %}
+        {% set colsize = 'col-xs-6' %}
+        {% set files = [] %}
+    {% endif %}
+
+    <div class="{{ colsize }}">
+        <div class="form-group file-collection" id="files-collection" data-prototype="{{ data_prototype | raw }}">
+            {% for file in form.files %}
+                <div class="col-xs-12" id="{{ file.fileName.parent.vars.value.id }}">
+                    {{ form_widget(file.fileName) }}
+                    {{ form_widget(file.alt) }}
+                    {{ form_widget(file.title) }}
+                    {{ form_widget(file.description) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="{{ colsize }}" {{ hidden }}>
+        {% for file in project.files %}
+            {% if 'application' in file.mimeType %}
+                {% set files = files|merge([file]) %}
+            {% endif %}
+        {% endfor %}
+
+        {% if files is not null %}
+            <div class="row">
+                {% for file in files %}
+                    <div class="col-xs-4">
+                        <div class="thumbnail text-center">
+                            <a href="{{ asset('upload/projects/'~file.name) }}">
+                                <i class="fa {{ file.guessIconByMime(file.mimeType) }} fa-3x" aria-hidden="true"></i>
+                                <div class="caption">
+                                    <h4>{{ file.name }}</h4>
+                                    <p>{{ file.description }}</p>
+                                    <button type="button" class="btn btn-danger btn-block -behance-square">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
     </div>
 </div>

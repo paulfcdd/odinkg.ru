@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity\Traits;
 
-use AppBundle\Entity\Image;
+use AppBundle\Entity\File;
 use Doctrine\Common\Collections\ArrayCollection;
 
 trait FileTrait
@@ -10,30 +10,30 @@ trait FileTrait
     /**
      * @var ArrayCollection
      */
-    private $images;
+    private $files;
 
     /**
-     * @param Image $image
+     * @param File $file
      * @return $this
      */
-    public function addImage(Image $image)
+    public function addImage(File $file)
     {
-        if(!$this->images->contains($image)) {
-            $this->images->add($image);
+        if(!$this->files->contains($file)) {
+            $this->files->add($file);
         }
 
         return $this;
     }
 
     /**
-     * Remove $image from collection
+     * Remove $file from collection
      *
-     * @param Image $image
+     * @param File $file
      * @return $this
      */
-    public function removeImage(Image $image) {
-        if($this->images->contains($image)) {
-            $this->images->remove($image);
+    public function removeFile(File $file) {
+        if($this->files->contains($file)) {
+            $this->files->remove($file);
         }
 
         return $this;
@@ -43,8 +43,8 @@ trait FileTrait
      * @param ArrayCollection $collection
      * @return $this
      */
-    public function setImages(ArrayCollection $collection) {
-        $this->images = $collection;
+    public function setFiles(ArrayCollection $collection) {
+        $this->files = $collection;
 
         return $this;
     }
@@ -52,17 +52,16 @@ trait FileTrait
     /**
      * @return ArrayCollection
      */
-    public function getImages() {
-        return $this->images;
+    public function getFiles() {
+        return $this->files;
     }
 
     /**
      * @return $this
      */
-    public function clearImages() {
-        $this->images->clear();
+    public function clearFiles() {
+        $this->files->clear();
 
         return $this;
     }
-
 }

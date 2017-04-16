@@ -72,7 +72,7 @@ class ObjectType extends AbstractType
             ->add('photos', CollectionType::class, [
                 'label' => false,
                 'mapped' => false,
-                'entry_type' => ImageType::class,
+                'entry_type' => FileUploaderType::class,
                 'allow_add' => true,
                 'allow_delete' => true
             ]);

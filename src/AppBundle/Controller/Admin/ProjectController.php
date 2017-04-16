@@ -45,9 +45,9 @@ class ProjectController extends Controller
                 ->get('app.crudable')
                 ->setData($form->getData());
 
-            if (!empty($form['photos']->getData())) {
+            if (!empty($form['files']->getData())) {
                 $crudable
-                    ->setPhotos($form['photos']->getData())
+                    ->setPhotos($form['files']->getData())
                     ->setUploadDir('projects');
             }
 

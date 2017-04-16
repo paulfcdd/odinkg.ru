@@ -1,18 +1,18 @@
 <div id="photos" class="tab-pane row">
     {% set hidden = 'hidden' %}
     {% set colsize = 'col-xs-12' %}
-    {% set images = null %}
+    {% set files = null %}
 
-    {% if project.images is defined and project.images is not empty %}
+    {% if project.files is defined and project.files is not empty %}
         {% set hidden = null %}
         {% set colsize = 'col-xs-6' %}
-        {% set images = project.images %}
+        {% set files = project.files %}
+        {% set images = [] %}
     {% endif %}
 
     <div class="{{ colsize }}">
-        <div class="form-group review-photos"
-             data-prototype="{{ form_widget(form.photos.vars.prototype)|e('html_attr') }}">
-            {% for photo in form.photos %}
+        <div class="form-group file-collection" id="photos-collection" data-prototype="{{ data_prototype | raw }}">
+            {% for photo in form.files %}
                 <div class="col-xs-12" id="{{ photo.fileName.parent.vars.value.id }}">
                     {{ form_widget(photo.fileName) }}
                     {{ form_widget(photo.alt) }}
@@ -24,6 +24,13 @@
     </div>
     <div class="{{ colsize }}" {{ hidden }}>
         <div class="carousel slide" id="carousel2">
+
+            {% for file in files %}
+                {% if 'image' in file.mimeType %}
+                    {% set images = images|merge([file]) %}
+                {% endif %}
+            {% endfor %}
+
             {% if images is not null %}
                 <div class="carousel-inner">
 
