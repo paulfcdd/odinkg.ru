@@ -112,9 +112,9 @@ class NewsController extends Controller
                 ->get('app.crudable')
                 ->setData($form->getData());
 
-            if (!empty($form['image']->getData())) {
+            if (!empty($form['files']->getData())) {
                 $crudable
-                    ->setPhotos($form['image']->getData())
+                    ->setPhotos($form['files']->getData())
                     ->setUploadDir('news');
             }
 

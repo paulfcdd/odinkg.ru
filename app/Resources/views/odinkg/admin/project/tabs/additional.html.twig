@@ -21,31 +21,34 @@
         </div>
     </div>
     <div class="{{ colsize }}" {{ hidden }}>
-        {% for file in project.files %}
-            {% if 'application' in file.mimeType %}
-                {% set files = files|merge([file]) %}
-            {% endif %}
-        {% endfor %}
 
-        {% if files is not null %}
-            <div class="row">
-                {% for file in files %}
-                    <div class="col-xs-4">
-                        <div class="thumbnail text-center">
-                            <a href="{{ asset('upload/projects/'~file.name) }}">
-                                <i class="fa {{ file.guessIconByMime(file.mimeType) }} fa-3x" aria-hidden="true"></i>
-                                <div class="caption">
-                                    <h4>{{ file.name }}</h4>
-                                    <p>{{ file.description }}</p>
-                                    <button type="button" class="btn btn-danger btn-block -behance-square">
-                                        <span class="fa fa-trash"></span>
-                                    </button>
-                                </div>
-                            </a>
+        {% if project.files is defined %}
+            {% for file in project.files %}
+                {% if 'application' in file.mimeType %}
+                    {% set files = files|merge([file]) %}
+                {% endif %}
+            {% endfor %}
+
+            {% if files is defined %}
+                <div class="row">
+                    {% for file in files %}
+                        <div class="col-xs-4">
+                            <div class="thumbnail text-center">
+                                <a href="{{ asset('upload/projects/'~file.name) }}">
+                                    <i class="fa {{ file.guessIconByMime(file.mimeType) }} fa-3x" aria-hidden="true"></i>
+                                    <div class="caption">
+                                        <h4>{{ file.name }}</h4>
+                                        <p>{{ file.description }}</p>
+                                        <button type="button" class="btn btn-danger btn-block -behance-square">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endif %}
 
     </div>

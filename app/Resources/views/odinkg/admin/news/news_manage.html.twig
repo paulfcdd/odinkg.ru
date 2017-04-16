@@ -42,11 +42,11 @@
                     </div>
                     {% if news is not null %}
 
-                        {% if news.images is not null %}
+                        {% if news.files is not null %}
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    {{ form_label(form.image) }}
-                                    {{ form_widget(form.image, {'attr': {
+                                    {{ form_label(form.files) }}
+                                    {{ form_widget(form.files, {'attr': {
                                         'required': false
                                     }}) }}
                                 </div>
@@ -58,8 +58,8 @@
                         {% else %}
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    {{ form_label(form.image) }}
-                                    {{ form_widget(form.image) }}
+                                    {{ form_label(form.files) }}
+                                    {{ form_widget(form.files) }}
                                 </div>
                             </div>
                     {% endif %}

@@ -24,7 +24,7 @@ class NewsType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => 'Содержание новости'
             ])
-            ->add('image', FileUploaderType::class, [
+            ->add('files', FileUploaderType::class, [
                 'label' => 'Иллюстрация к новости',
                 'mapped' => false,
                 'required' => isset($data) ? false : true,
