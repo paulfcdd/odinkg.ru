@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 
 use AppBundle\Entity\Project;
+use AppBundle\Form\Types\UploadFileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -34,6 +35,13 @@ class ProjectType extends AbstractType
                 'label' => false,
                 'mapped' => false,
                 'entry_type' => ImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
+            ->add('files', CollectionType::class, [
+                'mapped' => false,
+                'label' => false,
+                'entry_type' => UploadFileType::class,
                 'allow_add' => true,
                 'allow_delete' => true
             ]);

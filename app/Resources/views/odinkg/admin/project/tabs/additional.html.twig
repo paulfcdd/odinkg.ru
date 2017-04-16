@@ -1,5 +1,50 @@
 <div id="additional" class="tab-pane row">
-    <div class="col-xs-12">
-        additional block
+    {% set hidden = 'hidden' %}
+    {% set colsize = 'col-xs-12' %}
+    {% set files = null %}
+
+    {% if project.files is defined and project.files is not empty %}
+        {% set hidden = null %}
+        {% set colsize = 'col-xs-6' %}
+        {% set files = project.files %}
+    {% endif %}
+
+    <div class="{{ colsize }}">
+        <div class="form-group collection-type" data-prototype="{{ form_widget(form.files.vars.prototype)|e('html_attr') }}">
+            {% for file in form.files %}
+                <div class="col-xs-12" id="{{ file.name.parent.vars.value.id }}">
+                    {{ form_widget(file.name) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="{{ colsize }}" {{ hidden }}>
+        <div class="carousel slide" id="carousel2">
+            {% if files is not null %}
+                <div class="carousel-inner">
+
+                    {% set firstElement = files|first %}
+                    {% for file in files %}
+
+                        {% if file.id == firstElement.id %}
+                            {% set active = 'active' %}
+                        {% else %}
+                            {% set active = null %}
+                        {% endif %}
+
+
+                        <div class="item {{ active }}" id="item_{{ file.id }}">
+                           files list
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                <span class="icon-prev"></span>
+            </a>
+            <a data-slide="next" href="#carousel2" class="right carousel-control">
+                <span class="icon-next"></span>
+            </a>
+        </div>
     </div>
 </div>
