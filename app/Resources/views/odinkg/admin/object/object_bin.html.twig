@@ -12,11 +12,11 @@
                 <td class="text-center">
                     {% include ':odinkg/admin/element:bin_controls.html.twig' with {
                     'entity': entity
-                    }%}
+                    } %}
                 </td>
             </tr>
         {% endif %}
     {% endfor %}
 {% endblock %}
 
-{% block return_path %}{{ path('admin.news') }}{% endblock %}
+{% block return_path %}{{ path('admin.object') }}{% endblock %}

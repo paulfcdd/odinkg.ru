@@ -3,14 +3,16 @@
 namespace AppBundle\Service;
 
 
-use AppBundle\AppBundle;
-use AppBundle\Entity\Image;
+use AppBundle\Entity\File;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Controller\SecurityController;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class Crudable
@@ -18,7 +20,7 @@ class Crudable
     /** @var EntityManager $em */
     protected $em;
 
-    /** @var  ImageUploader $uploader */
+    /** @var  FileUploader $uploader */
     protected $uploader;
 
     /** @var ContainerInterface $container */
@@ -32,21 +34,20 @@ class Crudable
 
     protected $data;
 
-    protected $object;
-
     protected $photos;
 
+    /** @var  string */
     protected $uploadDir;
 
 
     /**
      * Crudable constructor.
      * @param EntityManager $entityManager
-     * @param ImageUploader $uploader
+     * @param FileUploader $uploader
      * @param TokenStorage $tokenStorage
      * @param Finder $finder
      */
-    public function __construct(EntityManager $entityManager, ImageUploader $uploader, TokenStorage $tokenStorage, ContainerInterface $container, Finder $finder)
+    public function __construct(EntityManager $entityManager, FileUploader $uploader, TokenStorage $tokenStorage, ContainerInterface $container, Finder $finder)
     {
         $this->em = $entityManager;
         $this->uploader = $uploader;
@@ -67,8 +68,7 @@ class Crudable
      * @param $data
      * @return $this
      */
-    public function setData($data)
-    {
+    public function setData($data) {
 
         $this->data = $data;
 
@@ -80,7 +80,7 @@ class Crudable
      */
     public function getEntity()
     {
-        return get_class($this->getData());
+        return get_class($this->getData()->getData());
     }
 
     /**
@@ -131,26 +131,25 @@ class Crudable
 
         $data = $this->getData();
 
+        $this->em->persist($data->getData());
 
-        $this->em->persist($data);
+        if (!in_array(null, $data['files']->getData())) {
+            if (!empty($data['files']->getData())) {
+                $tm = $this->transactionManager($this->getUploadDir(), $data);
 
-        if ($this->getPhotos()) {
-
-            $tm = $this->transactionManager($this->getUploadDir(), $data);
-
-            if (!$tm) {
-                return false;
+                if (!$tm) {
+                    return false;
+                }
             }
         }
-
         $this->em->flush();
 
-        return $data->getId();
+        return $data->getData()->getId();
     }
 
 
     /**
-     * @return bool
+     * @return Response
      */
     public function delete() {
 
@@ -162,21 +161,28 @@ class Crudable
             $data->setDateRemoved(new \DateTime());
         }
 
-        $this->em->flush();
+        try {
+            $this->em->flush();
+            return new Response();
+        } catch (DBALException $exception) {
+            return new Response($exception->getMessage(), 500);
+        }
 
-        return true;
     }
 
     /**
-     * @return bool
+     * @return Response
      */
     public function restore() {
 
         $this->getData()->setDateRemoved(null);
 
-        $this->em->flush();
-
-        return true;
+        try {
+            $this->em->flush();
+            return new Response();
+        } catch (DBALException $exception) {
+            return new Response($exception->getMessage(), 500);
+        }
     }
 
     /**
@@ -200,9 +206,9 @@ class Crudable
 
         try {
             $this->em->flush();
-            return true;
+            return new Response();
         } catch (Exception $exception) {
-            return $exception->getMessage();
+            return new Response($exception->getMessage(), 500);
         }
     }
 
@@ -211,11 +217,9 @@ class Crudable
      * @param $data
      * @return bool
      */
-    private function transactionManager($uploadDir, $data) {
+    private function transactionManager(string $uploadDir, Form $data) {
 
         $images = null;
-
-        $this->em->persist($data);
 
         /*BEGIN TRANSACTION IF ENTITY HAS OBJECTS*/
         $this->em->getConnection()->beginTransaction();
@@ -224,12 +228,12 @@ class Crudable
 
             $this->em->flush();
 
-            if (!isset($this->getPhotos()['name'])) {
-                foreach ($this->getPhotos() as $photo) {
-                    $images = $this->photoUploader($photo, $uploadDir, $data->getId());
+            if (!isset($data['files']->getData()['name'])) {
+                foreach ($data['files']->getData() as $photo) {
+                    $images = $this->fileUploader($photo, $uploadDir, $data->getData()->getId());
                 }
             } else {
-                $images = $this->photoUploader($this->getPhotos(), $uploadDir, $data->getId());
+                $images = $this->fileUploader($data['files']->getData(), $uploadDir, $data->getData()->getId());
             }
 
             if ($images) {
@@ -247,34 +251,37 @@ class Crudable
     }
 
     /**
-     * @param $photo
+     * @param $object
      * @param $uploadDir
      * @param $foreignKey
      * @return bool|string
      */
-    private function photoUploader($photo, $uploadDir, $foreignKey) {
+    private function fileUploader($object, $uploadDir, $foreignKey) {
 
-        $fileName = trim(strtolower(str_replace(' ', '_', ($photo['name']))));
+        $fileName = trim(strtolower(str_replace(' ', '_', ($object['name']))));
+
+        $mimeType = $object['file']->getMimeType();
 
         $uploader = $this->uploader
             ->setFileName($fileName)
-            ->setFile($photo['file'])
+            ->setFile($object['file'])
             ->setDir($uploadDir)
             ->upload();
 
         if ($uploader) {
 
-            $image = new Image();
+            $file = new File();
 
-            $image
+            $file
                 ->setForeignKey($foreignKey)
                 ->setEntity($this->getEntity())
-                ->setName($fileName . '.' . $photo['file']->getClientOriginalExtension())
-                ->setDescription($photo['description'])
-                ->setAlt(trim($photo['alt']))
-                ->setTitle(trim($photo['title']));
+                ->setName($fileName . '.' . $object['file']->getClientOriginalExtension())
+                ->setDescription($object['description'])
+                ->setAlt(trim($object['alt']))
+                ->setTitle(trim($object['title']))
+                ->setMimeType($mimeType);
 
-            $this->em->persist($image);
+            $this->em->persist($file);
         }
 
         try {

@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectType;
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,7 @@ class ProjectController extends Controller
 {
 
     /**
-     * @Route("/", name="admin.project.list")
+     * @Route("", name="admin.project.list")
      */
     public function listProjectAction() {
 
@@ -43,13 +44,8 @@ class ProjectController extends Controller
 
             $crudable = $this
                 ->get('app.crudable')
-                ->setData($form->getData());
-
-            if (!empty($form['photos']->getData())) {
-                $crudable
-                    ->setPhotos($form['photos']->getData())
-                    ->setUploadDir('projects');
-            }
+                ->setData($form)
+                ->setUploadDir('projects');
 
             return $this->redirectToRoute('admin.project.manage', [
                 'project' => $crudable->save(),
@@ -59,6 +55,37 @@ class ProjectController extends Controller
         return $this->render(':odinkg/admin/project:project_manage.html.twig', [
             'form' => $form->createView(),
             'project' => $project,
+        ]);
+    }
+
+    /**
+     * @param Project $project
+     * @return Response
+     * @Route("/delete/{project}", name="admin.project.delete")
+     */
+    public function deleteProjectAction(Project $project) {
+
+        return $this
+            ->get('app.crudable')
+            ->setData($project)
+            ->delete();
+    }
+
+    /**
+     * @Route("/bin", name="admin.project.bin")
+     */
+    public function projectBinAction() {
+
+        /** @var EntityRepository $em */
+        $em = $this->getDoctrine()->getRepository(Project::class);
+
+        $query = $em->createQueryBuilder('p')
+            ->where('.dateRemoved IS NOT NULL')
+            ->getQuery();
+
+        return $this->render('odinkg/admin/project/project_bin.html.twig', [
+            'objects' => $query->getResult(),
+            'entity' => Project::class,
         ]);
     }
 
