@@ -20,6 +20,7 @@
                     <table class="table table-striped table-bordered table-hover smartTable">
                         <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Назавание объекта</th>
                             <th>Тип объекта</th>
                             <th>Цена</th>
@@ -35,6 +36,7 @@
                             {% if object.dateRemoved is null %}
                                 {% set type = 'object.by_type.'~ object.getTypeById(object.type) %}
                                 <tr id="object-{{ object.id }}">
+                                    <td>{{ object.id }}</td>
                                     <td>{{ object.title }}</td>
                                     {#{{ dump(type | trans) }}#}
                                     <td>{{ type | trans }}</td>
@@ -56,7 +58,7 @@
                                         {{ object.dateCreated | date('d.m.Y') }}
                                     </td>
                                     <td class="text-center">
-                                        <a class="btn btn-primary btn-block" href="{{ path('admin.object.edit', {
+                                        <a class="btn btn-primary btn-block" href="{{ path('admin.object.manage', {
                                             'object': object.id
                                         }) }}">
                                             <i class="fa fa-edit"></i>
@@ -71,23 +73,11 @@
                             {% endif %}
                         {% endfor %}
                         </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Назавание объекта</th>
-                            <th>Тип объекта</th>
-                            <th>Цена</th>
-                            <th>Статус</th>
-                            <th>Площадь</th>
-                            <th>Дата создания</th>
-                            <th>Изменить объект</th>
-                            <th>Удалить объект</th>
-                        </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
             <div class="ibox-footer">
-                <a class="btn btn-primary" href="{{ path('admin.object.add') }}">
+                <a class="btn btn-primary" href="{{ path('admin.object.manage') }}">
                     <i class="fa fa-plus"></i>&nbsp;Добавить новый объект
                 </a>
                 <a class="btn btn-info pull-right" href="{{ path('admin.object.bin') }}">

@@ -1,0 +1,40 @@
+<div id="add-info" class="tab-pane row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="form-group col-sm-4 col-xs-12">
+                {{ form_label(form.highway) }}
+                {{ form_widget(form.highway,{
+                    'attr': {
+                        'class': 'form-control',
+                        'cols': '3',
+                        'rows': '5'
+                    }
+                }) }}
+            </div>
+            <div class="form-group col-sm-4 col-xs-12">
+                {{ form_label(form.location) }}
+                {{ form_widget(form.location, {
+                    'attr': {
+                        'class': 'form-control'
+                    }
+                }) }}
+            </div>
+            <div class="form-group col-sm-4 col-xs-12">
+                {{ form_label(form.pricePerUnit) }}
+                {{ form_widget(form.pricePerUnit, {
+                    'attr': {
+                        'class': 'form-control'
+                    }
+                }) }}
+            </div>
+            <div class="form-group col-sm-12 col-xs-12">
+                {{ form_label(form.plotDecription) }}
+                {{ form_widget(form.plotDecription, {
+                    'attr': {
+                        'class': 'form-control'
+                    }
+                }) }}
+            </div>
+        </div>
+    </div>
+</div>

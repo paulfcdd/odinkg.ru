@@ -135,12 +135,13 @@
 
         $('.delete-from-bin').on('click', function () {
             var objectId = $(this).attr('data-objectId'),
-                urlPattern = '{{ path('admin.object.bin.remove', {'object': '_object'}) }}';
+                urlPattern = '{{ path('admin.object.delete', {'object': '_object'}) }}';
 
             $.ajax({
                 url: urlPattern.replace('_object', objectId),
                 method: 'POST',
                 success:function (data) {
+                    console.log(data);
                     $('#object-'+data).remove();
                 }
             });

@@ -63,13 +63,7 @@ class ObjectType extends AbstractType
             ->add('contactPhone', IntegerType::class, [
                 'label' => 'Контактный телефон',
             ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Сохранить объект',
-                'attr' => [
-                    'class' => 'btn btn-primary btn-block'
-                ]
-            ])
-            ->add('photos', CollectionType::class, [
+            ->add('files', CollectionType::class, [
                 'label' => false,
                 'mapped' => false,
                 'entry_type' => FileUploaderType::class,

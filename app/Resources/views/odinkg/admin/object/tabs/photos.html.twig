@@ -1,0 +1,15 @@
+<div id="photos" class="tab-pane row">
+    <div class="col-xs-12">
+        <div class="form-group review-photos"
+             data-prototype="{{ form_widget(form.files.vars.prototype)|e('html_attr') }}">
+            {% for file in form.files %}
+                <div class="col-xs-12" id="{{ file.fileName.parent.vars.value.id }}">
+                    {{ form_widget(file.fileName) }}
+                    {{ form_widget(file.alt) }}
+                    {{ form_widget(file.title) }}
+                    {{ form_widget(file.description) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

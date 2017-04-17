@@ -1,0 +1,425 @@
+{% extends 'odinkg/admin/base.html.twig' %}
+
+{% block top_block %}
+    <h2>Объекты</h2>
+    <small>Добавить новый объект</small>
+{% endblock %}
+
+{% block content_block %}
+
+
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Объект</h5>
+            </div>
+            {{ form_start(form) }}
+            <div class="ibox-content">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#main-info">
+                            <i class="fa fa-info"></i> Основная информация
+                        </a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#add-info">
+                            <i class="fa fa-camera"></i> Дополнительная информация
+                        </a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#contacts">
+                            <i class="fa fa-user"></i> Контакты
+                        </a>
+                    </li>
+                    <li class="">
+                        <a data-toggle="tab" href="#photos">
+                            <i class="fa fa-camera"></i> Фотографии
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" style="padding-top: 20px;">
+                    {% include ':odinkg/admin/object/tabs:main_info.html.twig' %}
+                    {% include ':odinkg/admin/object/tabs:add_info.html.twig' %}
+                    {% include ':odinkg/admin/object/tabs:contacts.html.twig' %}
+                    {% include ':odinkg/admin/object/tabs:photos.html.twig' %}
+                </div>
+            </div>
+            <div class="ibox-footer">
+                <div class="btn-group">
+                    <a href="{{ path('admin.project.list') }}" type="button" class="btn btn-success"><span
+                                class="fa fa-chevron-left"></span>&nbsp;Назад</a>
+                    <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span>&nbsp;Сохранить
+                    </button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    {#<div class="col-lg-12">#}
+        {#{{ form_start(form) }}#}
+        {#<div class="row">#}
+            {#<div class="col-xs-12">#}
+                {#<div class="ibox float-e-margins">#}
+                    {#<div class="ibox-title">#}
+                        {#<h5><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Основная информация</h5>#}
+                        {#<div class="ibox-tools">#}
+                            {#<a class="collapse-link">#}
+                                {#<i class="fa fa-chevron-up"></i>#}
+                            {#</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="ibox-content">#}
+                        {#<ul class="nav nav-tabs">#}
+                            {#<li class="active"><a data-toggle="tab" href="#home">Home</a></li>#}
+                            {#<li><a data-toggle="tab" href="#menu1">Menu 1</a></li>#}
+                            {#<li><a data-toggle="tab" href="#menu2">Menu 2</a></li>#}
+                        {#</ul>#}
+                        {#<div class="row">#}
+                            {#<div class="col-sm-12">#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.title) }}#}
+                                    {#{{ form_widget(form.title,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control',#}
+                                            {#'cols': '3',#}
+                                            {#'rows': '5'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.type) }}#}
+                                    {#{{ form_widget(form.type,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.saleStatus) }}#}
+                                    {#{{ form_widget(form.saleStatus,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.communications) }}#}
+                                    {#{{ form_widget(form.communications,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.square) }}#}
+                                    {#{{ form_widget(form.square,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.totalPrice) }}#}
+                                    {#{{ form_widget(form.totalPrice,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.objectDescription) }}#}
+                                    {#{{ form_widget(form.objectDescription,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control',#}
+                                            {#'cols': '3',#}
+                                            {#'rows': '5'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="row">#}
+            {#<div class="col-xs-6">#}
+                {#<div class="ibox float-e-margins">#}
+                    {#<div class="ibox-title">#}
+                        {#<h5><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Контактная информация</h5>#}
+                        {#<div class="ibox-tools">#}
+                            {#<a class="collapse-link">#}
+                                {#<i class="fa fa-chevron-up"></i>#}
+                            {#</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="ibox-content">#}
+                        {#<div class="row">#}
+                            {#<div class="col-sm-12">#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.contactName) }}#}
+                                    {#{{ form_widget(form.contactName,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control',#}
+                                            {#'cols': '3',#}
+                                            {#'rows': '5'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.contactEmail) }}#}
+                                    {#{{ form_widget(form.contactEmail,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.contactPhone) }}#}
+                                    {#{{ form_widget(form.contactPhone,#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<div class="col-xs-6">#}
+                {#<div class="ibox float-e-margins">#}
+                    {#<div class="ibox-title">#}
+                        {#<h5><i class="fa fa-info" aria-hidden="true"></i>&nbsp;Дополнительная информация</h5>#}
+                        {#<div class="ibox-tools">#}
+                            {#<a class="collapse-link">#}
+                                {#<i class="fa fa-chevron-up"></i>#}
+                            {#</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="ibox-content">#}
+                        {#<div class="row">#}
+                            {#<div class="col-sm-12">#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.highway) }}#}
+                                    {#{{ form_widget(form.highway, }#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control',#}
+                                            {#'cols': '3',#}
+                                            {#'rows': '5'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.location) }}#}
+                                    {#{{ form_widget(form.location, }#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.pricePerUnit) }}#}
+                                    {#{{ form_widget(form.pricePerUnit, }#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                    {#{{ form_label(form.plotDecription) }}#}
+                                    {#{{ form_widget(form.plotDecription, }#}
+                                        {#'attr': }#}
+                                            {#'class': 'form-control'#}
+                                        {#}#}
+                                    {#}) }}#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+            {#<div class="col-lg-6">#}
+                {#<div class="ibox">#}
+
+                    {#<div class="ibox-title">#}
+                        {#<h5><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Загрузка изображений</h5>#}
+                        {#<div class="ibox-tools">#}
+                            {#<a class="collapse-link">#}
+                                {#<i class="fa fa-chevron-up"></i>#}
+                            {#</a>#}
+                        {#</div>#}
+                    {#</div>#}
+
+                    {#<div class="ibox-content">#}
+                        {#<div class="form-group review-photos"#}
+                             {#data-prototype="{{ form_widget(form.photos.vars.prototype)|e('html_attr') }}">#}
+                            {#{% for photo in form.photos %}#}
+                                {#<div class="col-xs-12" id="{{ photo.fileName.parent.vars.value.id }}">#}
+                                    {#{{ form_widget(photo.fileName) }}#}
+                                    {#{{ form_widget(photo.alt) }}#}
+                                    {#{{ form_widget(photo.title) }}#}
+                                    {#{{ form_widget(photo.description) }}#}
+                                {#</div>#}
+                            {#{% endfor %}#}
+                        {#</div>#}
+
+                    {#</div>#}
+
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-6">#}
+                {#<div class="ibox float-e-margins">#}
+                    {#<div class="ibox-title">#}
+                        {#<h5><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;Загруженные изображения</h5>#}
+                        {#<div class="ibox-tools">#}
+                            {#<a class="collapse-link">#}
+                                {#<i class="fa fa-chevron-up"></i>#}
+                            {#</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="ibox-content ">#}
+                        {#{% if images is not defined %}#}
+                            {#<p>Нет загруженных изоборажений</p>#}
+                        {#{% else %}#}
+                            {#<div class="carousel slide" id="carousel2">#}
+                                {#<div class="carousel-inner">#}
+
+                                    {#{% set firstElement = images|first %}#}
+                                    {#{% for image in images %}#}
+
+                                        {#{% if image.id == firstElement.id %}#}
+                                            {#{% set active = 'active' %}#}
+                                        {#{% else %}#}
+                                            {#{% set active = null %}#}
+                                        {#{% endif %}#}
+
+
+                                        {#<div class="item {{ active }}">#}
+                                            {#<img alt="image"  class="img-responsive" height="400" src="{{ asset('upload/objects/'~image.name) }}">#}
+                                            {#<div class="carousel-caption">#}
+                                                {#<p class="remove-photo-btn"><i class="fa fa-times"></i>&nbsp;Удалить фото</p>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#{% endfor %}#}
+                                {#</div>#}
+                                {#<a data-slide="prev" href="#carousel2" class="left carousel-control">#}
+                                    {#<span class="icon-prev"></span>#}
+                                {#</a>#}
+                                {#<a data-slide="next" href="#carousel2" class="right carousel-control">#}
+                                    {#<span class="icon-next"></span>#}
+                                {#</a>#}
+                            {#</div>#}
+                        {#{% endif %}#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        {#{{ form_end(form) }}#}
+    {#</div>#}
+{% endblock %}
+
+{% block custom_css %}
+    <link href="{{ asset('admin/css/plugins/dropzone/basic.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/css/plugins/dropzone/dropzone.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/css/plugins/codemirror/ambiance.css') }}" rel="stylesheet">
+
+    {#<link href="{{ asset('admin/css/plugins/iCheck/custom.css') }}">#}
+    <style>
+        .not-required {
+            color: orange;
+            font-weight: 600;
+        }
+
+        .remove-photo-btn {
+            color: white;
+            cursor: pointer;
+        }
+
+    </style>
+{% endblock %}
+
+{% block custom_js %}
+    <!-- Jasny -->
+    <script src="{{ asset('admin/js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
+
+    <!-- DROPZONE -->
+    <script src="{{ asset('admin/js/plugins/dropzone/dropzone.js') }}"></script>
+
+    <script>
+        Dropzone.options.dropzoneForm = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
+        };
+
+        var $collectionHolder;
+
+        var $addTagLink = $('<div xmlns="http://www.w3.org/1999/html">' +
+            '<a href="#" class="add_tag_link btn btn-flat btn-block btn-primary square-border"><span class="fa fa-plus"></span>&nbsp;Добавить фотографию</a>' +
+            '</div>');
+        var $newLink = $('<div></div>').append($addTagLink);
+
+        jQuery(document).ready(function () {
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('.review-photos');
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLink);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $('.add_tag_link').on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addTagForm($collectionHolder, $newLink);
+            });
+        });
+
+        function addTagForm($collectionHolder, $newLink) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '$$name$$' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<div class="form-group"></div>').append(newForm);
+
+            // also add a remove button, just for this example
+            $newFormLi.append('<div style="margin: 10px 0"><a class="btn square-border btn-block btn-danger remove-tag" href="#">' +
+                '<span class="fa fa-times"></span>&nbsp;Удалить фотографию' +
+                '</a></div>');
+
+            $newLink.before($newFormLi);
+
+            // handle the removal, just for this example
+            $('.remove-tag').click(function (e) {
+                e.preventDefault();
+
+                $(this).closest('div .form-group').remove();
+
+                return false;
+            });
+        }
+
+    </script>
+{% endblock %}

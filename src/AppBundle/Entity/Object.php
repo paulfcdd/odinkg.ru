@@ -122,13 +122,11 @@ class Object
     private $dateCreated;
 
     /**
-     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateUpdated;
 
     /**
-     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateRemoved;
