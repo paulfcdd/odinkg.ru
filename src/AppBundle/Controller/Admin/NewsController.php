@@ -105,22 +105,13 @@ class NewsController extends Controller
                 $form->getData()->setAuthor($this->getUser());
             }
 
-            if ($form->getData()->getDateCreated()) {
-                $form->getData()->setDateUpdated(new \DateTime());
-            }
-
-            $crudable = $this
+            $crud = $this
                 ->get('app.crudable')
-                ->setData($form->getData());
-
-            if (!empty($form['files']->getData())) {
-                $crudable
-                    ->setPhotos($form['files']->getData())
-                    ->setUploadDir('news');
-            }
+                ->setData($form)
+                ->setUploadDir('news');
 
             return $this->redirectToRoute('admin.news.manage', [
-                'news' => $crudable->save()
+                'news' => $crud->save()
             ]);
         }
 

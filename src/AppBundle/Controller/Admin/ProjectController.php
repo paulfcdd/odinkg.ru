@@ -44,13 +44,8 @@ class ProjectController extends Controller
 
             $crudable = $this
                 ->get('app.crudable')
-                ->setData($form->getData());
-
-            if (!empty($form['files']->getData())) {
-                $crudable
-                    ->setPhotos($form['files']->getData())
-                    ->setUploadDir('projects');
-            }
+                ->setData($form)
+                ->setUploadDir('projects');
 
             return $this->redirectToRoute('admin.project.manage', [
                 'project' => $crudable->save(),
@@ -70,7 +65,8 @@ class ProjectController extends Controller
      */
     public function deleteProjectAction(Project $project) {
 
-        return $this->get('app.crudable')
+        return $this
+            ->get('app.crudable')
             ->setData($project)
             ->delete();
     }
@@ -84,7 +80,7 @@ class ProjectController extends Controller
         $em = $this->getDoctrine()->getRepository(Project::class);
 
         $query = $em->createQueryBuilder('p')
-            ->where('p.dateRemoved IS NOT NULL')
+            ->where('.dateRemoved IS NOT NULL')
             ->getQuery();
 
         return $this->render('odinkg/admin/project/project_bin.html.twig', [

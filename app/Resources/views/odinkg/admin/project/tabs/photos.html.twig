@@ -44,11 +44,11 @@
                         {% endif %}
 
 
-                        <div class="item {{ active }}" id="item_{{ image.id }}">
+                        <div class="item {{ active }}" id="file-{{ image.id }}">
                             <img alt="image" class="img-responsive" height="400"
                                  src="{{ asset('upload/projects/'~image.name) }}">
                             <div class="carousel-caption">
-                                <p class="remove-photo-btn" data-file="{{ image.id }}">
+                                <p class="delete-file" data-id="{{ image.id }}">
                                     <i class="fa fa-times"></i>&nbsp;Удалить фото
                                 </p>
                             </div>

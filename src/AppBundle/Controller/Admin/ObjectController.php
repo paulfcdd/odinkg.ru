@@ -44,18 +44,10 @@ class ObjectController extends Controller
      */
     public function deleteObjectAction(Object $object){
 
-        $id = $object->getId();
-
-        $crudable = $this
+        return $this
             ->get('app.crudable')
             ->setData($object)
             ->delete();
-
-        if ($crudable) {
-            return JsonResponse::create($id, 200);
-        } else {
-            return JsonResponse::create('Error', 500);
-        }
     }
 
     /**
@@ -65,10 +57,6 @@ class ObjectController extends Controller
      * @Route("/manage/{object}", name="admin.object.manage")
      */
     public function manageObjectAction(Request $request, Object $object = null) {
-        /** @var EntityManager $em */
-        $em = $this
-            ->getDoctrine()
-            ->getManager();
 
         $form = $this
             ->createForm(ObjectType::class)
@@ -77,18 +65,13 @@ class ObjectController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $crudable = $this
+            $crud = $this
                 ->get('app.crudable')
-                ->setData($form->getData());
-
-            if (!empty($form['files']->getData())) {
-                $crudable
-                    ->setPhotos($form['files']->getData())
-                    ->setUploadDir('objects');
-            }
+                ->setData($form->getData())
+                ->setUploadDir('objects');
 
             return $this->redirectToRoute('admin.object.manage', [
-                'object' => $crudable->save(),
+                'object' => $crud->save(),
             ]);
         }
 

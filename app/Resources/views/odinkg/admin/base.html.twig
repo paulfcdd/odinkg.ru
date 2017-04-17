@@ -258,6 +258,23 @@
 <script src="{{ asset('js/custom/datatable.js') }}"></script>
 <script src="{{ asset('js/custom/summernote.js') }}"></script>
 <script src="{{ asset('js/custom/collectionType.js') }}"></script>
+<script>
+    
+    $('.delete-file').click(function () {
+        var file = $(this).data('id'),
+            url = '{{ path('admin.delete_file', {'file': '_file'}) }}';
+
+            $.ajax({
+                url: url.replace('_file', file),
+                method: 'POST',
+                success: function (data) {
+                    $('#file-'+file).remove();
+                }
+            })
+    })
+    
+</script>
+
 
 {% block custom_js %}
 {% endblock %}

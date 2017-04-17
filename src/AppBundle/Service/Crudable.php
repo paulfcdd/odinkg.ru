@@ -10,6 +10,7 @@ use FOS\UserBundle\Controller\SecurityController;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -79,7 +80,7 @@ class Crudable
      */
     public function getEntity()
     {
-        return get_class($this->getData());
+        return get_class($this->getData()->getData());
     }
 
     /**
@@ -130,21 +131,20 @@ class Crudable
 
         $data = $this->getData();
 
+        $this->em->persist($data->getData());
 
-        $this->em->persist($data);
+        if (!in_array(null, $data['files']->getData())) {
+            if (!empty($data['files']->getData())) {
+                $tm = $this->transactionManager($this->getUploadDir(), $data);
 
-        if ($this->getPhotos()) {
-
-            $tm = $this->transactionManager($this->getUploadDir(), $data);
-
-            if (!$tm) {
-                return false;
+                if (!$tm) {
+                    return false;
+                }
             }
         }
-
         $this->em->flush();
 
-        return $data->getId();
+        return $data->getData()->getId();
     }
 
 
@@ -206,9 +206,9 @@ class Crudable
 
         try {
             $this->em->flush();
-            return true;
+            return new Response();
         } catch (Exception $exception) {
-            return $exception->getMessage();
+            return new Response($exception->getMessage(), 500);
         }
     }
 
@@ -217,11 +217,9 @@ class Crudable
      * @param $data
      * @return bool
      */
-    private function transactionManager($uploadDir, $data) {
+    private function transactionManager(string $uploadDir, Form $data) {
 
         $images = null;
-
-        $this->em->persist($data);
 
         /*BEGIN TRANSACTION IF ENTITY HAS OBJECTS*/
         $this->em->getConnection()->beginTransaction();
@@ -230,12 +228,12 @@ class Crudable
 
             $this->em->flush();
 
-            if (!isset($this->getPhotos()['name'])) {
-                foreach ($this->getPhotos() as $photo) {
-                    $images = $this->fileUploader($photo, $uploadDir, $data->getId());
+            if (!isset($data['files']->getData()['name'])) {
+                foreach ($data['files']->getData() as $photo) {
+                    $images = $this->fileUploader($photo, $uploadDir, $data->getData()->getId());
                 }
             } else {
-                $images = $this->fileUploader($this->getPhotos(), $uploadDir, $data->getId());
+                $images = $this->fileUploader($data['files']->getData(), $uploadDir, $data->getData()->getId());
             }
 
             if ($images) {
