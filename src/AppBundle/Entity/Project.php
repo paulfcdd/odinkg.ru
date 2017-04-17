@@ -61,22 +61,23 @@ class Project
     private $link;
 
     /**
-     * @var \DateTime $dateCreated
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="date_created", type="datetime")
      */
     private $dateCreated;
 
     /**
-     * @var \DateTime $dateUpdated
-     * @Gedmo\Timestampable(on="update")
+     * @var \DateTime
      * @ORM\Column(name="date_updated", type="datetime", nullable=true)
      */
     private $dateUpdated;
 
-    public function __construct()
-    {
-        $this->dateCreated = new \DateTime();
-    }
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="date_removed", type="datetime", nullable=true)
+     */
+    private $dateRemoved;
 
     /**
      * Get id
@@ -230,5 +231,29 @@ class Project
     public function getDateUpdated()
     {
         return $this->dateUpdated;
+    }
+
+    /**
+     * Set dateRemoved
+     *
+     * @param \DateTime $dateRemoved
+     *
+     * @return Project
+     */
+    public function setDateRemoved($dateRemoved)
+    {
+        $this->dateRemoved = $dateRemoved;
+
+        return $this;
+    }
+
+    /**
+     * Get dateRemoved
+     *
+     * @return \DateTime
+     */
+    public function getDateRemoved()
+    {
+        return $this->dateRemoved;
     }
 }

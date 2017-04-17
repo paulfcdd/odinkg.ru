@@ -1,0 +1,22 @@
+{% extends ':odinkg/admin:bin.html.twig' %}
+
+{% block bin_data %}
+    {% for object in objects %}
+        {% if object.dateRemoved is not null %}
+            <tr id="object-{{ object.id }}">
+                <td>{{ object.id }}</td>
+                <td>{{ object.title }}</td>
+                <td>
+                    {{ object.dateRemoved | date('d.m.Y') }}
+                </td>
+                <td class="text-center">
+                    {% include ':odinkg/admin/element:bin_controls.html.twig' with {
+                    'entity': entity
+                    } %}
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block return_path %}{{ path('admin.object') }}{% endblock %}

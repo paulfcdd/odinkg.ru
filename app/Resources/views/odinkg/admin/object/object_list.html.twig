@@ -27,8 +27,7 @@
                             <th>Статус</th>
                             <th>Площадь</th>
                             <th>Дата создания</th>
-                            <th>Изменить объект</th>
-                            <th>Удалить объект</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -58,16 +57,16 @@
                                         {{ object.dateCreated | date('d.m.Y') }}
                                     </td>
                                     <td class="text-center">
-                                        <a class="btn btn-primary btn-block" href="{{ path('admin.object.manage', {
-                                            'object': object.id
-                                        }) }}">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger btn-block delete-object" data-objectId="{{ object.id }}">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        <div class="btn-group">
+                                            <a  href="{{ path('admin.object.manage', {
+                                                'object': object.id
+                                            }) }}" type="button" class="btn btn-success">
+                                                <span class="fa fa-edit"></span>
+                                            </a>
+                                            <button class="btn btn-danger delete-action" data-id="{{ object.id }}">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -92,13 +91,13 @@
 {% block custom_js %}
     <script>
 
-        $('.delete-object').on('click', function () {
-            var objectId = $(this).attr('data-objectId'),
+        $('.delete-action').on('click', function () {
+            var object = $(this).data('id'),
                 urlPattern = '{{ path('admin.object.delete', {'object': '_object'}) }}';
 
 
             $.ajax({
-                url: urlPattern.replace('_object', objectId),
+                url: urlPattern.replace('_object', object),
                 method: 'POST',
                 success:function (data) {
                     $('#object-'+data).remove();

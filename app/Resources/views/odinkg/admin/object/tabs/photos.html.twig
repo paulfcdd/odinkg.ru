@@ -1,15 +1,68 @@
 <div id="photos" class="tab-pane row">
-    <div class="col-xs-12">
-        <div class="form-group review-photos"
-             data-prototype="{{ form_widget(form.files.vars.prototype)|e('html_attr') }}">
-            {% for file in form.files %}
-                <div class="col-xs-12" id="{{ file.fileName.parent.vars.value.id }}">
-                    {{ form_widget(file.fileName) }}
-                    {{ form_widget(file.alt) }}
-                    {{ form_widget(file.title) }}
-                    {{ form_widget(file.description) }}
+    {% set hidden = 'hidden' %}
+    {% set colsize = 'col-xs-12' %}
+    {% set files = null %}
+
+    {% if object.files is defined and object.files is not empty %}
+        {% set hidden = null %}
+        {% set colsize = 'col-xs-6' %}
+        {% set files = object.files %}
+        {% set images = [] %}
+    {% endif %}
+
+    <div class="{{ colsize }}">
+        <div class="form-group file-collection" id="photos-collection" data-prototype="{{ form_widget(form.files.vars.prototype)|e('html_attr') }}">
+            {% for photo in form.files %}
+                <div class="col-xs-12" id="{{ photo.fileName.parent.vars.value.id }}">
+                    {{ form_widget(photo.fileName) }}
+                    {{ form_widget(photo.alt) }}
+                    {{ form_widget(photo.title) }}
+                    {{ form_widget(photo.description) }}
                 </div>
             {% endfor %}
+        </div>
+    </div>
+
+    <div class="{{ colsize }}" {{ hidden }}>
+        <div class="carousel slide" id="carousel2">
+
+            {% for file in files %}
+                {% if 'image' in file.mimeType %}
+                    {% set images = images|merge([file]) %}
+                {% endif %}
+            {% endfor %}
+
+            {% if images is defined %}
+                <div class="carousel-inner">
+
+                    {% set firstElement = images|first %}
+                    {% for image in images %}
+
+                        {% if image.id == firstElement.id %}
+                            {% set active = 'active' %}
+                        {% else %}
+                            {% set active = null %}
+                        {% endif %}
+
+
+                        <div class="item {{ active }}" id="item_{{ image.id }}">
+                            <img alt="image" class="img-responsive" height="400"
+                                 src="{{ asset('upload/objects/'~image.name) }}">
+                            <div class="carousel-caption">
+                                <p class="remove-photo-btn" data-file="{{ image.id }}">
+                                    <i class="fa fa-times"></i>&nbsp;Удалить фото
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                <span class="icon-prev"></span>
+            </a>
+            <a data-slide="next" href="#carousel2" class="right carousel-control">
+                <span class="icon-next"></span>
+            </a>
         </div>
     </div>
 </div>

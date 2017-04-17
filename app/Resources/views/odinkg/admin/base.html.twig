@@ -255,62 +255,11 @@
 <script src="{{ asset('bower_components/summernote/dist/summernote.js') }}"></script>
 <script src="{{ asset('bower_components/summernote/dist/lang/summernote-ru-RU.min.js') }}"></script>
 
-<script>
-    /*INIT DATATABLE FOR EACH TABLE WITH CLASS smartTable*/
-    $(document).ready(function () {
-
-        var route = '{{ app.request.get('_route') }}',
-            currentPage = route.replace('admin.', '');
-
-        $('#'+currentPage).toggleClass('active');
-
-        $('.smartTable').DataTable({
-            pageLength: 10,
-            responsive: true,
-            dom: '<"html5buttons"B>lTfgitp',
-            oLanguage: {
-                "sSearch": "{{ 'Фильтр' }}:",
-                "sLengthMenu": "{{ 'Показывать _MENU_ записей' }}",
-                "sInfo": "{{ 'Показаны от _START_ до _END_ записей из _TOTAL_' }}",
-                "sZeroRecords": "Нет записей для отображения",
-                oPaginate: {
-                    "sNext": "Следующая",
-                    "sPrevious": "Предыдущая"
-                }
-            },
-            buttons: [
-                {extend: 'copy'},
-                {extend: 'csv'},
-                {extend: 'excel', title: 'Объекты Красная Горка'},
-                {extend: 'pdf', title: 'Объекты Красная Горка'},
-
-                {
-                    extend: 'print',
-                    customize: function (win) {
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size', 'inherit');
-                    }
-                }
-            ]
-
-        });
-
-        $('.news-editor').summernote({
-            lang: 'ru-RU',
-            height: 300
-        });
-
-
-    });
-</script>
-
+<script src="{{ asset('js/custom/datatable.js') }}"></script>
+<script src="{{ asset('js/custom/summernote.js') }}"></script>
+<script src="{{ asset('js/custom/collectionType.js') }}"></script>
 
 {% block custom_js %}
-    {#<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwVpNQB9COvDUNPpbn7YOUtiuDpzum18Y&callback=initMap" type="text/javascript"></script>#}
 {% endblock %}
 </body>
 </html>

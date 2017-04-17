@@ -7,7 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
     Route, Method
 };
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\{
+    JsonResponse, Request, Response
+};
 
 /**
  * Class AdminController
@@ -23,6 +25,38 @@ class AdminController extends Controller
     public function dashboardAction(){
 
         return $this->render('odinkg/admin/dashboard.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/bin/repair", name="admin.bin.repair")
+     * @Method("POST")
+     */
+    public function binRepairAction(Request $request) {
+
+        return $this
+            ->get('app.crudable')
+            ->setData(
+                $this->getObject($request->request->get('entity'), $request->request->get('object'))
+            )
+            ->restore();
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/bin/remove", name="admin.bin.remove")
+     * @Method("POST")
+     */
+    public function binDeleteAction(Request $request) {
+
+        return $this
+            ->get('app.crudable')
+            ->setData(
+                $this->getObject($request->request->get('entity'), $request->request->get('object'))
+            )
+            ->delete();
     }
 
     /**
@@ -43,6 +77,18 @@ class AdminController extends Controller
             return JsonResponse::create($crudable->deleteFile(), 500);
         }
 
+    }
+
+    /**
+     * @param string $entity
+     * @param string $object
+     * @return mixed
+     */
+    private function getObject(string $entity, string $object) {
+        return $this
+            ->getDoctrine()
+            ->getRepository($entity)
+            ->findOneById($object);
     }
 
 }

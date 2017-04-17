@@ -11,6 +11,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class Crudable
@@ -32,10 +33,9 @@ class Crudable
 
     protected $data;
 
-    protected $object;
-
     protected $photos;
 
+    /** @var  string */
     protected $uploadDir;
 
 
@@ -67,8 +67,7 @@ class Crudable
      * @param $data
      * @return $this
      */
-    public function setData($data)
-    {
+    public function setData($data) {
 
         $this->data = $data;
 
@@ -150,7 +149,7 @@ class Crudable
 
 
     /**
-     * @return bool
+     * @return Response
      */
     public function delete() {
 
@@ -162,21 +161,28 @@ class Crudable
             $data->setDateRemoved(new \DateTime());
         }
 
-        $this->em->flush();
+        try {
+            $this->em->flush();
+            return new Response();
+        } catch (DBALException $exception) {
+            return new Response($exception->getMessage(), 500);
+        }
 
-        return true;
     }
 
     /**
-     * @return bool
+     * @return Response
      */
     public function restore() {
 
         $this->getData()->setDateRemoved(null);
 
-        $this->em->flush();
-
-        return true;
+        try {
+            $this->em->flush();
+            return new Response();
+        } catch (DBALException $exception) {
+            return new Response($exception->getMessage(), 500);
+        }
     }
 
     /**

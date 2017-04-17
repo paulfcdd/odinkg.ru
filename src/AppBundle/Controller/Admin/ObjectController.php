@@ -94,12 +94,13 @@ class ObjectController extends Controller
 
         return $this->render('odinkg/admin/object/object_manage.html.twig', [
             'form' => $form->createView(),
+            'object' => $object
         ]);
     }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard/object/bin", name="admin.object.bin")
+     * @Route("/bin", name="admin.object.bin")
      */
     public function objectBinAction () {
 
@@ -110,39 +111,21 @@ class ObjectController extends Controller
             ->where('o.dateRemoved IS NOT NULL')
             ->getQuery();
 
-        return $this->render(':odinkg/admin/object:bin.html.twig', [
-            'objects' => $query->getResult()
+        return $this->render('odinkg/admin/object/object_bin.html.twig', [
+            'objects' => $query->getResult(),
+            'entity' => Object::class,
         ]);
     }
 
     /**
-     * @param Request $request
      * @param Object $object
-     * @return JsonResponse
-     * @Route("/dashboard/object/{object}/repair", name="admin.object.bin.repair")
+     * @return Response
+     * @Route("/{object}/repair", name="admin.object.bin.repair")
+     * @Method("POST")
      */
-    public function repairObjectAction(Request $request, Object $object) {
-        if ($request->isMethod('post')) {
-            $em = $this->getDoctrine()->getManager();
-            $object->setDateRemoved(null);
-            $em->flush();
-            return JsonResponse::create($object->getId(), 200);
-        }
-    }
-
-    /**
-     * @param Request $request
-     * @param Object $object
-     * @return JsonResponse
-     * @Route("/dashboard/object/{object}/remove", name="admin.object.bin.remove")
-     */
-    public function removeFromBinAction(Request $request, Object $object){
-        if ($request->isMethod('post')) {
-            $objectId = $object->getId();
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($object);
-            $em->flush();
-            return JsonResponse::create($objectId, 200);
-        }
+    public function restoreObjectAction(Object $object) {
+       return $this->get('app.crudable')
+           ->setData($object)
+           ->restore();
     }
 }
