@@ -49,6 +49,7 @@ class NewsController extends Controller
 
         return $this->render(':odinkg/admin/news:news_bin.html.twig', [
             'objects' => $removed->getResult(),
+            'entity' => News::class,
         ]);
     }
 

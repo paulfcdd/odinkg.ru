@@ -10,65 +10,31 @@
 {% endblock %}
 
 {% block content_block %}
-
     <div class="col-lg-12">
-
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Добавление новости</h5>
+                <h5>Добавление проекта</h5>
             </div>
             {{ form_start(form) }}
             <div class="ibox-content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            {{ form_label(form.title) }}
-                            {{ form_widget(form.title, {
-                                'attr': {
-                                    'class': 'form-control'
-                                }
-                            }) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.content) }}
-                            {{ form_widget(form.content, {
-                                'attr': {
-                                    'class': 'form-control news-editor',
-                                    'cols': '3',
-                                    'rows': '5'
-                                }
-                            }) }}
-                        </div>
-                    </div>
-                    {% if news is not null %}
-
-                        {% if news.files is not null %}
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    {{ form_label(form.files) }}
-                                    {{ form_widget(form.files, {'attr': {
-                                        'required': false
-                                    }}) }}
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                image well be here
-                            </div>
-                        {% endif %}
-                        {% else %}
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    {{ form_label(form.files) }}
-                                    {{ form_widget(form.files) }}
-                                </div>
-                            </div>
-                    {% endif %}
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#main-info"><i class="fa fa-info"></i> Содержание
+                            новости</a></li>
+                    <li class=""><a data-toggle="tab" href="#photo"><i class="fa fa-camera"></i> Иллюстрация</a></li>
+                </ul>
+                <div class="tab-content" style="padding-top: 20px;">
+                    {% include ':odinkg/admin/news/tabs:main_info.html.twig' %}
+                    {% include ':odinkg/admin/news/tabs:photo.html.twig' %}
                 </div>
             </div>
             <div class="ibox-footer">
                 <div class="btn-group">
-                    <a href="{{ path('admin.news') }}" type="button" class="btn btn-success"><span class="fa fa-chevron-left"></span>&nbsp;Назад</a>
-                    <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span>&nbsp;Сохранить</button>
+                    <a href="{{ path('admin.news') }}" type="button" class="btn btn-success">
+                        <span class="fa fa-chevron-left"></span>&nbsp;Назад
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="fa fa-save"></span>&nbsp;Сохранить
+                    </button>
                 </div>
             </div>
             {{ form_end(form) }}

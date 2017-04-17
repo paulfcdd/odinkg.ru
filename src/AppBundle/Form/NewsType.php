@@ -25,7 +25,7 @@ class NewsType extends AbstractType
                 'label' => 'Содержание новости'
             ])
             ->add('files', FileUploaderType::class, [
-                'label' => 'Иллюстрация к новости',
+                'label' => false,
                 'mapped' => false,
                 'required' => isset($data) ? false : true,
             ]);

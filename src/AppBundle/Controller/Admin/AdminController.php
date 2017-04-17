@@ -30,17 +30,20 @@ class AdminController extends Controller
     /**
      * @param Request $request
      * @return Response
-     * @Route("/bin/repair", name="admin.bin.repair")
+     * @Route("/bin/restore", name="admin.bin.restore")
      * @Method("POST")
      */
-    public function binRepairAction(Request $request) {
+    public function binRestoreAction(Request $request) {
 
-        return $this
-            ->get('app.crudable')
-            ->setData(
-                $this->getObject($request->request->get('entity'), $request->request->get('object'))
-            )
-            ->restore();
+        return
+            $this
+                ->get('app.crudable')
+                ->setData(
+                    $this->getObject(
+                        $request->request->get('entity'), $request->request->get('object')
+                    )
+                )
+                ->restore();
     }
 
     /**
@@ -51,12 +54,15 @@ class AdminController extends Controller
      */
     public function binDeleteAction(Request $request) {
 
-        return $this
-            ->get('app.crudable')
-            ->setData(
-                $this->getObject($request->request->get('entity'), $request->request->get('object'))
-            )
-            ->delete();
+        return
+            $this
+                ->get('app.crudable')
+                ->setData(
+                    $this->getObject(
+                        $request->request->get('entity'), $request->request->get('object')
+                    )
+                )
+                ->delete();
     }
 
     /**
@@ -85,10 +91,11 @@ class AdminController extends Controller
      * @return mixed
      */
     private function getObject(string $entity, string $object) {
-        return $this
-            ->getDoctrine()
-            ->getRepository($entity)
-            ->findOneById($object);
+        return
+            $this
+                ->getDoctrine()
+                ->getRepository($entity)
+                ->findOneById($object);
     }
 
 }

@@ -34,8 +34,10 @@
                     {% for file in files %}
                         <div class="col-xs-4">
                             <div class="thumbnail text-center">
-                                <a href="{{ asset('upload/projects/'~file.name) }}">
-                                    <i class="fa {{ file.guessIconByMime(file.mimeType) }} fa-3x" aria-hidden="true"></i>
+                                <a href="#">
+                                    <a href="{{ asset('upload/projects/'~file.name) }}">
+                                        <i class="fa {{ file.guessIconByMime(file.mimeType) }} fa-3x" aria-hidden="true"></i>
+                                    </a>
                                     <div class="caption">
                                         <h4>{{ file.name }}</h4>
                                         <p>{{ file.description }}</p>

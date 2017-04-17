@@ -47,7 +47,7 @@
                 entity = $(this).data('entity');
 
             $.ajax({
-                url: '{{ path('admin.bin.repair') }}',
+                url: '{{ path('admin.bin.restore') }}',
                 data: {
                     object: object,
                     entity: entity
