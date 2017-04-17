@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\{
-    News, Image
+    News, File
 };
 
 use AppBundle\Form\NewsType;
@@ -49,6 +49,7 @@ class NewsController extends Controller
 
         return $this->render(':odinkg/admin/news:news_bin.html.twig', [
             'objects' => $removed->getResult(),
+            'entity' => News::class,
         ]);
     }
 
@@ -104,22 +105,13 @@ class NewsController extends Controller
                 $form->getData()->setAuthor($this->getUser());
             }
 
-            if ($form->getData()->getDateCreated()) {
-                $form->getData()->setDateUpdated(new \DateTime());
-            }
-
-            $crudable = $this
+            $crud = $this
                 ->get('app.crudable')
-                ->setData($form->getData());
-
-            if (!empty($form['image']->getData())) {
-                $crudable
-                    ->setPhotos($form['image']->getData())
-                    ->setUploadDir('news');
-            }
+                ->setData($form)
+                ->setUploadDir('news');
 
             return $this->redirectToRoute('admin.news.manage', [
-                'news' => $crudable->save()
+                'news' => $crud->save()
             ]);
         }
 
