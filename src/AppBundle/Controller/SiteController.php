@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\{
-    Contact, File, Object, ServicePage
+    Contact, File, Object, Project, ServicePage
 };
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -88,6 +88,26 @@ class SiteController extends Controller
      * @Route("/project/list", name="project.list")
      */
     public function showProjectListAction(){
-        return $this->render(':odinkg/front/project:project_list.html.twig');
+        return $this->render(':odinkg/front/project:project_list.html.twig', [
+            'projects' => $this->getDoctrine()->getRepository(Project::class)->findAll(),
+        ]);
+    }
+
+    /**
+     * @param Project $project
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/project/id{project}", name="project.single")
+     */
+    public function singleProjectAction(Project $project) {
+
+        $prevPost = $this->getDoctrine()->getRepository(Project::class)->find($project->getId() - 1);
+
+        $nextPost = $this->getDoctrine()->getRepository(Project::class)->find($project->getId() + 1);
+
+        return $this->render(':odinkg/front/project:project_single.html.twig', [
+            'project' => $project,
+            'prevPost' => $prevPost,
+            'nextPost' => $nextPost,
+        ]);
     }
 }
