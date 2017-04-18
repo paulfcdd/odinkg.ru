@@ -31,10 +31,10 @@ class ProjectType extends AbstractType
             ->add('link', UrlType::class, [
                 'label' => 'Ссылка на проект'
             ])
-            ->add('photos', CollectionType::class, [
+            ->add('files', CollectionType::class, [
                 'label' => false,
                 'mapped' => false,
-                'entry_type' => ImageType::class,
+                'entry_type' => FileUploaderType::class,
                 'allow_add' => true,
                 'allow_delete' => true
             ])

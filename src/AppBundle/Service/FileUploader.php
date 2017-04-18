@@ -6,7 +6,7 @@ namespace AppBundle\Service;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class ImageUploader
+class FileUploader
 {
 
     /** @var EntityManager $em */

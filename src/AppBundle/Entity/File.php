@@ -3,16 +3,27 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class File
- * @package AppBundle\Entity
- * @ORM\Table(name="file")
  * @ORM\Entity
+ * @ORM\Table(name="file")
  */
+
 class File
 {
+    const MIME_TYPE_ICON_MAP = [
+        'image' => 'fa-file-image-o',
+        'audio' => 'fa-file-audio-o',
+        'video' => 'fa-file-video-o',
+        'application/pdf' => 'fa-file-pdf-o',
+        'text/plain' => 'fa-file-text-o',
+        'text/html' => 'fa-file-code-o',
+        'application/json' => 'fa-file-code-o',
+        'application/gzip' => 'fa-file-archive-o',
+        'application/zip' => 'fa-file-archive-o',
+        'application/octet-stream' => 'fa-file-o',
+    ];
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -21,15 +32,13 @@ class File
     private $id;
 
     /**
-     * @var string $name
-     *
+     * @var string
      * @ORM\Column(name="name", length=100, type="string", unique=true)
      */
     private $name;
 
     /**
-     * @var string $entity
-     *
+     * @var string
      * @ORM\Column(name="entity", length=100, type="string")
      */
     private $entity;
@@ -42,25 +51,28 @@ class File
     private $foreignKey;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="size", type="integer", length=20)
+     * @var string
+     * @ORM\Column(name="description", type="string", length=255)
      */
-    private $size;
+    private $description;
 
     /**
-     * @var string $mimeType
-     *
-     * @ORM\Column(name="mimeType", length=100, type="string")
+     * @var string
+     * @ORM\Column(name="alt", length=100, type="string")
+     */
+    private $alt;
+
+    /**
+     * @var string
+     * @ORM\Column(name="title", length=100, type="string")
+     */
+    private $title;
+
+    /**
+     * @var string
+     * @ORM\Column(name="mime_type", length=100, type="string")
      */
     private $mimeType;
-
-    /**
-     * @var \DateTime $dateUploaded
-     *
-     * @ORM\Column(name="date_uploaded", type="datetime")
-     */
-    private $dateUploaded;
 
     /**
      * Get id
@@ -70,11 +82,6 @@ class File
     public function getId()
     {
         return $this->id;
-    }
-
-    public function __construct()
-    {
-        $this->dateUploaded = new \DateTime();
     }
 
     /**
@@ -150,46 +157,78 @@ class File
     }
 
     /**
-     * Set size
+     * Set description
      *
-     * @param integer $size
+     * @param string $description
      *
      * @return File
      */
-    public function setSize($size)
+    public function setDescription($description)
     {
-        $this->size = $size;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get size
+     * Get description
      *
-     * @return integer
+     * @return string
      */
-    public function getSize()
+    public function getDescription()
     {
-        return $this->size;
+        return $this->description;
     }
 
     /**
-     * Set mimeType
+     * Set alt
      *
-     * @param string $mimeType
+     * @param string $alt
      *
      * @return File
      */
-    public function setMimeType($mimeType)
+    public function setAlt($alt)
     {
-        $this->mimeType = $mimeType;
+        $this->alt = $alt;
 
         return $this;
     }
 
     /**
-     * Get mimeType
+     * Get alt
      *
+     * @return string
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return File
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * @return string
      */
     public function getMimeType()
@@ -198,26 +237,26 @@ class File
     }
 
     /**
-     * Set dateUploaded
-     *
-     * @param \DateTime $dateUploaded
-     *
-     * @return File
+     * @param string $mimeType
+     * @return $this
      */
-    public function setDateUploaded($dateUploaded)
+    public function setMimeType(string $mimeType)
     {
-        $this->dateUploaded = $dateUploaded;
+        $this->mimeType = $mimeType;
 
         return $this;
     }
 
     /**
-     * Get dateUploaded
-     *
-     * @return \DateTime
+     * @param $mimeType
+     * @return mixed|string
      */
-    public function getDateUploaded()
-    {
-        return $this->dateUploaded;
+    public function guessIconByMime($mimeType) {
+
+        if (array_key_exists($mimeType, self::MIME_TYPE_ICON_MAP)) {
+            return self::MIME_TYPE_ICON_MAP[$mimeType];
+        } else {
+            return 'fa-question-circle-o';
+        }
     }
 }

@@ -22,16 +22,15 @@ class FileRelationSubscriber implements EventSubscriber
         }
 
         $result = $eventArgs->getEntityManager()->createQueryBuilder()
-            ->select('f')
-            ->from(File::class, 'f')
-            ->where('f.foreignKey = :id')
-            ->andWhere('f.entity = :entity')
+            ->select('i')
+            ->from(File::class, 'i')
+            ->where('i.foreignKey = :id')
+            ->andWhere('i.entity = :entity')
             ->setParameter('id', $eventArgs->getObject()->getId())
             ->setParameter('entity', get_class($eventArgs->getObject()))
             ->getQuery()
             ->getResult();
 
-        $eventArgs->getObject()->setImages(new ArrayCollection($result));
-
+        $eventArgs->getObject()->setFiles(new ArrayCollection($result));
     }
 }

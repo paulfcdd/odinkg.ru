@@ -2,12 +2,14 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Image;
+use AppBundle\Entity\File;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
     Route, Method
 };
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\{
+    JsonResponse, Request, Response
+};
 
 /**
  * Class AdminController
@@ -26,23 +28,68 @@ class AdminController extends Controller
     }
 
     /**
-     * @param Image $file
-     * @return JsonResponse
+     * @param Request $request
+     * @return Response
+     * @Route("/bin/restore", name="admin.bin.restore")
+     * @Method("POST")
+     */
+    public function binRestoreAction(Request $request) {
+
+        return
+            $this
+                ->get('app.crudable')
+                ->setData(
+                    $this->getObject(
+                        $request->request->get('entity'), $request->request->get('object')
+                    )
+                )
+                ->restore();
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/bin/remove", name="admin.bin.remove")
+     * @Method("POST")
+     */
+    public function binDeleteAction(Request $request) {
+
+        return
+            $this
+                ->get('app.crudable')
+                ->setData(
+                    $this->getObject(
+                        $request->request->get('entity'), $request->request->get('object')
+                    )
+                )
+                ->delete();
+    }
+
+    /**
+     * @param File $file
+     * @return Response
      * @Route("/delete-file/{file}",  name="admin.delete_file")
      * @Method("POST")
      */
-    public function deleteFile(Image $file) {
+    public function deleteFile(File $file) {
 
-        $crudable = $this
+         return $this
             ->get('app.crudable')
-            ->setData($file);
+            ->setData($file)
+            ->deleteFile();
+    }
 
-        if ($crudable->deleteFile()) {
-            return JsonResponse::create();
-        } else {
-            return JsonResponse::create($crudable->deleteFile(), 500);
-        }
-
+    /**
+     * @param string $entity
+     * @param string $object
+     * @return mixed
+     */
+    private function getObject(string $entity, string $object) {
+        return
+            $this
+                ->getDoctrine()
+                ->getRepository($entity)
+                ->findOneById($object);
     }
 
 }

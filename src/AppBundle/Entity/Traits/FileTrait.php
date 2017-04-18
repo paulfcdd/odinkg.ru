@@ -25,12 +25,15 @@ trait FileTrait
     }
 
     /**
+     * Remove $file from collection
+     *
      * @param File $file
      * @return $this
      */
     public function removeFile(File $file) {
-
-        $this->files->remove($file);
+        if($this->files->contains($file)) {
+            $this->files->remove($file);
+        }
 
         return $this;
     }
@@ -60,7 +63,6 @@ trait FileTrait
         $this->files->clear();
 
         return $this;
-
     }
 
 

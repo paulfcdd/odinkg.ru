@@ -2,8 +2,10 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\ImageTrait;
+use AppBundle\Entity\Traits\FileTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Class News
@@ -13,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class News
 {
-    use ImageTrait;
+    use FileTrait;
 
     /**
      * @ORM\Id
@@ -24,6 +26,7 @@ class News
 
     /**
      * @var \DateTime
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="date_created", type="datetime")
      */
     private $dateCreated;
@@ -57,11 +60,6 @@ class News
      * @ORM\Column()
      */
     private $title;
-
-    public function __construct()
-    {
-        $this->dateCreated = new \DateTime();
-    }
 
     /**
      * Get id

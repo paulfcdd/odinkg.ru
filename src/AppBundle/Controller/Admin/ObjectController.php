@@ -2,74 +2,61 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Image;
-use AppBundle\Entity\Object;
-use AppBundle\Form\ObjectType;
-use AppBundle\Service\ImageUploader;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\{
+    File, Object
+};
+use AppBundle\Form\ObjectType;
+use Doctrine\ORM\{
+    EntityManager, EntityRepository
+};
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\{
+    Route, Method
+};
+use Symfony\Component\HttpFoundation\{
+    Response, RedirectResponse, Request, JsonResponse
+};
 
+/**
+ * Class ObjectController
+ * @package AppBundle\Controller\Admin
+ * @Route("/dashboard/object")
+ */
 class ObjectController extends Controller
 {
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard/object", name="admin.object")
+     * @Route("", name="admin.object")
      */
     public function listObjectAction(){
 
-        return $this->render(':odinkg/admin/object:list.html.twig',[
+        return $this->render(':odinkg/admin/object:object_list.html.twig',[
             'objects' => $this->getDoctrine()->getRepository(Object::class)->findAll(),
         ]);
     }
 
     /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard/object/add", name="admin.object.add")
+     * @param Object $object
+     * @return JsonResponse
+     * @Route("/dashboard/object/delete/{object}", name="admin.object.delete")
+     * @Method("POST")
      */
-    public function addObjectAction(Request $request){
+    public function deleteObjectAction(Object $object){
 
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        $form = $this
-            ->createForm(ObjectType::class)
-            ->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->persist($form->getData()
-                ->setDateCreated(new \DateTime())
-            );
-
-           $em->flush();
-
-            return $this->redirectToRoute('admin.object');
-        }
-
-        return $this->render(':odinkg/admin/object:add.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this
+            ->get('app.crudable')
+            ->setData($object)
+            ->delete();
     }
 
     /**
-     * @param Object $object
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard/object/{object}/edit", name="admin.object.edit")
+     * @param Object|null $object
+     * @return RedirectResponse|Response
+     * @Route("/manage/{object}", name="admin.object.manage")
      */
-    public function editObjectAction(Object $object, Request $request) {
-
-        /** @var EntityManager $em */
-        $em = $this
-            ->getDoctrine()
-            ->getManager();
+    public function manageObjectAction(Request $request, Object $object = null) {
 
         $form = $this
             ->createForm(ObjectType::class)
@@ -78,78 +65,25 @@ class ObjectController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($form['photos']->getData()) {
+            $crud = $this
+                ->get('app.crudable')
+                ->setData($form->getData())
+                ->setUploadDir('objects');
 
-                foreach ($form['photos']->getData() as $photo) {
-
-                    $fileName = trim(strtolower(str_replace(' ', '_', ($photo['name']))));
-
-                    $uploader = $this->get('app.image_uploader')
-                        ->setDir('objects')
-                        ->setFile($photo['file'])
-                        ->setFileName($fileName)
-                        ->upload();
-
-                    if ($uploader) {
-                        $image = new Image();
-                        $image
-                            ->setForeignKey($object->getId())
-                            ->setEntity(Object::class)
-                            ->setName($fileName.'.'.$photo['file']->getClientOriginalExtension())
-                            ->setDescription($photo['description'])
-                            ->setAlt(trim($photo['alt']))
-                            ->setTitle(trim($photo['title']));
-                        $em->persist($image);
-                    }
-                }
-            }
-
-            $form
-                ->getData()
-                ->setDateUpdated(new \DateTime());
-
-            $em->flush();
-
-            return $this->redirectToRoute('admin.object');
+            return $this->redirectToRoute('admin.object.manage', [
+                'object' => $crud->save(),
+            ]);
         }
 
-        $images = $em->createQueryBuilder()
-            ->select('i')
-            ->from(Image::class, 'i')
-            ->where('i.entity = :entity')
-            ->andWhere('i.foreignKey = :foreignKey')
-            ->setParameters([
-                'entity' => Object::class,
-                'foreignKey' => $object->getId()
-            ])
-            ->getQuery();
-
-        return $this->render(':odinkg/admin/object:add.html.twig', [
+        return $this->render('odinkg/admin/object/object_manage.html.twig', [
             'form' => $form->createView(),
-            'images' => $images->getResult(),
+            'object' => $object
         ]);
     }
 
     /**
-     * @param Request $request
-     * @param Object $object
-     * @return JsonResponse
-     * @Route("/dashboard/object/delete/{object}", name="admin.object.delete")
-     */
-    public function deleteObjectAction(Request $request, Object $object){
-        if ($request->isMethod('post')) {
-            $em = $this->getDoctrine()->getManager();
-            $object->setDateremoved(
-                \DateTime::createFromFormat('d.m.Y', date('d.m.Y'))
-            );
-            $em->flush();
-            return JsonResponse::create($object->getId(), 200);
-        }
-    }
-
-    /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard/object/bin", name="admin.object.bin")
+     * @Route("/bin", name="admin.object.bin")
      */
     public function objectBinAction () {
 
@@ -160,39 +94,21 @@ class ObjectController extends Controller
             ->where('o.dateRemoved IS NOT NULL')
             ->getQuery();
 
-        return $this->render(':odinkg/admin/object:bin.html.twig', [
-            'objects' => $query->getResult()
+        return $this->render('odinkg/admin/object/object_bin.html.twig', [
+            'objects' => $query->getResult(),
+            'entity' => Object::class,
         ]);
     }
 
     /**
-     * @param Request $request
      * @param Object $object
-     * @return JsonResponse
-     * @Route("/dashboard/object/{object}/repair", name="admin.object.bin.repair")
+     * @return Response
+     * @Route("/{object}/repair", name="admin.object.bin.repair")
+     * @Method("POST")
      */
-    public function repairObjectAction(Request $request, Object $object) {
-        if ($request->isMethod('post')) {
-            $em = $this->getDoctrine()->getManager();
-            $object->setDateRemoved(null);
-            $em->flush();
-            return JsonResponse::create($object->getId(), 200);
-        }
-    }
-
-    /**
-     * @param Request $request
-     * @param Object $object
-     * @return JsonResponse
-     * @Route("/dashboard/object/{object}/remove", name="admin.object.bin.remove")
-     */
-    public function removeFromBinAction(Request $request, Object $object){
-        if ($request->isMethod('post')) {
-            $objectId = $object->getId();
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($object);
-            $em->flush();
-            return JsonResponse::create($objectId, 200);
-        }
+    public function restoreObjectAction(Object $object) {
+       return $this->get('app.crudable')
+           ->setData($object)
+           ->restore();
     }
 }
