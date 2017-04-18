@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait FileTrait
 {
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection $files
      */
     private $files;
 
@@ -16,9 +16,8 @@ trait FileTrait
      * @param File $file
      * @return $this
      */
-    public function addImage(File $file)
-    {
-        if(!$this->files->contains($file)) {
+    public function addFile(File $file) {
+        if (!$this->files->contains($file)) {
             $this->files->add($file);
         }
 
@@ -60,8 +59,11 @@ trait FileTrait
      * @return $this
      */
     public function clearFiles() {
+
         $this->files->clear();
 
         return $this;
     }
+
+
 }
