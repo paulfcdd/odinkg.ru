@@ -24,6 +24,9 @@ class WidgetController extends Controller
         return $this->render(':odinkg/front/widget:footer_projects.html.twig', [
             'projects' => $qb->getResult()
         ]);
+    }
 
+    public function contactWidgetAction() {
+        return $this->render(':odinkg/front/widget:contact_widget.html.twig');
     }
 }

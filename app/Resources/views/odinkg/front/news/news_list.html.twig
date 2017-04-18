@@ -14,6 +14,7 @@
                 </div>
             </div>
         </div>
+
         <div class="page-content blog-standard">
             <div class="container">
                 <div class="row">
@@ -29,8 +30,7 @@
                                             <article class="post-entry">
                                                 <div class="post-image" style="max-height: 276px;">
                                                     <a href="#">
-                                                        <img width="1100" height="630"
-                                                             src="{{ asset('upload/news/'~item.images[0].name) }}" alt="">
+                                                        <img width="1100" height="630" src="{{ asset('upload/news/'~item.files[0].name) }}" alt="{{ item.files[0].alt }}">
                                                         <span class="filter-grayscale"></span>
                                                     </a>
                                                 </div>
