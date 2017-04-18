@@ -191,29 +191,7 @@
 								</div>
 							</div> <!-- /.col-md-3 -->
 							<div class="col-sm-6 col-md-3">
-								<div class="widget">
-									<h3 class="widget-title">Портфолио</h3>
-									<div class="small-projects clearfix">
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-1.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-2.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-3.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-4.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-5.jpg') }}" alt="">
-										</a>
-										<a href="project-single.html" class="thumb">
-											<img src="{{ asset('assets/images/small-6.jpg') }}" alt="">
-										</a>
-									</div>
-								</div>
+								{{ render(controller('AppBundle:Widget:footerProjectsWidget')) }}
 							</div> <!-- /.col-md-3 -->
 							<div class="col-sm-6 col-md-3">
 								<div class="widget">

@@ -1,0 +1,26 @@
+<div class="widget">
+    <h3 class="widget-title">Проекты</h3>
+    <div class="small-projects clearfix">
+        {% for project in projects %}
+            {% if project.files is defined and project.files is not empty %}
+                {% set files = project.files %}
+                {% set images = [] %}
+            {% endif %}
+
+            {% for file in project.files %}
+                {% if 'image' in file.mimeType %}
+                    {% set images = images|merge([file]) %}
+                {% endif %}
+            {% endfor %}
+
+            {% if images | length > 1 %}
+                {% set main_image = images[0] %}
+                {% set images = images|slice (1) %}
+            {% endif %}
+
+            <a href="{{ path('project.single', {'project': project.id}) }}" class="thumb">
+                <img src="{{ asset('upload/projects/'~main_image.name) }}" alt="{{ main_image.alt }}">
+            </a>
+        {% endfor %}
+    </div>
+</div>
