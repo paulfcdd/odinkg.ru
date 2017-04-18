@@ -80,7 +80,7 @@ class ProjectController extends Controller
         $em = $this->getDoctrine()->getRepository(Project::class);
 
         $query = $em->createQueryBuilder('p')
-            ->where('.dateRemoved IS NOT NULL')
+            ->where('p.dateRemoved IS NOT NULL')
             ->getQuery();
 
         return $this->render('odinkg/admin/project/project_bin.html.twig', [
