@@ -66,8 +66,8 @@
 
                             {% for object in objects %}
 
-                                {% if object.images is not empty %}
-                                    {% set firstImage = object.images|first %}
+                                {% if object.files is not empty %}
+                                    {% set firstImage = object.files|first %}
                                     {% else %}
                                         {% set firstImage = null %}
                                 {% endif %}

@@ -67,7 +67,7 @@ class ObjectController extends Controller
 
             $crud = $this
                 ->get('app.crudable')
-                ->setData($form->getData())
+                ->setData($form)
                 ->setUploadDir('objects');
 
             return $this->redirectToRoute('admin.object.manage', [

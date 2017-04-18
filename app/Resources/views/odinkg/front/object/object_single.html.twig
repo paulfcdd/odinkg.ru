@@ -21,9 +21,9 @@
                     <div class="col-md-6">
                         <div class="row">
 
-                            {% set imageFirst = object.images|first %}
+                            {% set imageFirst = object.files|first %}
 
-                            {% for image in object.images %}
+                            {% for image in object.files %}
                                 {% if image.id == imageFirst.id %}
                                     <div class="col-md-12">
                                         <div class="image-holder">
@@ -109,27 +109,26 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="single-project-nav clearfix">
-                                <div class="prev">
-                                    <a href="#">
-                                        <span class="fa fa-angle-left"></span>
-                                    </a>
-                                </div>
-                                <div class="back-to">
-                                    <a href="#">
-                                        <span class="fa fa-th"></span>
-                                    </a>
-                                </div>
-                                <div class="next">
-                                    <a href="#">
-                                        <span class="fa fa-angle-right"></span>
-                                    </a>
-                                </div>
+                                {% if prevPost is not null %}
+                                    <div class="prev">
+                                        <a href="{{ path('object.single', {'object': prevPost.id }) }}">
+                                            <span class="fa fa-angle-left"></span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+
+                                {% if nextPost is not null %}
+                                    <div class="next">
+                                        <a href="{{ path('object.single', {'object': nextPost.id }) }}">
+                                            <span class="fa fa-angle-right"></span>
+                                        </a>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section> <!-- /.page-content -->
-        <div class="mid-space"></div>
     </div> <!-- /.main-wrapper -->
 {% endblock %}

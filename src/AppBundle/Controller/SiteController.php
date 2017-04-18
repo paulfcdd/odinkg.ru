@@ -69,9 +69,14 @@ class SiteController extends Controller
      */
     public function getSingleObjectAction($status, Object $object) {
 
+        $prevPost = $this->getDoctrine()->getRepository(Object::class)->find($object->getId() - 1);
+
+        $nextPost = $this->getDoctrine()->getRepository(Object::class)->find($object->getId() + 1);
         return $this->render(':odinkg/front/object:object_single.html.twig', [
             'object'=> $object,
-            'status' => $status
+            'status' => $status,
+            'prevPost' => $prevPost,
+            'nextPost' => $nextPost,
         ]);
     }
 
