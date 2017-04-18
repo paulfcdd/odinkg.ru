@@ -21,14 +21,14 @@
                     <div class="col-md-6">
                         <div class="row">
 
-                            {% set imageFirst = object.images|first %}
+                            {% set imageFirst = object.files|first %}
 
-                            {% for image in object.images %}
-                                {% if image.id == imageFirst.id %}
+                            {% for file in object.files %}
+                                {% if file.id == imageFirst.id %}
                                     <div class="col-md-12">
                                         <div class="image-holder">
-                                            <a href="{{ asset('upload/objects/'~image.name) }}" class="lightbox"  data-lightbox-gallery="gallery1">
-                                                <img src="{{ asset('upload/objects/'~image.name) }}" alt="{{ image.alt }}" title="{{ image.title }}">
+                                            <a href="{{ asset('upload/objects/'~file.name) }}" class="lightbox"  data-lightbox-gallery="gallery1">
+                                                <img src="{{ asset('upload/objects/'~file.name) }}" alt="{{ file.alt }}" title="{{ file.title }}">
                                                 <div class="project-overlay">
 													<span class="link-holder">
 														<i class="icon-eye"></i>
@@ -40,8 +40,8 @@
                                     {% else %}
                                         <div class="col-md-3">
                                             <div class="image-holder">
-                                                <a href="{{ asset('upload/objects/'~image.name) }}" class="lightbox"  data-lightbox-gallery="gallery1">
-                                                    <img src="{{ asset('upload/objects/'~image.name) }}" alt="{{ image.alt }}" title="{{ image.title }}">
+                                                <a href="{{ asset('upload/objects/'~file.name) }}" class="lightbox"  data-lightbox-gallery="gallery1">
+                                                    <img src="{{ asset('upload/objects/'~file.name) }}" alt="{{ file.alt }}" title="{{ file.title }}">
                                                     <div class="project-overlay">
 													<span class="link-holder">
 														<i class="icon-eye"></i>

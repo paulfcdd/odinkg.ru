@@ -57,7 +57,7 @@ class News
 
     /**
      * @var string
-     * @ORM\Column()
+     * @ORM\Column(name="title", type="string", length=100)
      */
     private $title;
 

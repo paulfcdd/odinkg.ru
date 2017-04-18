@@ -27,10 +27,19 @@
                                     {% for item in news %}
                                         <div class="col-sm-6 post-masonry">
                                             <article class="post-entry">
-                                                <div class="post-image" style="max-height: 276px;">
+                                                <div class="post-image" style="max-height: 250px;">
                                                     <a href="#">
+                                                        {% if item.files is not empty %}
+                                                            {% set image = item.files[0].name %}
+                                                            {% set alt = item.files[0].alt %}
+                                                            {% set title = item.files[0].title %}
+                                                        {% else %}
+                                                            {% set image = null %}
+                                                            {% set alt = null %}
+                                                            {% set title = null %}
+                                                        {% endif %}
                                                         <img width="1100" height="630"
-                                                             src="{{ asset('upload/news/'~item.images[0].name) }}" alt="">
+                                                             src="{{ asset('upload/news/'~image) }}" alt="{{ alt }}" title="{{ title }}">
                                                         <span class="filter-grayscale"></span>
                                                     </a>
                                                 </div>

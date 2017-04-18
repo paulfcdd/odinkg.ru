@@ -1,0 +1,147 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="page-title-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>{{ project.name }}</h2>
+                    <p>Номер проекта: {{ project.id }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="page-content single-project no-padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    {% if project.files is defined and project.files is not empty %}
+                        {% set files = project.files %}
+                        {% set images = [] %}
+                        {% set add_files = [] %}
+                    {% endif %}
+
+                    {% for file in project.files %}
+                        {% if 'image' in file.mimeType %}
+                            {% set images = images|merge([file]) %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <!--IMAGE GALLERY-->
+                    <div class="row">
+
+                        {% if images | length > 1 %}
+                            {% set main_image = images[0] %}
+                            {% set images = images|slice (1) %}
+                        {% endif %}
+
+                        <div class="col-md-12">
+                            <div class="image-holder">
+                                <a href="{{ asset('upload/projects/'~main_image.name) }}" class="lightbox"
+                                   data-lightbox-gallery="gallery1">
+                                    <img src="{{ asset('upload/projects/'~main_image.name) }}"
+                                         alt="{{ main_image.alt }}">
+                                    <div class="project-overlay">
+                                        <span class="link-holder">
+                                            <i class="icon-eye"></i>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% for image in images %}
+                            <div class="col-md-6">
+                                <div class="image-holder">
+                                    <a href="{{ asset('upload/projects/'~image.name) }}" class="lightbox"
+                                       data-lightbox-gallery="gallery1">
+                                        <img src="{{ asset('upload/projects/'~image.name) }}" alt="{{ image.alt }}">
+                                        <div class="project-overlay">
+                                            <span class="link-holder">
+                                                <i class="icon-eye"></i>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+                    <div class="project-info">
+                        <h2 class="project-title">{{ project.name }}</h2>
+
+                        {{ project.description | raw }}
+
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th colspan="2" class="text-center">
+                                    Информация о объекте
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Цена</td>
+                                <td>{{ project.price }}</td>
+                            </tr>
+                            <tr>
+                                <td>Ссылка на проект</td>
+                                <td><a href="{{ project.link }}" target="_blank">{{ project.link }}</a></td>
+                            </tr>
+                            <tr>
+                                <td>Дополнительная информация</td>
+                                <td>
+                                    {% for file in project.files %}
+                                        {% if 'application' in file.mimeType %}
+                                            {% set add_files = add_files|merge([file]) %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <ul>
+                                        {% for add_file in add_files %}
+                                            <li>
+                                                <a href="{{ asset('upload/projects/'~add_file.name) }}">
+                                                    <span class="fa {{ add_file.guessIconByMime(add_file.mimeType) }}"></span>&nbsp;{{ add_file.name }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-space"></div>
+        <div class="white-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="single-project-nav clearfix">
+                            {% if prevPost is not null %}
+                                <div class="prev">
+                                    <a href="{{ path('project.single', {'project': prevPost.id }) }}">
+                                        <span class="fa fa-angle-left"></span>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                            {% if nextPost is not null %}
+                                <div class="next">
+                                    <a href="{{ path('project.single', {'project': nextPost.id }) }}">
+                                        <span class="fa fa-angle-right"></span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- /.page-content -->
+{% endblock %}
